@@ -8,6 +8,7 @@
 
 - Windows 10
 - VS code
+- MarkDown
 
 ## *内容 content*
 
@@ -18,5 +19,7 @@
 - Django
 - php
 - electron
+- Tools
+- SyncToy
 
 ## *备注*
