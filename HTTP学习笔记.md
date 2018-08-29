@@ -64,3 +64,7 @@
   - 无法证明报文的完整性，所以有可能已遭篡改
   - web服务器和特定的web浏览器在实际使用中存在的不足
   - 用Java和PHP等编程语言开发的web应用也可能存在安全漏洞
+- 加密处理
+  - 通信加密：HTTP+SSL(Secure Socket Layer，安全套接层)或TLS(Transport Layer Security，安全传输层协议)->HTTPS
+  - 内容加密：把HTTP报文里所含的内容进行加密。由于不是将整个通信线路加密处理，所以内容仍有被篡改的风险
+- HTTPS = HTTP + 加密 + 认证 + 完整性保护
