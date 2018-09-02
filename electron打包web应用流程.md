@@ -18,7 +18,7 @@ Electron（最初名为Atom Shell）是GitHub开发的一个开源框架。 它�
 2. 创建一个空文件夹
 3. 在命令行窗口运行npm init，如图
 
-    ![npm init](2018-07-18-14-56-06.png)
+    ![npm init](images/2018-07-18-14-56-06.png)
 
     可以一路回车，生成一个标准的package文件，也可以根据提示进行设定，不过不用担心，生成的package可以随时根据需求更改
 4. 生成的package文件如下
@@ -52,7 +52,7 @@ Electron（最初名为Atom Shell）是GitHub开发的一个开源框架。 它�
     ```
     安装结果如图
 
-    ![安装electron](2018-07-18-15-18-07.png)
+    ![安装electron](images/2018-07-18-15-18-07.png)
 6. 此时文件内会多出一个node_modules文件夹和package-lock文件，我们需要创建一个index.js文件，内容如下：
     ```js
     const {app, BrowserWindow} = require('electron')
@@ -107,7 +107,7 @@ Electron（最初名为Atom Shell）是GitHub开发的一个开源框架。 它�
     ```
 7. 导入或创建HTML项目到文件夹下，起始页面为index.html，项目文件如下图所示，style.css是html文件的样式，非必须
 
-    ![项目文件](2018-07-18-15-31-04.png)
+    ![项目文件](images/2018-07-18-15-31-04.png)
 8. 运行项目，在控制台执行，就可以运行项目
     ```cmd
     npm start

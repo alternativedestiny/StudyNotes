@@ -132,4 +132,9 @@
         console.log(person[name]);
         ```
 2. Array类型
-    1. 
+
+
+
+
+
+## 未完待续
