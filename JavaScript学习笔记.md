@@ -1,5 +1,7 @@
 # JavaScript学习笔记
 
+*参考书目*：Javascript高级程序设计(第3版)
+
 ## 一、JS数据类型
 
 - Undefined 未定义，声明但未初始化
@@ -110,31 +112,88 @@
 1. Object类型
     1. 创建object实力有两种方法
         - [ ] 使用new 操作符后跟Object构造函数
-        ```js
-        var person = new Object();
-        person.name = "Nicholas";
-        person.age = 19;
-        ```
+            ```js
+            var person = new Object();
+            person.name = "Nicholas";
+            person.age = 19;
+            ```
         - [x] 使用*对象字面量*表示法
-        ```js
-        var person = {
-            name : "Nicholas",
-            age : 19
-        }
-        ```
+            ```js
+            var person = {
+                name : "Nicholas",
+                age : 19
+            }
+            ```
     2. 访问对象属性也有两种方法
         - [x] 点表示法
-        ```js
-        console.log(person.name);
-        ```
+            ```js
+            console.log(person.name);
+            ```
         - [ ] 方括号语法，若果属性名使用的是关键字或保留字，用方括号就不会报错
-        ```js
-        console.log(person[name]);
-        ```
+            ```js
+            console.log(person[name]);
+            ```
 2. Array类型
-
-
-
-
+    1. 创建数组方法
+        ```js
+        var colors = new Array();
+        var colors = new Array(2);
+        var colors = [];
+        var colors = ["red", "blue", "green"];
+        ```
+    2. 检测数组
+        ```js
+        if(value instanceof Array){
+            // 对数组执行某些操作
+        }
+        if(Array.isArray(value)){
+            // 对数组执行某些操作
+        }
+        ```
+    3. 转换方法
+        1. .toString()
+        2. .valueOf()
+        3. .toLocalString()
+        4. .join()  // 改变数组分隔符
+    4. 栈方法
+        1. .push()  // 推入队尾，返回修改后长度
+        2. .pop()  // 移除队尾，返回移除的项
+    5. 队列方法
+        1. .push()  // 推入队尾，返回修改后长度
+        2. .shift()  // 移除第一项，并返回该项
+        3. .unshift() // 在数组前端插入，并返回长度
+    6. 重排序方法
+        1. .reverse()  // 反向
+        2. .sort()  // 从小到大排序，按字符串排序
+        3. 按数值排序
+            ```js
+            function compare(value1, value2){
+                return value2 - value1;
+            }
+            arr.sort(compare);
+            ```
+    7. 操作方法
+        1. .concat()  // 数组拼接，不影响原数组
+        2. .slice()  // 数组截取，不影响原数组
+        3. .splice()  // 主要用途是向数组中插入项，影响原数组
+            ```js
+            arr.splice(num1, num2, arr1)  // 删除位置，删除数量，插入数组
+            ```
+    8. 位置方法
+        1. .indexOf()  // 查找元素所在位置，(可选)查找起点位置
+        2. .lastIndexOf()  //  从末尾向前查找
+    9. 迭代方法
+        - 影响this的值。传入这些方法中的函数会接受三个参数：数组项的值、该项在数组中的位置、数组对象本身。
+        1. .every()  // 对数组的每一项运行给定函数，每项返回True 则返回True
+        2. .filter()  // 对数组的每一项运行给定函数，返回该函数会返回True的项组成的数组
+        3. .forEach()  // 对数组的每一项运行给定函数，没有返回值
+        4. .map()  // 对数组的每一项运行给定函数，返回每次函数调用的结果组成的数组
+        5. .some()  // 对数组的每一项运行给定函数，只要有一项返回True 则返回True
+    10. 归并方法
+        - 这两个方法都接收两个参数：在每一项上调用的函数和(可选的)作为归并基础的初始值
+        - 传递给函数4个参数：前一个值、当前值、项的索引、数组对象
+        1. .reduce()  // 从数组的第一项开始，逐个遍历到最后
+        2. .reduceRight()  // 从数组的最后一项开始，向前遍历到第一项
+3. Data类型
 
 ## 未完待续
