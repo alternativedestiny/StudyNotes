@@ -13,6 +13,8 @@
     3. [Data 类型](#data-类型)
     4. [RegExp 类型](#regexp-类型)
     5. [Function 类型](#function-类型)
+    6. [基本包装类型](#基本包装类型)
+    7. [单体内置对象](#单体内置对象)
 7. [未完待续](#未完待续)
 
 ## JS数据类型
@@ -268,5 +270,69 @@
         arguments.callee是一个指针，指向拥有这个arguments的函数，可以解除函数代码耦合
     2. this
         this引用的是函数执行的环境对象
+    3. .caller
+        这个属性中保存着调用当前函数的函数的引用
+4. 函数的属性和方法
+    - length：表示函数希望接受命名参数的个数
+    - prototype：保存他们所有实例方法的真正所在
+
+### 基本包装类型
+
+1. Boolean类型
+   - 布尔表达式中的所有对象都会被转换成true，因此falseObject 对象在布尔表达式中代表的是true
+   - 建议不要使用Boolean对象
+2. Number类型
+    1. Number对象
+        - valueOf()方法返回对象表示的基本类型的数值
+        - toString()和toLocalString()返回字符串的形式的数值
+        ```js
+        var numberObject = new Number(10);
+        var b = numberObject.valueOf();  // number
+        var c = numberObject.toString();  // string
+        ```
+    2. Number变量的方法
+        - .toFixed(n)——显示n位小数
+        - .toExponential(n)——格式化数值，科学计数法，显示n位小数
+        - .toPrecision(n)——格式化数值，变成n位
+3. String类型
+    1. 字符方法
+        - .chatAt(n)——返回字符串的第n+1个字符
+        - .chatCodeAt(n)——返回字符串的第n+1个字符的字符编码(ASCII)
+    2. 字符串操作方法
+        - .concat()——拼接字符串，不过“+”更常用
+        - .slice(n)——脚标从0开始，截取第n(包含)个字符之后的字符串，负数表示从尾部算起，不修改原字符
+        - .substring(a,b)——截取第a(包含)个到第b(不包含)个字符，负数变成0，不修改源字符
+        - .substr(a,b)——从第a(包含)个字符开始，截取b(不包含)个字符，第一个负数加上字符串长度，第二个负数变成0，不修改源字符
+    3. 字符串位置方法
+        - .indexOf("a")——返回字符“a”所在位置，没有则返回-1
+        - .lastIndexOf("a")——从末尾向前搜索字符“a”的位置，没有则返回-1
+    4. trim()方法
+        .trim()方法会创建一个字符串的副本，删除前置及后缀的所有空格，然后返回结果
+    5. 字符串大小写的转换方法
+        .toLocaleLowerCase()
+        .toLowerCase()
+        .toLocaleUpperCase()
+        .toUpperCase()
+    6. 字符串的模式匹配方法
+        - .match()——本质与调用RegExp 的exec()方法相同
+        - .search()——返回字符串中第一个匹配项的索引，没有则返回-1
+        - .replace(a,b)——参数b 替换参数a，如果a 是字符串则只替换第一个，全部替换需要a 是正则表达式而且要指定全局(g)标志。第二个参数b可以是字符串、特殊的字符序列、函数
+        - .split()——基于指定的分隔符将一个字符串分割成多个子字符串
+    7. localeCompare()方法，字符串比较，可用于判断大小写
+    8. HTML方法，尽量不要使用
+
+### 单体内置对象
+
+定义：由ECMAScript实现提供的、不依赖宿主环境的对象，这些对象在ECMAScript程序执行之前就已经存在了
+
+1. Global对象
+2. Math对象
+    1. min()和max()方法
+    2. 舍入方法
+        - Math.ceil()——执行向上舍入，即小数进一
+        - Math.floor()——执行向下舍入，即小数舍去
+        - Math.round()——执行标准舍入，即四舍五入
+    3. Math.random()方法，生成一个≥0,<1的随机数
+    4. 其他方法：绝对值、次幂、三角函数等
 
 ## 未完待续
