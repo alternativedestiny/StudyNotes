@@ -1,4 +1,4 @@
-# 使用Git工具将本地文件上传到Github
+# 使用Git 工具将本地文件上传到Github
 
 ## *前言*
 
@@ -23,7 +23,7 @@
 
 ## *备注*
 
-- origin添加错误或需要更换origin执行下面指令，删除原有origin，然后重新添加就行
+- origin 添加错误或需要更换origin执行下面指令，删除原有origin，然后重新添加就行
     ```git
     git remote rm origin
     ```
