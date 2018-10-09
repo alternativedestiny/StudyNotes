@@ -10,6 +10,7 @@ pillow->PIL
 pyserial
 scipy
 pymysql
+django
 ```
 
 ### 字符串操作

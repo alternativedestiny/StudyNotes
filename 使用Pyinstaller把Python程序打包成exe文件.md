@@ -1,17 +1,17 @@
 # 使用Pyinstaller把Python程序打包成exe文件
 
-## *前言*
+## 前言
 
 无论是为了装逼还是为了实用，在实际过程中，我们经常需要将自己写出的Python程序打包成exe文件供其他windows用户使用。Python打包工具不少，其bug也不少，坑极多，这里只说自己使用成功的。
 顺便提一句自己打包的工程中包含matplotlib，tkinter这类库，也成功了。
 
-## *环境*
+## 环境
 
 - Windows 10
 - Python 3.6.5
 - pyinstaller 3.4.dev0+6e5c70e06
 
-## *方法*
+## 方法
 
 1. 确保Python程序在自己的开发环境下能够成功运行。
 2. pip安装的pyinstaller打包会出现闪退情况，因此需要用Github下的pyinstaller包来安装：

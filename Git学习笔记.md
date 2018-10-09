@@ -1,19 +1,19 @@
 # Git 学习笔记
 
-## **前言**
+## 前言
 
 Git分区：工作区—暂存区—Git仓库
 
-## **环境**
+## 环境
 
 - Windows10
 
-## **初始化**
+## 初始化
 
 - git config --global user.name "xx"
 - git config --global user.email "xxxx"
 
-## **基础语法**
+## 基础语法
 
 1. 新文件初始化
     ```git
@@ -78,7 +78,7 @@ Git分区：工作区—暂存区—Git仓库
     git mv name1 name2
     ```
 
-## **进阶**
+## 进阶
 
 1. 创建分支
     ```git

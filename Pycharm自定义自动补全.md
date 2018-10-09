@@ -1,11 +1,11 @@
 # Pycharm自定义自动补全
 
-## **环境**
+## 环境
 
 - windows10
 - pycharm2017.3.3 professional edition
 
-## **方法**
+## 方法
 
 1. 打开File->Settings->Editor->Live Templates
 
