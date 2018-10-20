@@ -5,7 +5,7 @@
 ## *环境*
 
 - Windows 10
-- Webstrom
+- Webstorm
 
 ## *方法*
 

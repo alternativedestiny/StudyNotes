@@ -46,14 +46,14 @@ Electron（最初名为Atom Shell）是GitHub开发的一个开源框架。 它�
     ```cmd
     npm install --save-dev electron
     ```
-    国内网络问题，需要配置环境变量为淘宝npm，负责速度极慢或出错，方法自行查找
+    国内网络问题，需要配置环境变量为淘宝npm或使用cnpm，否则速度极慢或出错，方法自行查找
     ```cmd
     ELECTRON_MIRROR="https://npm.taobao.org/mirrors/electron/"
     ```
     安装结果如图
 
     ![安装electron](images/2018-07-18-15-18-07.png)
-6. 此时文件内会多出一个node_modules文件夹和package-lock文件，我们需要创建一个index.js文件，内容如下：
+6. 此时文件内会多出一个node_modules 文件夹和package-lock文件，我们需要创建一个index.js文件，内容如下：
     ```js
     const {app, BrowserWindow} = require('electron')
   

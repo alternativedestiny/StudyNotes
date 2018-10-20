@@ -3,7 +3,7 @@
 ## 安装插件
 
 ```cmd
-pip install 
+pip install
 psutil
 matplotlib
 pillow->PIL
