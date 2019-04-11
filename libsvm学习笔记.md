@@ -2,12 +2,15 @@
 
 ## libsvm安装
 
-1. 下载安装包，根据自己的系统和Python版本选择[https://www.lfd.uci.edu/~gohlke/pythonlibs/#libsvm]
+1. 下载安装包，根据自己的系统和Python版本选择[下载链接](https://www.lfd.uci.edu/~gohlke/pythonlibs/#libsvm)
 2. 安装包
+
     ```cmd
     pip install 安装包名
     ```
+
 3. 测试
+
     ```python
     from svmutil import *
     from svm import *
@@ -20,8 +23,8 @@
     p_label, p_acc, p_val = svm_predict(yt, xt, model)
     print(p_label)
     ```
-4. 能正常运行不报错就是安装成功
 
+4. 能正常运行不报错就是安装成功
 
 ## libsvm训练结果参数
 
