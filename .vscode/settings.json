@@ -8,5 +8,10 @@
         "pycharm",
         "zony",
         "potplayer"
+    ],
+    "cSpell.ignoreWords": [
+        "chmod",
+        "drwxr",
+        "whatis"
     ]
 }
