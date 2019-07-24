@@ -19,7 +19,7 @@
 - Django
 - php
 - electron
-- Tools
-- SyncToy
 
 ## *备注*
+
+- Markdown万事不决调缩进，比如表格不按照格式显示可以尝试调整缩进
