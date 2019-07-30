@@ -30,8 +30,8 @@
 
      ```c++
      gcc -fpic -c d1.c d2.c /*编译.o为扩展名的中间目标文件*/
-     gcc -shared -0 d1.so d1.o /*创建动态库文件d1.so*/
-     gcc -shared -0 d2.so d2.o /*创建动态库文件d2.so*/
+     gcc -shared -o d1.so d1.o /*创建动态库文件d1.so*/
+     gcc -shared -o d2.so d2.o /*创建动态库文件d2.so*/
      ```
 
      或者可以一步到位
@@ -205,5 +205,7 @@
     // 
     char *gets(char *s);
     char *fgets(char *s, int n, FILE *stream)
+
+    ```
 
 

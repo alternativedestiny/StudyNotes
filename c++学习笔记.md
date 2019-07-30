@@ -11,6 +11,8 @@
 #include<iostream>
 #include<string>
 
+using namespace std;
+
 xx.size()
 xx.length()
 sizeof(xx)  // 运算符，返回所占空间的字节数
@@ -48,7 +50,7 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
 
 [参考链接](https://blog.csdn.net/tengfei461807914/article/details/52203202)
 
-## map
+## map操作
 
 - 有点类似python3的字典
 
@@ -72,6 +74,8 @@ MapName.find();  // 返回的是被查找元素的位置，没有则返回map.en
 MapName.count();  // 返回的是被查找元素的个数。如果有，返回1；否则，返回0。注意，map中不存在相同元素，所以返回值只能是1或0。
 
 ```
+
+[参考链接](https://blog.csdn.net/shuzfan/article/details/53115922)
 
 ## 备注
 
