@@ -175,37 +175,37 @@
 1. 字符读写：每次之操作一个字符
    1. 字符输入函数族
 
-    ```c
-    #include<stdio.h>
-    // getc以unsigned char类型读取文件输入流stream中的一个字符，并将该无符号字符转化为整型后返回，同时移动文件指针到下一个字符处
-    int getc(FILE *stream);
-    // getchar实际上是关于getc的宏定义“getc(stdin)”
-    int getchar(void);
-    // fgetc功能类似于getc，但是执行速度远低于getc
-    int fgetc(FILE *stream);
-    
-    // 错误时都返回EOF，EOF一般定义为int型-1
-    ```
+        ```c
+        #include<stdio.h>
+        // getc以unsigned char类型读取文件输入流stream中的一个字符，并将该无符号字符转化为整型后返回，同时移动文件指针到下一个字符处
+        int getc(FILE *stream);
+        // getchar实际上是关于getc的宏定义“getc(stdin)”
+        int getchar(void);
+        // fgetc功能类似于getc，但是执行速度远低于getc
+        int fgetc(FILE *stream);
+
+        // 错误时都返回EOF，EOF一般定义为int型-1
+        ```
 
    2. 字符输出函数族
 
-    ```c
-    #include<stdio.h>
-    // 函数putc先将int型参数c自动转换为unsigned char类型，然后写入文件流stream中，同时移动文件指针到下一个字符处
-    int putc(int c, FILE *stream);
-    int putchar(int c);
-    int fputc(int c, FILE *stream);
-    ```
+        ```c
+        #include<stdio.h>
+        // 函数putc先将int型参数c自动转换为unsigned char类型，然后写入文件流stream中，同时移动文件指针到下一个字符处
+        int putc(int c, FILE *stream);
+        int putchar(int c);
+        int fputc(int c, FILE *stream);
+        ```
 
 2. 行读写
    1. 行输入函数族
 
-    ```c
-    #include<stdio.h>
-    // 
-    char *gets(char *s);
-    char *fgets(char *s, int n, FILE *stream)
+        ```c
+        #include<stdio.h>
+        // 
+        char *gets(char *s);
+        char *fgets(char *s, int n, FILE *stream)
 
-    ```
+        ```
 
 
