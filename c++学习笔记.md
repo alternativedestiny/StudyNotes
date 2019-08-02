@@ -297,4 +297,30 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
 
 - [链表操作](https://blog.csdn.net/Endeavor_G/article/details/80552680)
 
+## Vector
+
+1. vector：可以简单的认为，向量是一个能够存放任意类型的动态数组，vector的元素不仅仅可以是int、double、string还可以是结构体，结构体要定义为全局的
+2. 基本操作
+   1. 头文件`#include<vector>`
+   2. 创建vector对象：`vector<int> vec`
+   3. 尾部插入对象：`vec.push_back(a)`
+   4. 使用下标访问元素`cout<<vec[0]<<endl`
+   5. 使用迭代器访问元素
+
+        ```c++
+        vector<int>::iterator i;
+        for(it=vec.begin();it!=vec.end();it++){
+            cout<<*it<<endl;
+        }
+        ```
+
+   6. 插入元素：`vec.insert(vec.begin()+i,a)`：在第i+1个元素前面插入a
+   7. 删除元素：`vec.erase(vec.begin()+2)`：删除第三个元素
+   8. 向量大小：`vec.size()`
+   9. 清空：`vec.clear`
+3. 算法
+
+- [参考链接1](https://blog.csdn.net/duan19920101/article/details/50617190)
+- [参考链接2](https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html)
+
 ## 备注

@@ -208,4 +208,11 @@
 
         ```
 
+## linux命令
 
+1. grep 文件搜索
+   1. 常用命令
+      1. grep：在没有参数的情况下，只输出符合RE（Regular Expression）字符。
+      2. egrep：等同于grep -E，和grep最大的区别就是表现在转义符上比如grep 做次数匹配时\{n,m\}egrep则不需要直接{n，m}。egrep方便，简介。
+      3. fgrep：等同于grep -f，但是不能使用正则表达式。所有的字符匹配功能均已消失。
+   2. 参数说明 `grep [OPTIONS] PATTERN(模式) [file]`
