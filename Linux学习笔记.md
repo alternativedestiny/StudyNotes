@@ -1,5 +1,15 @@
 # Linux学习笔记
 
+<!-- TOC -->
+
+1. [概念](#概念)
+2. [基础使用](#基础使用)
+3. [vi用法](#vi用法)
+4. [Shell脚本](#shell脚本)
+5. [备注](#备注)
+
+<!-- /TOC -->
+
 ## 概念
 
 1. BASH（Bourne Again SHell）：bash 是最初 Unix 上由 Steve Bourne 写成 shell 程序 sh 的增强版
