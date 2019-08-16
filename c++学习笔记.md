@@ -2,20 +2,21 @@
 
 <!-- TOC -->
 
-1. [哈希表](#哈希表)
-2. [获取长度的几种方法](#获取长度的几种方法)
-3. [string操作](#string操作)
-4. [map操作](#map操作)
-5. [类&对象](#类对象)
-6. [链表](#链表)
-7. [Vector](#vector)
-8. [备注](#备注)
+1. [获取长度的几种方法](#获取长度的几种方法)
+2. [print的用法](#print的用法)
+3. [数据类型](#数据类型)
+    1. [Array](#array)
+    2. [String](#string)
+    3. [变量类型转换](#变量类型转换)
+4. [数据结构](#数据结构)
+    1. [类&对象](#类对象)
+    2. [链表](#链表)
+    3. [Vector向量](#vector向量)
+    4. [Map](#map)
+    5. [树 Tree](#树-tree)
+5. [备注](#备注)
 
 <!-- /TOC -->
-
-## 哈希表
-
-1. 优点：编码容易，存储查找消耗的时间大大降低；缺点：内存消耗多。
 
 ## 获取长度的几种方法
 
@@ -31,13 +32,35 @@ sizeof(xx)  // 运算符，返回所占空间的字节数
 strlen(xx)  // 函数，返回字符数组或字符串所占的字节数
 
 int a[] = {1, 2, 3, 4}; // 数组
-sizeof(a)/ sizeof(a[0]);
+sizeof(a)/ sizeof(a[0]);  //数组长度
 
 ```
 
 - [参考链接](https://blog.csdn.net/z_qifa/article/details/77744482)
 
-## string操作
+## print的用法
+
+1. print类型
+   - d：十进制带符号整数
+   - o：八进制无符号整数
+   - f：浮点数
+   - p：指针
+   - s：字符串*char
+   - x：十六进制
+   - I64d：用于int64或long long
+   - %m.n：m指域宽，n指精度，右对齐（-左对齐）
+
+- [参考链接-printf格式化输出](https://blog.csdn.net/xiexievv/article/details/6831194)
+
+## 数据类型
+
+### Array
+
+1. array：与数组一样，array对象的长度也是固定的，也是用栈（静态内存分配），而不是自由存储区，因此其效率与数组相同，但更方便，更安全。
+2. 基本操作
+   1. 定义：`array<typeName, number> name = {};`
+
+### String
 
 ```c++
 #include <string>
@@ -64,34 +87,16 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
 
 - [参考链接](https://blog.csdn.net/tengfei461807914/article/details/52203202)
 
-## map操作
+### 变量类型转换
 
-- 有点类似python3的字典
+1. String
+   1. String->Int: `stoi(s)`
+2. Int
+   1. Int->Sting: `to_string(i)`
 
-    ```c++
-    // 头文件
-    #include<map>
+## 数据结构
 
-    // 创建
-    map<string,int> MapName = {
-        {"a", 1},
-        {"b", 2},
-        {"c", 3}
-    };
-
-    // 插入
-    //查询
-    MapName.at();  // 返回对应值
-
-    // 查找
-    MapName.find();  // 返回的是被查找元素的位置，没有则返回map.end()
-    MapName.count();  // 返回的是被查找元素的个数。如果有，返回1；否则，返回0。注意，map中不存在相同元素，所以返回值只能是1或0。
-
-    ```
-
-- [参考链接](https://blog.csdn.net/shuzfan/article/details/53115922)
-
-## 类&对象
+### 类&对象
 
 1. 类的定义
 
@@ -165,8 +170,8 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
       - 默认的构造函数没有任何参数，但如果需要，构造函数也可以带有参数
 
    2. 析构函数
-        - 类的析构函数是类的一种特殊的成员函数，它会在每次删除所创建的对象时执行
-        - 析构函数的名称与类的名称是完全相同的，只是在前面加了个波浪号（~）作为前缀，它不会返回任何值，也不能带有任何参数。析构函数有助于在跳出程序（比如关闭文件、释放内存等）前释放资源
+      - 类的析构函数是类的一种特殊的成员函数，它会在每次删除所创建的对象时执行
+      - 析构函数的名称与类的名称是完全相同的，只是在前面加了个波浪号（~）作为前缀，它不会返回任何值，也不能带有任何参数。析构函数有助于在跳出程序（比如关闭文件、释放内存等）前释放资源
 
     ```c++
     class Line
@@ -189,7 +194,7 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
     }
     ```
 
-## 链表
+### 链表
 
 1. 单向链表：链表中最简单的一种是单向链表，它包含两个域，一个信息域和一个指针域。这个链接指向列表中的下一个节点，而最后一个节点则指向一个`空值`。
 2. 双向链表：一种更复杂的链表是“双向链表”或“双面链表”。每个节点有两个连接：一个指向前一个节点，（当此“连接”为第一个“连接”时，指向空值或者空列表）；而另一个指向下一个节点，（当此“连接”为最后一个“连接”时，指向空值或者空列表）。
@@ -310,20 +315,33 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
 
 - [链表操作](https://blog.csdn.net/Endeavor_G/article/details/80552680)
 
-## Vector
+### Vector向量
 
 1. vector：可以简单的认为，向量是一个能够存放任意类型的动态数组，vector的元素不仅仅可以是int、double、string还可以是结构体，结构体要定义为全局的
 2. 基本操作
    1. 头文件`#include<vector>`
    2. 创建vector对象：`vector<int> vec`
+
+        ```c++
+        vector<int> vec;
+        vector<int> vec(10,0);
+        vector<int> vec = {1, 2, 3};
+        vector<int> vec {1, 2, 3};
+        ```
+
    3. 尾部插入对象：`vec.push_back(a)`
    4. 使用下标访问元素`cout<<vec[0]<<endl`
-   5. 使用迭代器访问元素
+   5. 访问元素
 
         ```c++
         vector<int>::iterator i;
+        // 使用迭代器访问
         for(it=vec.begin();it!=vec.end();it++){
             cout<<*it<<endl;
+        }
+        // 普通访问方式
+        for(int i=0; i<vec.size(); i++){
+            cout<<vec[i]<<endl;
         }
         ```
 
@@ -335,5 +353,167 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
 
 - [参考链接1](https://blog.csdn.net/duan19920101/article/details/50617190)
 - [参考链接2](https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html)
+
+### Map
+
+1. Map：map是一类关联式容器。它的特点是增加和删除节点对迭代器的影响很小，除了那个操作节点，对其他的节点都没有什么影响。
+对于迭代器来说，可以修改实值，而不能修改key。
+   1. 有点类似python3的字典
+   2. Map使用
+
+       ```c++
+       // 头文件
+       #include<map>
+
+       // 创建
+       map<string,int> MapName = {
+           {"a", 1},
+           {"b", 2},
+           {"c", 3}
+       };
+
+       // 插入
+       MapName["d"] = 4;
+       MapName.insert(pair<string,int> ("d",4));
+       MapName.insert(map<string,int>::value_type("d",4));
+
+       // 查询
+       MapName["a"]
+       MapName.at("a");  // 返回对应值
+
+       // 查找
+       MapName.find();  // 返回的是被查找元素的位置，没有则返回map.end()
+       MapName.count();  // 返回的是被查找元素的个数。如果有，返回1；否则，返回0。注意，map中不存在相同元素，所以返回值只能是1或0。
+
+       // 容量
+       MapName.empty();  // 判断是否为空
+       MapName.size();  // 返回大小
+
+       // 删除
+       MapName.erase("b");
+       MapName.clear();  // 清空
+
+       // 顺序比较
+       MapName.key_comp("a","b")  // a在b前返回true
+       ```
+
+2. 哈希表 hashmap
+   1. 优点：大大减少数据存储和查询时间；缺点：消耗较多内存
+   2. 原理：使用一个下标范围比较大的数组来存储元素。可以设计一个函数（哈希函数，也叫做散列函数），使得每个元素的关键字都与一个函数值（即数组下标，hash值）相对应，于是用这个数组单元来存储这个元素；也可以简单的理解为，按照关键字为每一个元素“分类”，然后将这个元素存储在相应“类”所对应的地方，称为桶。
+   3. 插入值过程：首先分配一大片内存，形成许多桶。是利用hash函数，对key进行映射到不同区域（桶）进行保存。
+      1. 得到key
+      2. 通过hash函数计算hash值
+      3. 得到桶号
+      4. 存放key和value到桶内
+   4. 取值过程
+      1. 得到key
+      2. 通过hash函数计算hash值
+      3. 得到桶号
+      4. 比较桶的内部元素是否与key相等，若都不相等，则没有找到
+      5. 取出相等的记录的value
+   5. 解决hash值冲突
+      1. 开放定址法，设 hi(x) = (x+f(i)) % TableSize
+         1. 线性探测：f(i) = i, 发生冲突时尝试下一个单元
+         2. 平方探测：f(i) = i^2, 发生冲突时尝试加平方
+         3. 双散列：f(i) = i*hash2(x), 这又涉及到第二个散列函数hash2(x)的选择，一般我们选择hash2(x) = R - (x % R)，其中R是小于TableSize的素数
+      2. 分离链接法：思路是将散列到同一个值的所有元素保留到一个链表中
+         1. 散列表结构：`vector<<list<hash>> name`
+   6. hashmap使用
+
+        ```c++
+        #include <hash_map>
+        ```
+
+- [c++常见map用法](https://blog.csdn.net/shuzfan/article/details/53115922)
+- [c++ STL hashmap](https://blog.csdn.net/u010025211/article/details/46653519)
+- [散列表类的C++实现(探测散列表)](https://blog.csdn.net/Linux_ever/article/details/51143042)
+
+### 树 Tree
+
+1. 树是一种抽象数据类型（ADT）或是实现这种抽象数据类型的数据结构，用来模拟具有树状结构性质的数据集合。它是由n（n>0）个有限节点组成一个具有层次关系的集合
+   - 每个节点都只有有限个子节点或无子节点；
+   - 没有父节点的节点称为根节点；
+   - 每一个非根节点有且只有一个父节点；
+   - 除了根节点外，每个子节点可以分为多个不相交的子树；
+   - 树里面没有环路(cycle)
+2. 二叉树遍历
+   1. 深度优先遍历
+      1. 前序遍历：根节点->左子树->右子树
+      2. 中序遍历：左子树->根节点->右子树
+      3. 后续遍历：左子树->右子树->根节点
+   2. 广度优先遍历（层序遍历）：会先访问离根节点最近的节点
+3. 程序
+
+    ```c++
+
+    #include <stdio.h>
+    #include <string>
+    #include <iostream>
+    #include <vector>
+
+
+    using namespace std;
+
+    struct TreeNode {
+        int val;
+        struct TreeNode *left, *right;  // 左子树，右子树
+    };
+
+    // 创建树
+    void createTree(TreeNode *&t, vector<int> v) {
+        if (v.size() != 0) {
+            t = new TreeNode;
+            t->val = v[0];
+            v.erase(v.begin());
+            createTree(t->left, v);
+            createTree(t->right, v);
+        } else {
+            t = NULL;
+        }
+    }
+
+    // 前序遍历
+    void pre(TreeNode *&t){
+        if(t){
+            cout<<t->val<<" ";
+            pre(t->left);
+            pre(t->right);
+        }else{
+            cout<<endl;
+        }
+    }
+
+    // 中序遍历
+    void mid(TreeNode *&t){
+        if(t){
+            pre(t->left);
+            cout<<t->val<<" ";
+            pre(t->right);
+        }else{
+            cout<<endl;
+        }
+    }
+
+    // 后序遍历
+    void back(TreeNode *&t){
+        if(t){
+            pre(t->left);
+            pre(t->right);
+            cout<<t->val<<" ";
+        }else{
+            cout<<endl;
+        }
+    }
+
+
+    int main() {
+        vector<int> vec = {1, 2, 3, 4};
+        TreeNode *p;
+        createTree(p, vec);
+        pre(p);
+
+        return 0;
+    }
+    ```
 
 ## 备注
