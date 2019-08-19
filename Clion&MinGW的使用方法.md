@@ -5,7 +5,7 @@
 1. 安装好[Clion](https://www.jetbrains.com/clion/)
 2. 安装MinGW
    1. 在Clion设置菜单`Toolchains`
-   2. Environment下面选择MinGW
+   2. Environment下面选择MinGW，可以点击右上角的download直接进入MinGW下载页面
 
         ![install](images/install.png)
 

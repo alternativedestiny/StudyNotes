@@ -313,7 +313,163 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
 
     ```
 
+    ```c
+    // 力扣编程及测试文件
+
+    #include <iostream>
+    #include <vector>
+
+    using namespace std;
+
+    class Node {
+    public:
+        int val;
+        Node *next;
+
+        explicit Node(int x) : val(x), next(nullptr) {}
+    };
+
+
+    class List {
+    private:
+        Node *head, *tail;
+    public:
+        // 构造函数
+        List() { head = tail = nullptr; };
+
+        // 析构函数
+        ~List() {
+            delete head;
+            delete tail;
+        }
+
+        void plot();
+
+        void insert(int a);
+
+        void search(int a);
+
+        void del(int a);
+
+        void del1(int a);
+
+    };
+
+    // 打印链表
+    void List::plot() {
+        Node *p = head;
+        if (p == nullptr) {
+            cout << "List is empty" << endl;
+        } else {
+            while (true) {
+                cout << p->val;
+                if (p->next == nullptr)break;
+                cout << "->";
+                p = p->next;
+            }
+            cout << endl;
+        }
+    }
+
+    // 插入数据，用来创建列表
+    void List::insert(int a) {
+        if (head == nullptr) {
+            head = tail = new Node(a);
+            head->next = nullptr;
+            tail->next = nullptr;
+        } else {
+            Node *p = new Node(a);
+            tail->next = p;
+            tail = p;
+            tail->next = nullptr;
+        }
+    }
+
+    // 查找元素
+    void List::search(int a) {
+        Node *p = head;
+        if (p == nullptr) {
+            cout << "链表为空" << endl;
+            return;
+        }
+        int ad = 0, flag = 0;
+        while (p != nullptr) {
+            if (p->val == a) {
+                cout << "Find:" << a << " at:" << ad << endl;
+                flag = 1;
+            }
+            p = p->next;
+            ad++;
+        }
+        if (flag == 0) {
+            cout << "Not Found" << endl;
+        }
+    }
+
+
+    // 删除元素
+    void List::del(int a) {
+        Node *h = new Node(-1);
+        Node *p, *q;
+        if (head == nullptr)return;
+        h->next = head;
+        p = h, q = h;
+        head = p->next;
+        while (p != nullptr) {
+            if (p->val == a) {
+                q->next = p->next;
+            } else {
+                q = p;
+            }
+            p = p->next;
+        }
+        head = h->next;
+    }
+
+    void List::del1(int a) {
+        Node *p, *q;
+        p = head;
+        if (p == nullptr)return;  // 空链表
+        while (p != nullptr) {
+            if (p->val != a) {  // 链表从非删除元素开始
+                head = p;
+                break;
+            }
+            p = p->next;
+        }
+        if (p == nullptr) {  // 链表元素全部都是要删除的
+            head = nullptr;
+            return;
+        }
+        // 删除链表后部指定元素
+        q = p;
+        while (p != nullptr) {
+            if (p->val == a) {
+                q->next = p->next;
+            } else {
+                q = p;
+            }
+            p = p->next;
+        }
+    }
+
+
+    int main() {
+        vector<int> v{1, 1, 2, 3, 4, 2, 1};
+        List l1;
+        for (int i:v) {
+            l1.insert(i);
+        }
+        l1.plot();
+        l1.del(1);
+        l1.plot();
+        l1.search(2);
+        return 0;
+    }
+    ```
+
 - [链表操作](https://blog.csdn.net/Endeavor_G/article/details/80552680)
+- [c++数据结构链表](https://juejin.im/entry/58ad26bc570c35006bcde428)
 
 ### Vector向量
 
