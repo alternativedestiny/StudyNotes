@@ -453,6 +453,24 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
         }
     }
 
+    // 反转
+    void List::reverse() {
+        Node *p = head;
+        vector<int> v;
+        if (p == nullptr)return;
+        while (p != nullptr) {
+            v.insert(v.begin(),p->val);
+            p = p->next;
+        }
+        head = tail = new Node(0);
+        for(int i:v){
+            Node *q = new Node(i);
+            tail->next = q;
+            tail=q;
+        }
+        head = head->next;
+    }
+
 
     int main() {
         vector<int> v{1, 1, 2, 3, 4, 2, 1};
