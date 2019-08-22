@@ -202,7 +202,7 @@
 
         ```c
         #include<stdio.h>
-        // 
+        //
         char *gets(char *s);
         char *fgets(char *s, int n, FILE *stream)
 

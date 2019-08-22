@@ -2,6 +2,8 @@
 
 *参考书目*：《Javascript高级程序设计(第3版)》
 
+<!-- TOC -->
+
 1. [JS数据类型](#js数据类型)
 2. [定义变量](#定义变量)
 3. [操作符](#操作符)
@@ -15,7 +17,11 @@
     5. [Function 类型](#function-类型)
     6. [基本包装类型](#基本包装类型)
     7. [单体内置对象](#单体内置对象)
-7. [未完待续](#未完待续)
+7. [函数表达式](#函数表达式)
+    1. [函数的表达式](#函数的表达式)
+8. [未完待续](#未完待续)
+
+<!-- /TOC -->
 
 ## JS数据类型
 
@@ -127,24 +133,31 @@
 
 1. 创建object实力有两种方法
     - [ ] 使用new 操作符后跟Object构造函数
+
         ```js
         var person = new Object();
         person.name = "Nicholas";
         person.age = 19;
         ```
+
     - [x] 使用*对象字面量*表示法
+
         ```js
         var person = {
             name : "Nicholas",
             age : 19
         }
         ```
+
 2. 访问对象属性也有两种方法
     - [x] 点表示法
+
         ```js
         console.log(person.name);
         ```
+
     - [ ] 方括号语法，若果属性名使用的是关键字或保留字，用方括号就不会报错
+
         ```js
         console.log(person[name]);
             ```
@@ -152,13 +165,16 @@
 ### Array 类型
 
 1. 创建数组方法
+
     ```js
     var colors = new Array();
     var colors = new Array(2);
     var colors = [];
     var colors = ["red", "blue", "green"];
     ```
+
 2. 检测数组
+
     ```js
     if(value instanceof Array){
         // 对数组执行某些操作
@@ -167,6 +183,7 @@
         // 对数组执行某些操作
     }
     ```
+
 3. 转换方法
     1. .toString()
     2. .valueOf()
@@ -183,19 +200,23 @@
     1. .reverse()——反向
     2. .sort()——从小到大排序，按字符串排序
     3. 按数值排序
+
         ```js
         function compare(value1, value2){
             return value2 - value1;
         }
         arr.sort(compare);
         ```
+
 7. 操作方法
     1. .concat()——数组拼接，不影响原数组
     2. .slice()——数组截取，不影响原数组
     3. .splice()——主要用途是向数组中插入项，影响原数组
+
         ```js
         arr.splice(num1, num2, arr1)——删除位置，删除数量，插入数组
         ```
+
 8. 位置方法
     1. .indexOf()——查找元素所在位置，(可选)查找起点位置
     2. .lastIndexOf()—— 从末尾向前查找
@@ -228,10 +249,12 @@
 ### RegExp 类型
 
 1. ECMAScript 通过 RegExp 类型来支持正则表达式。
+
     ```js
     var expression = / pattern(模式) / flags(标志)
     var expression = new RegExp("pattern", "flags")
     ```
+
     - flags——g：全局模式；i：不区分大小写模式；m：多行模式
     - 元字符需转义
 2. RegExp 实例属性
@@ -285,11 +308,13 @@
     1. Number对象
         - valueOf()方法返回对象表示的基本类型的数值
         - toString()和toLocalString()返回字符串的形式的数值
+
         ```js
         var numberObject = new Number(10);
         var b = numberObject.valueOf();  // number
         var c = numberObject.toString();  // string
         ```
+
     2. Number变量的方法
         - .toFixed(n)——显示n位小数
         - .toExponential(n)——格式化数值，科学计数法，显示n位小数
@@ -337,29 +362,35 @@
 
 ## 函数表达式
 
-### 函数表达式
+### 函数的表达式
 
 1. 定义函数的方式有两种：一种是函数声明，另一种是函数表达式
    1. 函数声明：
+
       ```js
       function functionName(arg0, arg1, arg2){
           // 函数体
       };
-      ``` 
+      ```
+
    2. 函数声明提升：意思是执行代码之前会先读取函数声明。这就意味着可以把函数声明放在调用它的语句后面
+
         ```js
         sayHi();
         function sayHi(){
             laert("Hi!");
         }
         ```
-    3. 函数表达式：
+
+   3. 函数表达式：
+
         ```js
         var functionName = function(arg0, arg1, arg2){
             // 函数体
         };
         ```
-    4. 区别
+
+   4. 区别
        1. 函数表达书创建的函数叫做匿名函数(anonymous function)，也称为拉姆达函数，因为function关键字后面没有标识符。匿名函数的name属性是空字符串
        2. 函数表达式与其他表达式一样使用前必须先赋值
        3. 理解函数提升的关键就是理解函数声明与函数表达式之间的区别，函数表达式能够创建函数再赋值给变量，也就能够把函数作为其他函数的返回值
