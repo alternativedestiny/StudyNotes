@@ -97,6 +97,7 @@
     | :w filename        | 指令模式 | 另存为“filename”文件 |
     | /word              | 指令模式 | 向后寻找字符串“word” |
     | ?word              | 指令模式 | 向前寻找字符串“word” |
+    | :set number        | 指令模式 | 打开行号显示         |
 
 ## Shell脚本
 
@@ -113,6 +114,8 @@
 
    3. 把脚本文件放置到shell能够到的地方，一般放在`/home/me/bin`下，因为这个文件默认在PATH配置中
    4. 执行脚本——`./脚本名`
+3. find指令：find -name "xx*"
+4. grep指令：grep 要查的字符 文件
 
 ## 备注
 
