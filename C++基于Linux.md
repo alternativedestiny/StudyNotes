@@ -216,3 +216,15 @@
       2. egrep：等同于grep -E，和grep最大的区别就是表现在转义符上比如grep 做次数匹配时\{n,m\}egrep则不需要直接{n，m}。egrep方便，简介。
       3. fgrep：等同于grep -f，但是不能使用正则表达式。所有的字符匹配功能均已消失。
    2. 参数说明 `grep [OPTIONS] PATTERN(模式) [file]`
+
+## coredump
+
+1. coredump概念
+2. coredump开启
+   1. 输入命令`ulimit -c`，结果为0表示未打开
+   2. 输入命令`ulimit -c unlimited`开启coredump
+3. gdb调试
+   1. 调试core文件`gdb program coredumpfile`
+   2. 调试服务程序`gdb program PID`
+
+- [linux下core dump](https://www.cnblogs.com/Anker/p/6079580.html)

@@ -15,7 +15,7 @@
     4. [Map](#map)
     5. [哈希/散列 HashTable/HashMap](#哈希散列-hashtablehashmap)
     6. [树 Tree](#树-tree)
-    7. [栈 Stack](#栈-stack)
+    7. [堆&栈 Heap&Stack](#堆栈-heapstack)
 5. [指针](#指针)
 6. [备注](#备注)
     1. [ASCII码转换](#ascii码转换)
@@ -711,21 +711,20 @@ string s = "station: " + to_string(i);
     }
     ```
 
-### 栈 Stack
+### 堆&栈 Heap&Stack
 
-1. 特点：FIFO
+1. 特点：堆，FIFO；栈FILO。
 2. 操作
 
     ```c
     #include<stack>
 
     stack<int> s;  // 定义
-    s.push(2);  // 入栈
-    s.pop();  // 弹栈
+    s.push(2);  // 压栈
+    s.pop();  // 弹栈，删除弹出元素
     s.empty();  // 判空
-    s.size();  // 去大小
-    s.top();  // 返回栈顶元素
-
+    s.size();  // 取大小
+    s.top();  // 返回栈顶元素，不删除元素
     ```
 
 ## 指针
