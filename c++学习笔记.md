@@ -7,7 +7,6 @@
 3. [数据类型](#数据类型)
     1. [Array](#array)
     2. [String](#string)
-    3. [变量类型转换](#变量类型转换)
 4. [数据结构](#数据结构)
     1. [类&对象](#类对象)
     2. [链表](#链表)
@@ -20,6 +19,7 @@
 6. [备注](#备注)
     1. [ASCII码转换](#ascii码转换)
     2. [单引号`'`和双引号`"`](#单引号和双引号)
+    3. [变量类型转换](#变量类型转换)
 
 <!-- /TOC -->
 
@@ -68,11 +68,14 @@ sizeof(a)/ sizeof(a[0]);  //数组长度
 ### String
 
 ```c++
+// 头文件
 #include <string>
-string s1 = "put your string here";
 
-// 截取
-s1.substr(int a, int b) // 起始位a，长度b
+string s1 = "what is your name"
+string s2 = "is"
+
+// 字符串截取
+s1.substr(int a, int b)  // 起始位a，长度b
 s1.substr(int a)  // 截取第a个之后的字符串
 
 // 插入
@@ -81,8 +84,9 @@ s1.insert(int num, string s)  // 在num位置插入s
 // 擦除
 s1.erase(int a, int b)  // 删除a之后的b个字符
 
-// 添加
+// 追加
 s1.append(string s)  // 追加字符串
+s1.append(int n, char c)  // 追加n个c字符
 
 // 替换
 s1.replace(int num1, int num2, string s)  // 用s替换num1后面的num2-1个字符
@@ -92,16 +96,21 @@ s1.replace(int num1, int num2, string s, int num3, int num4)  // 用s的第num3�
 int i = 5;
 string s = "station: " + to_string(i);
 
+// 查找
+s1.find(s2)     // 返回起始位置或-1，大小写敏感
+s1.rfind(s2)    // 从后往前查找，其他同上
+
+s1.find_first_of(s2)    // 查找s2第一次出现的位置
+s1.find_last_of(s2)     // 查找s2最后一次出现的位置
+s1.find_first_not_of(s2)    // 在s1中查找第一个不再s2中的字符
+s1.find_last_not_of(s2) // 与上面相似
+
+// 比较
+s1.compare(s2)  // 大于：1；小于：-1；等于：0
+
 ```
 
 - [参考链接](https://blog.csdn.net/tengfei461807914/article/details/52203202)
-
-### 变量类型转换
-
-1. String
-   1. String->Int: `stoi(s)`
-2. Int
-   1. Int->Sting: `to_string(i)`
 
 ## 数据结构
 
@@ -766,3 +775,10 @@ int n = (int)('a')
 
 1. 单引号是字符型，单引号引起的字符代表一个整数
 2. 双引号是字符串型，双引号的字符串指向一个无名数组起始字符的指针
+
+### 变量类型转换
+
+1. String
+   1. String->Int: `stoi(s)`
+2. Int
+   1. Int->Sting: `to_string(i)`
