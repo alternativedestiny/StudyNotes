@@ -11,7 +11,10 @@
 4. [Excel（xls/xlsx）文件读写](#excelxlsxlsx文件读写)
     1. [使用xlrd/xlwt](#使用xlrdxlwt)
     2. [使用openpyxl](#使用openpyxl)
-5. [Python命名规则](#python命名规则)
+5. [Pandas](#pandas)
+    1. [Pandas使用](#pandas使用)
+    2. [pandas读csv文件](#pandas读csv文件)
+6. [Python命名规则](#python命名规则)
     1. [命名约定](#命名约定)
     2. [应避免的命名](#应避免的命名)
 
@@ -153,6 +156,80 @@ pandas 数据分析工具
     ```
 
 - 参考[Python 玩转 Excel](https://mp.weixin.qq.com/s?__biz=MjM5NjMyMjUzNg==&mid=2448130701&idx=1&sn=10919f10f4006a18579d6bbc13a3f15c&chksm=b2f42f0a8583a61c9421711b7a542f2a1c8cfe114ace3ea1ba8cefc26bdde8eb36755a7404ae&scene=0#rd)
+
+## Pandas
+
+### Pandas使用
+
+1. pandas数据结构
+   | 维数 | 名称      | 描述                                                           |
+   | ---- | --------- | -------------------------------------------------------------- |
+   | 1    | Series    | 可以看作有标签的一维数组，是scalars的集合，也是DataFrame的元素 |
+   | 2    | DataFrame | 一般是二维标签，尺寸可变的表格结构，具有潜在的异质型列         |
+2. 对象创建
+
+    ```py
+    In [5]: dates = pd.date_range('20130101', periods=6)
+
+    In [6]: dates
+    Out[6]:
+    DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
+                '2013-01-05', '2013-01-06'],
+                dtype='datetime64[ns]', freq='D')
+
+    In [7]: df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
+
+    In [8]: df
+    Out[8]:
+                    A         B         C         D
+    2013-01-01  0.469112 -0.282863 -1.509059 -1.135632
+    2013-01-02  1.212112 -0.173215  0.119209 -1.044236
+    2013-01-03 -0.861849 -2.104569 -0.494929  1.071804
+    2013-01-04  0.721555 -0.706771 -1.039575  0.271860
+    2013-01-05 -0.424972  0.567020  0.276232 -1.087401
+    2013-01-06 -0.673690  0.113648 -1.478427  0.524988
+
+    ```
+
+3. 查看数据
+
+    ```py
+    df.head()  # 顶部数据，个数可选，默认5行
+    df.tail()  # 尾部数据，个数可选
+    df.index  # 显示索引、列和底层numpy数据
+
+    df.describe()  # 显示数据的快速统计摘要
+    df.T  # 转置数据
+    df.sort_index(axis=1, ascending=False)  # 按轴排序
+    df.sort_values(by='B')  # 按值排序
+    ```
+
+4. 选择数据
+
+    ```py
+    # 获取
+    df['A']  # 获取A列数据
+    df.A  # 同上
+    df['20130102':'20130104']  # 通过[]选择，对行切片
+
+    # 按位置索引
+    df.iloc[3]  # 显示第四行数据
+    df.iloc[0:3, 1:]  # 类似numpy
+    df.iloc[[1, 2, 4], [0, 2]]  # 类似numpy
+
+    # 布尔索引
+    df[df.A > 0]
+    ```
+
+### pandas读csv文件
+
+1. 打开文件
+
+    ```py
+    # header:告诉pandas那些是数据的列名，没有则设为None
+    # encoding='gbk'防止出现乱码
+    df = pd.read_csv('filename.csv', header=0, encoding='gbk')
+    ```
 
 ## Python命名规则
 
