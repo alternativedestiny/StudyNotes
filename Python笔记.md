@@ -231,6 +231,25 @@ pandas 数据分析工具
     df = pd.read_csv('filename.csv', header=0, encoding='gbk')
     ```
 
+2. 读取设置
+   | 关键字                | 功能                     |
+   | --------------------- | ------------------------ |
+   | na_values=[5]         | 5和5.0会被认为是NaN      |
+   | na_valuede=["Na","0"] | Na和0会被认为是NaN       |
+   | true_values=["yes"]   | yes被认为True            |
+   | false_value=["no"]    | no被认为False            |
+   | Skipping line         | 跳过某些行               |
+   | MultiIndex            | 支持双列目录             |
+   | sep=':'              | 支持':'等符号作为分隔符的数据 |
+   | chunksize=4           | 每4行数据为一组          |
+
+3. 生成CSV文件
+
+    ```py
+    # 将df存储为csv，index表示是否显示行名
+    df.to_csv('name.csv',index=False,sep=',')
+    ```
+
 ## Python命名规则
 
 ### 命名约定
