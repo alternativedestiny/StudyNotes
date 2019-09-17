@@ -340,6 +340,7 @@
 
     ```py
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 解决plt中文乱码
+    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
     ```
 
 ### 图片输出设置
