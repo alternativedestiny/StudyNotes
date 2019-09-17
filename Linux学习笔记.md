@@ -425,7 +425,13 @@
 ### Linux离线安装
 
 1. Python版本查询：python -V 或者 python --version
-2. pip3: Command not found：在usr/bin目录下寻找pip
+2. pip3: Command not found：在usr/local/bin目录下寻找pip
+3. Linux下离线安装pandas
+   1. 安装six
+   2. 安装pytz和python_dateutil
+   3. 安装pandas
+
+- [pypi](https://pypi.org/)
 
 ## 备注
 

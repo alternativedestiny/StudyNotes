@@ -2,7 +2,10 @@
 
 <!-- TOC -->
 
-1. [安装插件](#安装插件)
+1. [安装库](#安装库)
+    1. [python创建虚拟环境](#python创建虚拟环境)
+        1. [Windows平台](#windows平台)
+        2. [linux平台](#linux平台)
 2. [字符串操作](#字符串操作)
 3. [csv文件读写](#csv文件读写)
     1. [创建csv文件](#创建csv文件)
@@ -14,26 +17,61 @@
 5. [Pandas](#pandas)
     1. [Pandas使用](#pandas使用)
     2. [pandas读csv文件](#pandas读csv文件)
-6. [Python命名规则](#python命名规则)
+6. [Matplotlib 绘图](#matplotlib-绘图)
+    1. [坐标轴处理](#坐标轴处理)
+    2. [图中点、文字处理](#图中点文字处理)
+    3. [图片输出设置](#图片输出设置)
+7. [Python命名规则](#python命名规则)
     1. [命名约定](#命名约定)
     2. [应避免的命名](#应避免的命名)
 
 <!-- /TOC -->
 
-## 安装插件
+## 安装库
 
-```cmd
-pip install
-psutil  电脑监控信息读取
-matplotlib  绘图
-pillow->PIL  图片处理
-pyserial  串口
-scipy  科学计算库
-pymysql  MySQL数据库
-django  django网站框架
-pandas 数据分析工具
+1. 更换国内镜像
+   1. 在C:\Users\username目录下创建pip文件夹
+   2. 在文件夹内创建pip.ini配置文件
+   3. 在配置文件内填入国内镜像
 
-```
+        ```ini
+        [global]
+        index-url=http://mirrors.aliyun.com/pypi/simple/
+        [install]
+        trusted-host=mirrors.aliyun.com
+        ```
+
+2. 安装库
+
+    ```cmd
+    pip install
+    psutil  电脑监控信息读取
+    matplotlib  绘图
+    pillow->PIL  图片处理
+    pyserial  串口
+    scipy  科学计算库
+    pymysql  MySQL数据库
+    django  django网站框架
+    pandas 数据分析工具
+    virtualenv 虚拟环境
+
+    ```
+
+### python创建虚拟环境
+
+#### Windows平台
+
+1. 安装virtualenv库
+2. 在目标文件夹下进入cmd
+3. `virtualenv venv`创建虚拟环境venv
+4. 在`venv/Scripts`下执行`activate`开启虚拟环境
+5. `deactivate`退出虚拟环境
+
+#### linux平台
+
+1. 安装virtualenv库
+2. 创建虚拟环境
+3. 添加环境变量
 
 ## 字符串操作
 
@@ -64,6 +102,8 @@ pandas 数据分析工具
     data = np.loadtxt(file, delimiter=",", skiprows=1)
     a = data[行起始:终止, 列起始:终止]
     ```
+
+3. 用pandas读写csv文件
 
 ### 备注
 
@@ -232,22 +272,88 @@ pandas 数据分析工具
     ```
 
 2. 读取设置
-   | 关键字                | 功能                     |
-   | --------------------- | ------------------------ |
-   | na_values=[5]         | 5和5.0会被认为是NaN      |
-   | na_valuede=["Na","0"] | Na和0会被认为是NaN       |
-   | true_values=["yes"]   | yes被认为True            |
-   | false_value=["no"]    | no被认为False            |
-   | Skipping line         | 跳过某些行               |
-   | MultiIndex            | 支持双列目录             |
-   | sep=':'              | 支持':'等符号作为分隔符的数据 |
-   | chunksize=4           | 每4行数据为一组          |
+   | 关键字                | 功能                          |
+   | --------------------- | ----------------------------- |
+   | na_values=[5]         | 5和5.0会被认为是NaN           |
+   | na_valuede=["Na","0"] | Na和0会被认为是NaN            |
+   | true_values=["yes"]   | yes被认为True                 |
+   | false_value=["no"]    | no被认为False                 |
+   | Skipping line         | 跳过某些行                    |
+   | MultiIndex            | 支持双列目录                  |
+   | sep=':'               | 支持':'等符号作为分隔符的数据 |
+   | chunksize=4           | 每4行数据为一组               |
 
 3. 生成CSV文件
 
     ```py
     # 将df存储为csv，index表示是否显示行名
     df.to_csv('name.csv',index=False,sep=',')
+    ```
+
+## Matplotlib 绘图
+
+### 坐标轴处理
+
+1. 坐标轴反向
+
+    ```py
+    fig = plt.figure()
+    ax = plt.subplot(2, 2, 1)
+    plt.scatter(x, y)
+    ax.invert_xaxis()  # x坐标轴反向
+    ```
+
+2. 设置坐标
+
+    ```py
+    x_axis = ['2018-09-01', '2018-10-01', '2018-11-01', '2018-12-01', '2018-12-31']
+    plt.xticks(x_axis, rotation=15)  # 刻度倾斜
+    ```
+
+    ```py
+    plt.xticks(np.arange(0, 25, 4))  # 范围0-25，分度值4
+    ```
+
+3. 设置坐标限位
+
+    ```py
+    plt.xlim(0, 24)
+    plt.ylim(0, 10)
+    ```
+
+4. 设置轴标签
+
+    ```py
+    plt.xlabel("x")
+    plt.ylabel("y")
+    ```
+
+5. 坐标轴坐标倾斜
+
+    ```py
+    plt.xticks(x_axis, rotation=15)  # 刻度倾斜
+    ```
+
+### 图中点、文字处理
+
+1. 中文编码问题
+
+    ```py
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 解决plt中文乱码
+    ```
+
+### 图片输出设置
+
+1. 图片大小设置
+
+    ```py
+    plt.rcParams['figure.figsize'] = (12, 8)
+    ```
+
+2. 图片保存
+
+    ```py
+    plt.savefig("Picture.png")  # 不支持jpg
     ```
 
 ## Python命名规则
