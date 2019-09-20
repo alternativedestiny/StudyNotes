@@ -1,5 +1,17 @@
 # MySQL笔记
 
+<!-- TOC -->
+
+1. [安装](#安装)
+2. [mysql使用](#mysql使用)
+    1. [基本用法](#基本用法)
+    2. [MySQL插入数据](#mysql插入数据)
+    3. [MySQL查询](#mysql查询)
+3. [备注](#备注)
+4. [Navicat可视化工具](#navicat可视化工具)
+
+<!-- /TOC -->
+
 ## 安装
 
 1. 下载[MySQL](https://dev.mysql.com/downloads/mysql/)
@@ -47,6 +59,83 @@
 
    mysqld --net start mysql
    ![开启服务](images/2019-09-17-20-26-10.png)
+
+6. 停止服务
+   - net stop mysql
+
+## mysql使用
+
+### 基本用法
+
+1. 进入MySQL
+
+    ```cmd
+    D:\mysql-8.0.17-winx64\bin>mysql -u root -p
+    Enter password: ******
+    ```
+
+2. 创建数据库
+
+    ```sql
+    mysql> create database test1;
+    ```
+
+3. 创建表格：直接创建比较复杂，可以使用Navicat等工具
+4. 进入表格：use test1
+
+    ```sql
+    mysql> use test1
+    Database changed
+    ```
+
+5. 插入数据
+
+    ```sql
+    mysql> insert into table2(OCCUR_TIME) values ('ac');
+    Query OK, 1 row affected (1.49 sec)
+    ```
+
+6. 退出
+
+    ```sql
+    mysql> exit
+    Bye
+    ```
+
+### MySQL插入数据
+
+```py
+import pymysql
+
+# 连接数据库：ip，username，password，sqlname
+db = pymysql.connect("localhost", "root", "123456", "test1")
+# 创建游标
+cursor = db.cursor()
+
+# 一次插入10条语句
+for i in range(10):
+    d = df.iloc[i, :]
+    # sql语句
+    sql = "insert into table_name(col1_name, col2_name) " \
+        "values ('%s', '%s')" \
+        % (data[0], data[1])
+    # 执行sql语句
+    cursor.execute(sql)
+
+# 提交到数据库执行
+db.commit()
+
+# 关闭数据库
+db.close()
+```
+
+### MySQL查询
+
+## 备注
+
+1. MySQL字符或英文的问题
+   1. 错误提示`pymysql.err.InternalError: (1054, "Unknown column 'xxxxx' in 'field list'")`
+   2. 解决方法：在SQL语句中将 %s 加引号改成 '%s'
 
 ## Navicat可视化工具
 
