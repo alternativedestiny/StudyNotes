@@ -20,6 +20,7 @@
     ![安装](images/批注&#32;2019-09-17&#32;201538.png)
 
 2. 解压文件到安装目录，如D:\mysql-8.0.17-winx64
+
 3. 创建配置文件my.ini
 
     ```ini
@@ -109,7 +110,7 @@
 
 ### MySQL插入数据
 
-```py
+```python
 import pymysql
 
 # 连接数据库：ip，username，password，sqlname

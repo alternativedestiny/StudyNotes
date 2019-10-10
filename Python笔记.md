@@ -16,13 +16,15 @@
     2. [使用openpyxl](#使用openpyxl)
 5. [Pandas](#pandas)
     1. [Pandas使用](#pandas使用)
-    2. [pandas读csv文件](#pandas读csv文件)
+    2. [pandas读文件](#pandas读文件)
+    3. [pandas函数](#pandas函数)
 6. [Matplotlib 绘图](#matplotlib-绘图)
     1. [坐标轴处理](#坐标轴处理)
     2. [图中点、文字处理](#图中点文字处理)
     3. [图片输出设置](#图片输出设置)
 7. [python多线程](#python多线程)
-8. [Python命名规则](#python命名规则)
+8. [SQL使用(MySQL)](#sql使用mysql)
+9. [Python命名规则](#python命名规则)
     1. [命名约定](#命名约定)
     2. [应避免的命名](#应避免的命名)
 
@@ -86,18 +88,18 @@
 
 1. 读取csv文件的两种写法
 
-    ```py
+    ```python
     with open('filename.csv', 'w', newline='') as file:
     ```
 
-    ```py
+    ```python
     file = open('filename.csv', 'rb')
     ```
 
 2. 用numpy处理csv数据的方法
    1. 读取数据
 
-    ```py
+    ```python
     file = open("filename.csv", "rb")
     # 读取csv文件，以逗号为间隔，跳过第一行
     data = np.loadtxt(file, delimiter=",", skiprows=1)
@@ -133,7 +135,7 @@
 
 2. 读取文件
 
-    ```py
+    ```python
     import xlrd
 
     # 打开文件
@@ -154,7 +156,7 @@
 
 3. 日期处理
 
-    ```py
+    ```python
     import xlrd
     from xlrd import xldate_as_datetime
     from xlrd import xldate_as_tuple
@@ -177,7 +179,7 @@
 
 2. 读取文件
 
-    ```py
+    ```python
     import openpyxl
     # 打开文件
     wb = openpyxl.load_workbook("filename.xlsx")
@@ -203,13 +205,15 @@
 ### Pandas使用
 
 1. pandas数据结构
+
    | 维数 | 名称      | 描述                                                           |
    | ---- | --------- | -------------------------------------------------------------- |
    | 1    | Series    | 可以看作有标签的一维数组，是scalars的集合，也是DataFrame的元素 |
    | 2    | DataFrame | 一般是二维标签，尺寸可变的表格结构，具有潜在的异质型列         |
+
 2. 对象创建
 
-    ```py
+    ```python
     In [5]: dates = pd.date_range('20130101', periods=6)
 
     In [6]: dates
@@ -234,7 +238,7 @@
 
 3. 查看数据
 
-    ```py
+    ```python
     df.head()  # 顶部数据，个数可选，默认5行
     df.tail()  # 尾部数据，个数可选
     df.index  # 显示索引、列和底层numpy数据
@@ -243,11 +247,12 @@
     df.T  # 转置数据
     df.sort_index(axis=1, ascending=False)  # 按轴排序
     df.sort_values(by='B')  # 按值排序
-    ```
 
-4. 选择数据
+   ```
 
-    ```py
+4. 选择数据python
+
+    ```python
     # 获取
     df['A']  # 获取A列数据
     df.A  # 同上
@@ -262,14 +267,30 @@
     df[df.A > 0]
     ```
 
-### pandas读csv文件
+5. 数据截取，loc & iloc
 
-1. 打开文件
+   ```python
+   import pandas as pd
+   # loc通过标签访问，iloc通过行列号访问
+   # 获取a，b列的数据
+   new_df = df.loc[:, ['a', 'b']]  # DataFrame
+   # 获取第1列的数
+   new_df = df.iloc[:, 1]  # Series
+   ```
+
+### pandas读文件
+
+1. python文件
 
     ```py
     # header:告诉pandas那些是数据的列名，没有则设为None
     # encoding='gbk'防止出现乱码
+
+    # 读取csv文件，表头第0行，文件gbk编码
     df = pd.read_csv('filename.csv', header=0, encoding='gbk')
+
+    # 读取excel文件，表头第0行，表sheet1，选择第0，1列数据
+    df1 = pd.read_excel('filename.xlsx', header=0,sheet_name='Sheet1', usecols=[0, 1])
     ```
 
 2. 读取设置
@@ -284,12 +305,18 @@
    | sep=':'               | 支持':'等符号作为分隔符的数据 |
    | chunksize=4           | 每4行数据为一组               |
 
-3. 生成CSV文件
+3. 输出CSV文件
 
-    ```py
+    ```python
     # 将df存储为csv，index表示是否显示行名
-    df.to_csv('name.csv',index=False,sep=',')
+    df.to_csv('name.csv', index=False, sep=',')
     ```
+
+### pandas函数
+
+1. 数据结构
+   1. Series
+   2. dataframe
 
 ## Matplotlib 绘图
 
@@ -306,32 +333,32 @@
 
 2. 设置坐标
 
-    ```py
+    ```python
     x_axis = ['2018-09-01', '2018-10-01', '2018-11-01', '2018-12-01', '2018-12-31']
     plt.xticks(x_axis, rotation=15)  # 刻度倾斜
     ```
 
-    ```py
+    ```python
     plt.xticks(np.arange(0, 25, 4))  # 范围0-25，分度值4
     ```
 
 3. 设置坐标限位
 
-    ```py
+    ```python
     plt.xlim(0, 24)
     plt.ylim(0, 10)
     ```
 
 4. 设置轴标签
 
-    ```py
+    ```python
     plt.xlabel("x")
     plt.ylabel("y")
     ```
 
 5. 坐标轴坐标倾斜
 
-    ```py
+    ```python
     plt.xticks(x_axis, rotation=15)  # 刻度倾斜
     ```
 
@@ -339,7 +366,7 @@
 
 1. 中文编码问题
 
-    ```py
+    ```python
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 解决plt中文乱码
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
     ```
@@ -348,17 +375,68 @@
 
 1. 图片大小设置
 
-    ```py
+    ```python
     plt.rcParams['figure.figsize'] = (12, 8)
     ```
 
 2. 图片保存
 
-    ```py
+    ```python
     plt.savefig("Picture.png")  # 不支持jpg
     ```
 
 ## python多线程
+
+1. 多线程：适用于IO密集型，不适用于CPU密集型。
+2. 代码
+
+    ```python
+    import threading
+
+    # 创建多线程函数：target目标函数（线程内执行的函数），args目标函数参数
+    th = threading.Thread(target=check, args=(a, b, c))
+    # 开线程
+    th.start()
+    ```
+
+## SQL使用(MySQL)
+
+1. 读取数据
+
+    ```python
+    import pymysql
+
+    # host, user, password, database
+    database = pymysql.connect("localhost", "root", "123456", "test1")
+
+    # 创建游标
+    cursor = database.cursor()
+
+    # sql语句：从table中抽取10组a，b，按a的降序排列
+    sql = "select a,b from table order by a desc limit 10"
+
+    # 执行sql语句
+    cursor.excute(sql)
+
+    # 获取数据
+    data = cursor.fetchone()  # 获取单条数据
+    data = cursor.fetchall()  # 获取全部数据
+
+    # 关闭数据库连接
+    database.close()
+    ```
+
+2. 写入数据
+
+    ```python
+    sql = "insert into table(col1, col2) values (%s, %s) % (num1, num2)"
+    cursor.excute(sql)
+
+    # 提交到数据库执行，多数据插入只用执行一次commit
+    database.commit()
+    ```
+
+3. 更多内容查看MySQL笔记
 
 ## Python命名规则
 
