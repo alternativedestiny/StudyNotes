@@ -16,15 +16,17 @@
     2. [使用openpyxl](#使用openpyxl)
 5. [Pandas](#pandas)
     1. [Pandas使用](#pandas使用)
-    2. [pandas读文件](#pandas读文件)
+    2. [pandas读写文件](#pandas读写文件)
     3. [pandas函数](#pandas函数)
+    4. [pandas错误处理](#pandas错误处理)
 6. [Matplotlib 绘图](#matplotlib-绘图)
     1. [坐标轴处理](#坐标轴处理)
     2. [图中点、文字处理](#图中点文字处理)
     3. [图片输出设置](#图片输出设置)
-7. [python多线程](#python多线程)
-8. [SQL使用(MySQL)](#sql使用mysql)
-9. [Python命名规则](#python命名规则)
+7. [Seaborn数据可视化](#seaborn数据可视化)
+8. [python多线程](#python多线程)
+9. [SQL使用(MySQL)](#sql使用mysql)
+10. [Python命名规则](#python命名规则)
     1. [命名约定](#命名约定)
     2. [应避免的命名](#应避免的命名)
 
@@ -77,6 +79,18 @@
 3. 添加环境变量
 
 ## 字符串操作
+
+```python
+# 1. 类型转换:
+str2 = str(str1)
+
+# 2. 字符串拼接：
+str3 = str1 + str2
+
+# 3. 字符串截取：
+str4 = str1[m:n]  # 符号表示从后算起
+
+```
 
 ## csv文件读写
 
@@ -278,7 +292,7 @@
    new_df = df.iloc[:, 1]  # Series
    ```
 
-### pandas读文件
+### pandas读写文件
 
 1. python文件
 
@@ -310,6 +324,8 @@
     ```python
     # 将df存储为csv，index表示是否显示行名
     df.to_csv('name.csv', index=False, sep=',')
+    # 会给数据添加引号
+    df.to_csv('name.csv', index=False, delimiter=',')
     ```
 
 ### pandas函数
@@ -317,6 +333,13 @@
 1. 数据结构
    1. Series
    2. dataframe
+2. [pandas类SQL查询](https://juejin.im/post/5b5e5b2ee51d4517df1510c7)
+
+### pandas错误处理
+
+1. [`read_csv mixed types`问题](https://www.jianshu.com/p/a70554726f26)
+2. `cannot convert the series to <class 'float'>`问题
+   1. 原因：可能是某处变量调用忘了加限定，比如a[i]写成了a
 
 ## Matplotlib 绘图
 
@@ -385,6 +408,8 @@
     plt.savefig("Picture.png")  # 不支持jpg
     ```
 
+## Seaborn数据可视化
+
 ## python多线程
 
 1. 多线程：适用于IO密集型，不适用于CPU密集型。
@@ -416,7 +441,7 @@
     sql = "select a,b from table order by a desc limit 10"
 
     # 执行sql语句
-    cursor.excute(sql)
+    cursor.execute(sql)
 
     # 获取数据
     data = cursor.fetchone()  # 获取单条数据
