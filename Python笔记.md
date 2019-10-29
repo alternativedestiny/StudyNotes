@@ -2,49 +2,47 @@
 
 <!-- TOC -->
 
-1. [安装库](#安装库)
-    1. [python创建虚拟环境](#python创建虚拟环境)
-        1. [Windows平台](#windows平台)
-        2. [linux平台](#linux平台)
+1. [Python 环境](#python-环境)
+    1. [更换国内镜像](#更换国内镜像)
+    2. [Python 创建虚拟环境](#python-创建虚拟环境)
+        1. [Windows 平台](#windows-平台)
+        2. [linux 平台](#linux-平台)
 2. [字符串操作](#字符串操作)
 3. [csv文件读写](#csv文件读写)
     1. [创建csv文件](#创建csv文件)
     2. [读写csv文件](#读写csv文件)
     3. [备注](#备注)
-4. [Excel（xls/xlsx）文件读写](#excelxlsxlsx文件读写)
+4. [Excel(xls/xlsx) 文件读写](#excelxlsxlsx-文件读写)
     1. [使用xlrd/xlwt](#使用xlrdxlwt)
-    2. [使用openpyxl](#使用openpyxl)
+    2. [使用 openpyxl](#使用-openpyxl)
 5. [Pandas](#pandas)
-    1. [Pandas使用](#pandas使用)
-    2. [pandas读写文件](#pandas读写文件)
-    3. [pandas函数](#pandas函数)
-    4. [pandas错误处理](#pandas错误处理)
+    1. [Pandas 数据结构](#pandas-数据结构)
+    2. [Pandas 使用](#pandas-使用)
+    3. [pandas 读写文件](#pandas-读写文件)
+    4. [pandas 其他](#pandas-其他)
+    5. [pandas 错误处理](#pandas-错误处理)
 6. [Matplotlib 绘图](#matplotlib-绘图)
     1. [坐标轴处理](#坐标轴处理)
     2. [图中点、文字处理](#图中点文字处理)
     3. [图片输出设置](#图片输出设置)
-7. [Seaborn数据可视化](#seaborn数据可视化)
-8. [python多线程](#python多线程)
-9. [SQL使用(MySQL)](#sql使用mysql)
-10. [Python命名规则](#python命名规则)
+7. [Seaborn 数据可视化](#seaborn-数据可视化)
+8. [python 多线程](#python-多线程)
+9. [SQL 使用 (MySQL)](#sql-使用-mysql)
+10. [Python 命名规则](#python-命名规则)
     1. [命名约定](#命名约定)
     2. [应避免的命名](#应避免的命名)
 
 <!-- /TOC -->
 
-## 安装库
+## Python 环境
 
-1. 更换国内镜像
-   1. 在C:\Users\username目录下创建pip文件夹
-   2. 在文件夹内创建pip.ini配置文件
-   3. 在配置文件内填入国内镜像
+### 更换国内镜像
 
-        ```ini
-        [global]
-        index-url=http://mirrors.aliyun.com/pypi/simple/
-        [install]
-        trusted-host=mirrors.aliyun.com
-        ```
+1. 管理员模式下
+
+    ```cmd
+    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    ```
 
 2. 安装库
 
@@ -62,9 +60,16 @@
 
     ```
 
-### python创建虚拟环境
+3. 升级库
 
-#### Windows平台
+```cmd
+pip list --outdate  // 显示可升级库
+pip install --upgrade xxx  // 升级库
+```
+
+### Python 创建虚拟环境
+
+#### Windows 平台
 
 1. 安装virtualenv库
 2. 在目标文件夹下进入cmd
@@ -72,7 +77,7 @@
 4. 在`venv/Scripts`下执行`activate`开启虚拟环境
 5. `deactivate`退出虚拟环境
 
-#### linux平台
+#### linux 平台
 
 1. 安装virtualenv库
 2. 创建虚拟环境
@@ -136,7 +141,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 - wb+：以二进制读写模式打开 (参见 w+ )
 - ab+：以二进制读写模式打开 (参见 a+ )
 
-## Excel（xls/xlsx）文件读写
+## Excel(xls/xlsx) 文件读写
 
 ### 使用xlrd/xlwt
 
@@ -183,7 +188,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 - 参考[python xlrd模块处理excel日期变成浮点型的解决方法](https://my.oschina.net/zhangyangyang/blog/737072)
 - 参考[用python读写excel（xlrd、xlwt）](https://www.cnblogs.com/MrLJC/p/3715783.html)
 
-### 使用openpyxl
+### 使用 openpyxl
 
 1. 安装库文件
 
@@ -216,7 +221,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 
 ## Pandas
 
-### Pandas使用
+### Pandas 数据结构
 
 1. pandas数据结构
 
@@ -225,7 +230,32 @@ str4 = str1[m:n]  # 符号表示从后算起
    | 1    | Series    | 可以看作有标签的一维数组，是scalars的集合，也是DataFrame的元素 |
    | 2    | DataFrame | 一般是二维标签，尺寸可变的表格结构，具有潜在的异质型列         |
 
-2. 对象创建
+2. 数据格式转换
+   1. astype 转换成其他类型
+
+        ```python
+        # 由其他类型转换成float
+        a = df.iloc[:, 0].astype('float')
+        ```
+
+   2. to_numeric 转换成数字
+
+        ```python
+        s = pd.Series(['1.0', '2', -3])
+        pd.to_numeric(s)
+        ```
+
+   3. to_datetime 转换成日期
+
+        ```python
+        pd.to_datetime()
+        ```
+
+   4. to_timedelta 相对日期
+
+### Pandas 使用
+
+1. 对象创建
 
     ```python
     In [5]: dates = pd.date_range('20130101', periods=6)
@@ -250,7 +280,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 
     ```
 
-3. 查看数据
+2. 查看数据
 
     ```python
     df.head()  # 顶部数据，个数可选，默认5行
@@ -264,7 +294,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 
    ```
 
-4. 选择数据python
+3. 选择数据python
 
     ```python
     # 获取
@@ -281,7 +311,7 @@ str4 = str1[m:n]  # 符号表示从后算起
     df[df.A > 0]
     ```
 
-5. 数据截取，loc & iloc
+4. 数据截取
 
    ```python
    import pandas as pd
@@ -290,9 +320,23 @@ str4 = str1[m:n]  # 符号表示从后算起
    new_df = df.loc[:, ['a', 'b']]  # DataFrame
    # 获取第1列的数
    new_df = df.iloc[:, 1]  # Series
+   # 还可以直接访问列标签
+   new_df = df['a']  # Series
    ```
 
-### pandas读写文件
+5. 增加数据
+   1. 增加一列数据
+
+        ```python
+        # 先读取一个DataFrame
+        df = pd.read_csv('xxx.csv')
+        # 然后增加一列时间数据，并将数据格式设为datetime
+        df['new_column'] = pd.to_datetime(df['tm'])
+        ```
+
+   2. 增加一行数据
+
+### pandas 读写文件
 
 1. python文件
 
@@ -306,6 +350,8 @@ str4 = str1[m:n]  # 符号表示从后算起
     # 读取excel文件，表头第0行，表sheet1，选择第0，1列数据
     df1 = pd.read_excel('filename.xlsx', header=0,sheet_name='Sheet1', usecols=[0, 1])
     ```
+
+   - [read_csv参数详解](https://www.cnblogs.com/datablog/p/6127000.html)
 
 2. 读取设置
    | 关键字                | 功能                          |
@@ -328,14 +374,11 @@ str4 = str1[m:n]  # 符号表示从后算起
     df.to_csv('name.csv', index=False, delimiter=',')
     ```
 
-### pandas函数
+### pandas 其他
 
-1. 数据结构
-   1. Series
-   2. dataframe
-2. [pandas类SQL查询](https://juejin.im/post/5b5e5b2ee51d4517df1510c7)
+1. [pandas类SQL查询](https://juejin.im/post/5b5e5b2ee51d4517df1510c7)
 
-### pandas错误处理
+### pandas 错误处理
 
 1. [`read_csv mixed types`问题](https://www.jianshu.com/p/a70554726f26)
 2. `cannot convert the series to <class 'float'>`问题
@@ -408,9 +451,9 @@ str4 = str1[m:n]  # 符号表示从后算起
     plt.savefig("Picture.png")  # 不支持jpg
     ```
 
-## Seaborn数据可视化
+## Seaborn 数据可视化
 
-## python多线程
+## python 多线程
 
 1. 多线程：适用于IO密集型，不适用于CPU密集型。
 2. 代码
@@ -424,7 +467,7 @@ str4 = str1[m:n]  # 符号表示从后算起
     th.start()
     ```
 
-## SQL使用(MySQL)
+## SQL 使用 (MySQL)
 
 1. 读取数据
 
@@ -463,7 +506,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 
 3. 更多内容查看MySQL笔记
 
-## Python命名规则
+## Python 命名规则
 
 ### 命名约定
 
