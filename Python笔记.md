@@ -16,15 +16,15 @@
     1. [使用xlrd/xlwt](#使用xlrdxlwt)
     2. [使用 openpyxl](#使用-openpyxl)
 5. [Pandas](#pandas)
-    1. [Pandas 数据结构](#pandas-数据结构)
-    2. [Pandas 使用](#pandas-使用)
-    3. [pandas 读写文件](#pandas-读写文件)
-    4. [pandas 其他](#pandas-其他)
-    5. [pandas 错误处理](#pandas-错误处理)
+    1. [Pandas 数据处理](#pandas-数据处理)
+    2. [pandas 读写文件](#pandas-读写文件)
+    3. [pandas 其他](#pandas-其他)
+    4. [pandas 错误处理](#pandas-错误处理)
 6. [Matplotlib 绘图](#matplotlib-绘图)
-    1. [坐标轴处理](#坐标轴处理)
-    2. [图中点、文字处理](#图中点文字处理)
-    3. [图片输出设置](#图片输出设置)
+    1. [绘图种类](#绘图种类)
+    2. [坐标轴处理](#坐标轴处理)
+    3. [图中点、文字处理](#图中点文字处理)
+    4. [图片输出设置](#图片输出设置)
 7. [Seaborn 数据可视化](#seaborn-数据可视化)
 8. [python 多线程](#python-多线程)
 9. [SQL 使用 (MySQL)](#sql-使用-mysql)
@@ -203,7 +203,7 @@ str4 = str1[m:n]  # 符号表示从后算起
     # 打开文件
     wb = openpyxl.load_workbook("filename.xlsx")
     # 以只读方式打开
-    wb = openpyxl.load_workbook("st_data/官甲红.xlsx",read_only=True)
+    wb = openpyxl.load_workbook("st_data/官甲红.xlsx", read_only=True)
 
     # 读取sheet页
     sheet = wb['sheetname']
@@ -221,7 +221,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 
 ## Pandas
 
-### Pandas 数据结构
+### Pandas 数据处理
 
 1. pandas数据结构
 
@@ -230,7 +230,7 @@ str4 = str1[m:n]  # 符号表示从后算起
    | 1    | Series    | 可以看作有标签的一维数组，是scalars的集合，也是DataFrame的元素 |
    | 2    | DataFrame | 一般是二维标签，尺寸可变的表格结构，具有潜在的异质型列         |
 
-2. 数据格式转换
+2. 数据格式转换：数据格式不对可能会造成多种问题，比如计算、绘图(这些操作均不会改变原数据)
    1. astype 转换成其他类型
 
         ```python
@@ -242,29 +242,26 @@ str4 = str1[m:n]  # 符号表示从后算起
 
         ```python
         s = pd.Series(['1.0', '2', -3])
-        pd.to_numeric(s)
+        s = pd.to_numeric(s)
         ```
 
    3. to_datetime 转换成日期
 
         ```python
-        pd.to_datetime()
+        tm = pd.to_datetime(df.iloc[:, 0])
         ```
 
    4. to_timedelta 相对日期
 
-### Pandas 使用
-
-1. 对象创建
+3. 对象创建
 
     ```python
     In [5]: dates = pd.date_range('20130101', periods=6)
 
     In [6]: dates
-    Out[6]:
-    DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
-                '2013-01-05', '2013-01-06'],
-                dtype='datetime64[ns]', freq='D')
+    Out[6]: DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03',
+                        '2013-01-04', '2013-01-05', '2013-01-06'],
+                        dtype='datetime64[ns]', freq='D')
 
     In [7]: df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
 
@@ -280,12 +277,13 @@ str4 = str1[m:n]  # 符号表示从后算起
 
     ```
 
-2. 查看数据
+4. 查看数据
 
     ```python
     df.head()  # 顶部数据，个数可选，默认5行
     df.tail()  # 尾部数据，个数可选
     df.index  # 显示索引、列和底层numpy数据
+    df.info()  # 显示数据的类型
 
     df.describe()  # 显示数据的快速统计摘要
     df.T  # 转置数据
@@ -294,7 +292,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 
    ```
 
-3. 选择数据python
+5. 选择数据python
 
     ```python
     # 获取
@@ -311,7 +309,7 @@ str4 = str1[m:n]  # 符号表示从后算起
     df[df.A > 0]
     ```
 
-4. 数据截取
+6. 数据截取
 
    ```python
    import pandas as pd
@@ -321,10 +319,10 @@ str4 = str1[m:n]  # 符号表示从后算起
    # 获取第1列的数
    new_df = df.iloc[:, 1]  # Series
    # 还可以直接访问列标签
-   new_df = df['a']  # Series
+   new_df = df['a'][0:3000]  # Series
    ```
 
-5. 增加数据
+7. 增加数据
    1. 增加一列数据
 
         ```python
@@ -335,6 +333,13 @@ str4 = str1[m:n]  # 符号表示从后算起
         ```
 
    2. 增加一行数据
+
+8. 生成数据
+   1. date_range：生成等间隔时间序列
+
+        ```python
+        pd.date_range(start,end,pediods)
+        ```
 
 ### pandas 读写文件
 
@@ -350,8 +355,6 @@ str4 = str1[m:n]  # 符号表示从后算起
     # 读取excel文件，表头第0行，表sheet1，选择第0，1列数据
     df1 = pd.read_excel('filename.xlsx', header=0,sheet_name='Sheet1', usecols=[0, 1])
     ```
-
-   - [read_csv参数详解](https://www.cnblogs.com/datablog/p/6127000.html)
 
 2. 读取设置
    | 关键字                | 功能                          |
@@ -386,25 +389,40 @@ str4 = str1[m:n]  # 符号表示从后算起
 
 ## Matplotlib 绘图
 
+### 绘图种类
+
+1. scatter 散点图
+   1. 带颜色区分的散点图
+2. plot 折线图
+   1. 一个图里多条折线
+
+        ```python
+        plt.plot(x1, y1, x2, y2)
+        ```
+
+3. bar 柱状图
+
 ### 坐标轴处理
 
 1. 坐标轴反向
 
     ```py
-    fig = plt.figure()
-    ax = plt.subplot(2, 2, 1)
-    plt.scatter(x, y)
     ax.invert_xaxis()  # x坐标轴反向
     ```
 
-2. 设置坐标
+2. 设置坐标值
 
     ```python
+    # 按照需求设置坐标，坐标一定要有对应的数据
     x_axis = ['2018-09-01', '2018-10-01', '2018-11-01', '2018-12-01', '2018-12-31']
     plt.xticks(x_axis, rotation=15)  # 刻度倾斜
+    # 还可以对坐标重命名
+    x_axis = ['2018-01-01 00:01:00', '2018-01-02 00:00:00', '2018-01-03 00:00:00']
+    plt.xticks(x_axis, ('a', 'b', 'c'), rotation=-15)  # 将横坐标值重命名为a,b,c
     ```
 
     ```python
+    # 按照等间隔数值设置坐标
     plt.xticks(np.arange(0, 25, 4))  # 范围0-25，分度值4
     ```
 
