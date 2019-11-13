@@ -7,28 +7,34 @@
     2. [Python 创建虚拟环境](#python-创建虚拟环境)
         1. [Windows 平台](#windows-平台)
         2. [linux 平台](#linux-平台)
-2. [字符串操作](#字符串操作)
-3. [csv文件读写](#csv文件读写)
-    1. [创建csv文件](#创建csv文件)
-    2. [读写csv文件](#读写csv文件)
+2. [数据处理](#数据处理)
+    1. [数字处理](#数字处理)
+    2. [字符串处理](#字符串处理)
+    3. [文件处理](#文件处理)
+        1. [遍历文件](#遍历文件)
+3. [csv 文件读写](#csv-文件读写)
+    1. [创建 csv 文件](#创建-csv-文件)
+    2. [读写 csv 文件](#读写-csv-文件)
     3. [备注](#备注)
 4. [Excel(xls/xlsx) 文件读写](#excelxlsxlsx-文件读写)
-    1. [使用xlrd/xlwt](#使用xlrdxlwt)
+    1. [使用 xlrd/xlwt](#使用-xlrdxlwt)
     2. [使用 openpyxl](#使用-openpyxl)
-5. [Pandas](#pandas)
+5. [Numpy](#numpy)
+    1. [ndarray](#ndarray)
+6. [Pandas](#pandas)
     1. [Pandas 数据处理](#pandas-数据处理)
     2. [pandas 读写文件](#pandas-读写文件)
     3. [pandas 其他](#pandas-其他)
     4. [pandas 错误处理](#pandas-错误处理)
-6. [Matplotlib 绘图](#matplotlib-绘图)
+7. [Matplotlib 绘图](#matplotlib-绘图)
     1. [绘图种类](#绘图种类)
     2. [坐标轴处理](#坐标轴处理)
     3. [图中点、文字处理](#图中点文字处理)
     4. [图片输出设置](#图片输出设置)
-7. [Seaborn 数据可视化](#seaborn-数据可视化)
-8. [python 多线程](#python-多线程)
-9. [SQL 使用 (MySQL)](#sql-使用-mysql)
-10. [Python 命名规则](#python-命名规则)
+8. [Seaborn 数据可视化](#seaborn-数据可视化)
+9. [python 多线程](#python-多线程)
+10. [SQL 使用 (MySQL)](#sql-使用-mysql)
+11. [Python 命名规则](#python-命名规则)
     1. [命名约定](#命名约定)
     2. [应避免的命名](#应避免的命名)
 
@@ -83,7 +89,22 @@ pip install --upgrade xxx  // 升级库
 2. 创建虚拟环境
 3. 添加环境变量
 
-## 字符串操作
+## 数据处理
+
+### 数字处理
+
+1. 保留4位小数位
+
+```python
+# 百分号
+print('%.4' % num)
+
+# round
+num = round(num, 4)
+
+```
+
+### 字符串处理
 
 ```python
 # 1. 类型转换:
@@ -97,13 +118,23 @@ str4 = str1[m:n]  # 符号表示从后算起
 
 ```
 
-## csv文件读写
+### 文件处理
 
-### 创建csv文件
+#### 遍历文件
+
+```python
+import os
+sources_path = "./substation"  # 路径
+file_name = os.listdir(sources_path)  # 所有文件名
+```
+
+## csv 文件读写
+
+### 创建 csv 文件
 
 - 利用csv包中的writer函数，如果文件不存在，会自动创建，需要注意的是，文件后缀一定要是.csv，这样才会创建csv文件
 
-### 读写csv文件
+### 读写 csv 文件
 
 1. 读取csv文件的两种写法
 
@@ -143,7 +174,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 
 ## Excel(xls/xlsx) 文件读写
 
-### 使用xlrd/xlwt
+### 使用 xlrd/xlwt
 
 1. 安装库文件
 
@@ -219,6 +250,20 @@ str4 = str1[m:n]  # 符号表示从后算起
 
 - 参考[Python 玩转 Excel](https://mp.weixin.qq.com/s?__biz=MjM5NjMyMjUzNg==&mid=2448130701&idx=1&sn=10919f10f4006a18579d6bbc13a3f15c&chksm=b2f42f0a8583a61c9421711b7a542f2a1c8cfe114ace3ea1ba8cefc26bdde8eb36755a7404ae&scene=0#rd)
 
+## Numpy
+
+### ndarray
+
+1. [增删改查](https://blog.csdn.net/Tyro_java/article/details/81052638)
+
+    ```python
+    import numpy as np
+    # 增
+    data = np.append(data, a)  # 将a添加到data中
+    # 删
+    data = np.delete(data, [0])
+    ```
+
 ## Pandas
 
 ### Pandas 数据处理
@@ -253,7 +298,13 @@ str4 = str1[m:n]  # 符号表示从后算起
 
    4. to_timedelta 相对日期
 
-3. 对象创建
+3. 检测数据是否有空值(Nan)
+
+   ```python
+   df.isnull().any()  # 含空数据true，不含空数据false
+   ```
+
+4. 对象创建
 
     ```python
     In [5]: dates = pd.date_range('20130101', periods=6)
@@ -277,7 +328,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 
     ```
 
-4. 查看数据
+5. 查看数据
 
     ```python
     df.head()  # 顶部数据，个数可选，默认5行
@@ -292,7 +343,7 @@ str4 = str1[m:n]  # 符号表示从后算起
 
    ```
 
-5. 选择数据python
+6. 选择数据python
 
     ```python
     # 获取
@@ -309,7 +360,7 @@ str4 = str1[m:n]  # 符号表示从后算起
     df[df.A > 0]
     ```
 
-6. 数据截取
+7. 数据截取
 
    ```python
    import pandas as pd
@@ -322,7 +373,7 @@ str4 = str1[m:n]  # 符号表示从后算起
    new_df = df['a'][0:3000]  # Series
    ```
 
-7. 增加数据
+8. 增加数据
    1. 增加一列数据
 
         ```python
@@ -334,7 +385,11 @@ str4 = str1[m:n]  # 符号表示从后算起
 
    2. 增加一行数据
 
-8. 生成数据
+        ```python
+        df.loc['new_row'] = '1'
+        ```
+
+9. 生成数据
    1. date_range：生成等间隔时间序列
 
         ```python
@@ -372,9 +427,9 @@ str4 = str1[m:n]  # 符号表示从后算起
 
     ```python
     # 将df存储为csv，index表示是否显示行名
-    df.to_csv('name.csv', index=False, sep=',')
+    df.to_csv('name.csv', index=False, sep=',')  # 推荐
     # 会给数据添加引号
-    df.to_csv('name.csv', index=False, delimiter=',')
+    df.to_csv('name.csv', index=False, delimiter=',')  # 不要用
     ```
 
 ### pandas 其他
