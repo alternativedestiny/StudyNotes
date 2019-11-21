@@ -116,6 +116,10 @@ str3 = str1 + str2
 # 3. 字符串截取：
 str4 = str1[m:n]  # 符号表示从后算起
 
+# 创建全0数组
+import numpy as np
+list1 = np.zeros(25, dtype=int)
+
 ```
 
 ### 文件处理
@@ -297,35 +301,36 @@ file_name = os.listdir(sources_path)  # 所有文件名
         ```
 
    4. to_timedelta 相对日期
+   5. tolist() Series转list
+
+        ```python
+        list1 = Series.tolist()
+        ```
 
 3. 检测数据是否有空值(Nan)
 
    ```python
-   df.isnull().any()  # 含空数据true，不含空数据false
+   # 含空数据true，不含空数据false
+   df.isnull().any()
+   # 判断数据是否为nan，不能用==
+   if df[] is np.nan  
    ```
 
-4. 对象创建
+4. 创建DataFrame
 
     ```python
-    In [5]: dates = pd.date_range('20130101', periods=6)
+    # 创建DataFrame
+    title = ['a', 'b', 'c']  # 列名
+    index = [1, 2, 3, 4]  # 行名
+    df = pd.DataFrame(index=index, columns=title)
 
-    In [6]: dates
-    Out[6]: DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03',
-                        '2013-01-04', '2013-01-05', '2013-01-06'],
-                        dtype='datetime64[ns]', freq='D')
+    # 创建IndexName
+    df.index.name = 'num'
 
-    In [7]: df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
-
-    In [8]: df
-    Out[8]:
-                    A         B         C         D
-    2013-01-01  0.469112 -0.282863 -1.509059 -1.135632
-    2013-01-02  1.212112 -0.173215  0.119209 -1.044236
-    2013-01-03 -0.861849 -2.104569 -0.494929  1.071804
-    2013-01-04  0.721555 -0.706771 -1.039575  0.271860
-    2013-01-05 -0.424972  0.567020  0.276232 -1.087401
-    2013-01-06 -0.673690  0.113648 -1.478427  0.524988
-
+    # 增加一行数据
+    df.loc['0'] = [1, 2, 3]
+    # 增加一列数据
+    df['d'] = [1, 2, 3]
     ```
 
 5. 查看数据
@@ -343,64 +348,60 @@ file_name = os.listdir(sources_path)  # 所有文件名
 
    ```
 
-6. 选择数据python
+6. 选择、查询数据(数据截取)
 
     ```python
     # 获取
     df['A']  # 获取A列数据
     df.A  # 同上
     df['20130102':'20130104']  # 通过[]选择，对行切片
+    # 根据数据大小选择
+    new_df = df[df['tm1'] >= '2018-01-01 00:00:00']
 
     # 按位置索引
-    df.iloc[3]  # 显示第四行数据
+    df.iloc[3]  # 显示第四列数据
     df.iloc[0:3, 1:]  # 类似numpy
     df.iloc[[1, 2, 4], [0, 2]]  # 类似numpy
 
     # 布尔索引
     df[df.A > 0]
+
+    # loc通过标签访问，iloc通过行列号访问
+    # 获取a，b列的数据
+    new_df = df.loc[:, ['a', 'b']]  # DataFrame
+    # 获取第1列的数
+    new_df = df.iloc[:, 1]  # Series
+    # 还可以直接访问列标签
+    new_df = df['a'][0:3000]  # Series
     ```
 
-7. 数据截取
-
-   ```python
-   import pandas as pd
-   # loc通过标签访问，iloc通过行列号访问
-   # 获取a，b列的数据
-   new_df = df.loc[:, ['a', 'b']]  # DataFrame
-   # 获取第1列的数
-   new_df = df.iloc[:, 1]  # Series
-   # 还可以直接访问列标签
-   new_df = df['a'][0:3000]  # Series
-   ```
-
-8. 增加数据
-   1. 增加一列数据
-
-        ```python
-        # 先读取一个DataFrame
-        df = pd.read_csv('xxx.csv')
-        # 然后增加一列时间数据，并将数据格式设为datetime
-        df['new_column'] = pd.to_datetime(df['tm'])
-        ```
-
-   2. 增加一行数据
-
-        ```python
-        df.loc['new_row'] = '1'
-        ```
-
-9. 生成数据
+7. 生成数据
    1. date_range：生成等间隔时间序列
 
         ```python
         pd.date_range(start,end,pediods)
         ```
 
+8. 数据排序
+   1. Series排序
+
+        ```python
+        Series.sort_values()  # 升序排列
+        ```
+
+9. DataFrame合并
+
+    ```python
+    # 合并df1，df2，以左侧文件为标准，合并依据为key
+    df3 = pd.merge(df1, df2, how='left', on='key1')  # 单个key
+    df3 = pd.merge(df1, df2, how='left', on=['key1','key2'])  # 多key
+    ```
+
 ### pandas 读写文件
 
 1. python文件
 
-    ```py
+    ```python
     # header:告诉pandas那些是数据的列名，没有则设为None
     # encoding='gbk'防止出现乱码
 
@@ -409,6 +410,8 @@ file_name = os.listdir(sources_path)  # 所有文件名
 
     # 读取excel文件，表头第0行，表sheet1，选择第0，1列数据
     df1 = pd.read_excel('filename.xlsx', header=0,sheet_name='Sheet1', usecols=[0, 1])
+
+    # 读取不同的数据类型dtype
     ```
 
 2. 读取设置
