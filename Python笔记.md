@@ -10,15 +10,11 @@
 2. [数据处理](#数据处理)
     1. [数字处理](#数字处理)
     2. [字符串处理](#字符串处理)
-    3. [文件处理](#文件处理)
-        1. [遍历文件](#遍历文件)
-3. [csv 文件读写](#csv-文件读写)
-    1. [创建 csv 文件](#创建-csv-文件)
-    2. [读写 csv 文件](#读写-csv-文件)
-    3. [备注](#备注)
-4. [Excel(xls/xlsx) 文件读写](#excelxlsxlsx-文件读写)
-    1. [使用 xlrd/xlwt](#使用-xlrdxlwt)
-    2. [使用 openpyxl](#使用-openpyxl)
+3. [OS](#os)
+    1. [文件处理](#文件处理)
+4. [文件读写](#文件读写)
+    1. [csv 文件](#csv-文件)
+    2. [Excel(xls/xlsx) 文件读写](#excelxlsxlsx-文件读写)
 5. [Numpy](#numpy)
     1. [ndarray](#ndarray)
 6. [Pandas](#pandas)
@@ -116,29 +112,46 @@ str3 = str1 + str2
 # 3. 字符串截取：
 str4 = str1[m:n]  # 符号表示从后算起
 
-# 创建全0数组
+# 4. 创建全0数组
 import numpy as np
 list1 = np.zeros(25, dtype=int)
 
+# 5. 字符串转代码
+str1 = "print('hello')"
+eval(str1)  # hello
+
+# 6. 字符串替换
+str1.replace('a', 'b')
+
+# 7.查询字符位置
+str1.find('a')  # 返回a所在位置
+
 ```
+
+## OS
 
 ### 文件处理
 
-#### 遍历文件
-
 ```python
 import os
+
+# 获取文件列表
 sources_path = "./substation"  # 路径
 file_name = os.listdir(sources_path)  # 所有文件名
+
+# 创建文件夹
+path = 'abc/'
+# 检测文件夹是否存在，不存在就创建该文件夹
+if not os.path.exists(path):
+    print('folder not exist')
+    os.makedirs(path)
+else:
+    print('folder exist')
 ```
 
-## csv 文件读写
+## 文件读写
 
-### 创建 csv 文件
-
-- 利用csv包中的writer函数，如果文件不存在，会自动创建，需要注意的是，文件后缀一定要是.csv，这样才会创建csv文件
-
-### 读写 csv 文件
+### csv 文件
 
 1. 读取csv文件的两种写法
 
@@ -162,7 +175,7 @@ file_name = os.listdir(sources_path)  # 所有文件名
 
 3. 用pandas读写csv文件
 
-### 备注
+4. 备注
 
 - w：以写方式打开
 - a：以追加模式打开 (从 EOF 开始, 必要时创建新文件)
@@ -176,83 +189,83 @@ file_name = os.listdir(sources_path)  # 所有文件名
 - wb+：以二进制读写模式打开 (参见 w+ )
 - ab+：以二进制读写模式打开 (参见 a+ )
 
-## Excel(xls/xlsx) 文件读写
+### Excel(xls/xlsx) 文件读写
 
-### 使用 xlrd/xlwt
+1. 使用 xlrd/xlwt
 
-1. 安装库文件
+   1. 安装库文件
 
-    ```cmd
-    pip install xlrd
-    pip install xlwt
-    ```
+       ```cmd
+       pip install xlrd
+       pip install xlwt
+       ```
 
-2. 读取文件
+   2. 读取文件
 
-    ```python
-    import xlrd
+       ```python
+       import xlrd
 
-    # 打开文件
-    data = xlrd.open_workbook('filename.xlsx')
-    # 获取第一个工作表
-    table = data.sheets()[0]
-    # 行列数
-    rows = table.nrows
-    cols = table.ncols
-    # 行列值
-    table.row_values(i)
-    table.row_values(i)[0]
-    table.col_values(i)
-    table.col_values(i)[0]
-    # 单元格
-    table.cell(x,y).value
-    ```
+       # 打开文件
+       data = xlrd.open_workbook('filename.xlsx')
+       # 获取第一个工作表
+       table = data.sheets()[0]
+       # 行列数
+       rows = table.nrows
+       cols = table.ncols
+       # 行列值
+       table.row_values(i)
+       table.row_values(i)[0]
+       table.col_values(i)
+       table.col_values(i)[0]
+       # 单元格
+       table.cell(x,y).value
+       ```
 
-3. 日期处理
+   3. 日期处理
 
-    ```python
-    import xlrd
-    from xlrd import xldate_as_datetime
-    from xlrd import xldate_as_tuple
+       ```python
+       import xlrd
+       from xlrd import xldate_as_datetime
+       from xlrd import xldate_as_tuple
 
-    xldate_as_datetime(table.row_values(i)[0], 0)  # 2019-06-01 00:00:00
-    *xldate_as_tuple(table.row_values(i + 1)[0], 0)  # 2019 6 1 0 0 0
-    ```
+       xldate_as_datetime(table.row_values(i)[0], 0)  # 2019-06-01 00:00:00
+       *xldate_as_tuple(table.row_values(i + 1)[0], 0)  # 2019 6 1 0 0 0
+       ```
 
-- 参考[Python操作excel的几种方式--xlrd、xlwt、openpyxl](http://wenqiang-china.github.io/2016/05/13/python-opetating-excel/)
-- 参考[python xlrd模块处理excel日期变成浮点型的解决方法](https://my.oschina.net/zhangyangyang/blog/737072)
-- 参考[用python读写excel（xlrd、xlwt）](https://www.cnblogs.com/MrLJC/p/3715783.html)
+   - 参考[Python操作excel的几种方式--xlrd、xlwt、openpyxl](http://wenqiang-china.github.io/2016/05/13/python-opetating-excel/)
+   - 参考[python xlrd模块处理excel日期变成浮点型的解决方法](https://my.oschina.net/zhangyangyang/blog/737072)
+   - 参考[用python读写excel（xlrd、xlwt）](https://www.cnblogs.com/MrLJC/p/3715783.html)
 
-### 使用 openpyxl
+2. 使用 openpyxl
 
-1. 安装库文件
+   1. 安装库文件
 
-    ```cmd
-    pip install openpyxl
-    ```
+       ```cmd
+       pip install openpyxl
+       ```
 
-2. 读取文件
+   2. 读取文件
 
-    ```python
-    import openpyxl
-    # 打开文件
-    wb = openpyxl.load_workbook("filename.xlsx")
-    # 以只读方式打开
-    wb = openpyxl.load_workbook("st_data/官甲红.xlsx", read_only=True)
+       ```python
+       import openpyxl
+       # 打开文件
+       wb = openpyxl.load_workbook("filename.xlsx")
+       # 以只读方式打开
+       wb = openpyxl.load_workbook("st_data/官甲红.xlsx", read_only=True)
 
-    # 读取sheet页
-    sheet = wb['sheetname']
-    # or
-    sheet = wb.worksheets[0]
+       # 读取sheet页
+       sheet = wb['sheetname']
+       # or
+       sheet = wb.worksheets[0]
 
-    # 行列数
-    sheet.max_column
-    sheet.max_row
-    # 行列值
-    sheet.cell(x,y).value
-    ```
+       # 行列数
+       sheet.max_column
+       sheet.max_row
+       # 行列值
+       sheet.cell(x,y).value
+       ```
 
-- 参考[Python 玩转 Excel](https://mp.weixin.qq.com/s?__biz=MjM5NjMyMjUzNg==&mid=2448130701&idx=1&sn=10919f10f4006a18579d6bbc13a3f15c&chksm=b2f42f0a8583a61c9421711b7a542f2a1c8cfe114ace3ea1ba8cefc26bdde8eb36755a7404ae&scene=0#rd)
+   - 参考[Python 玩转 Excel](https://mp.weixin.qq.com/s?__biz=MjM5NjMyMjUzNg==&mid=2448130701&idx=1&sn=10919f10f4006a18579d6bbc13a3f15c&chksm=b2f42f0a8583a61c9421711b7a542f2a1c8cfe114ace3ea1ba8cefc26bdde8eb36755a7404ae&scene=0#rd)
 
 ## Numpy
 
@@ -279,6 +292,26 @@ file_name = os.listdir(sources_path)  # 所有文件名
    | 1    | Series    | 可以看作有标签的一维数组，是scalars的集合，也是DataFrame的元素 |
    | 2    | DataFrame | 一般是二维标签，尺寸可变的表格结构，具有潜在的异质型列         |
 
+   1. DataFrame信息
+
+        ```python
+        df.info()  # 信息
+        len(df)  # 行数
+        len(df.columns)  # 列数
+
+        # 设置index标题
+        df3.index.name = 'index_name'
+
+        # 列重命名
+        df.columns = ['new_col1', 'new_col2']
+        ```
+
+   2. Series信息
+
+        ```python
+        len(s)  # 长度
+        ```
+
 2. 数据格式转换：数据格式不对可能会造成多种问题，比如计算、绘图(这些操作均不会改变原数据)
    1. astype 转换成其他类型
 
@@ -301,7 +334,7 @@ file_name = os.listdir(sources_path)  # 所有文件名
         ```
 
    4. to_timedelta 相对日期
-   5. tolist() Series转list
+   5. tolist() Series转list(DataFram)
 
         ```python
         list1 = Series.tolist()
@@ -313,7 +346,7 @@ file_name = os.listdir(sources_path)  # 所有文件名
    # 含空数据true，不含空数据false
    df.isnull().any()
    # 判断数据是否为nan，不能用==
-   if df[] is np.nan  
+   if df[] is np.nan
    ```
 
 4. 创建DataFrame
@@ -355,16 +388,11 @@ file_name = os.listdir(sources_path)  # 所有文件名
     df['A']  # 获取A列数据
     df.A  # 同上
     df['20130102':'20130104']  # 通过[]选择，对行切片
-    # 根据数据大小选择
-    new_df = df[df['tm1'] >= '2018-01-01 00:00:00']
 
     # 按位置索引
-    df.iloc[3]  # 显示第四列数据
+    df.iloc[3]  # 显示第四行数据
     df.iloc[0:3, 1:]  # 类似numpy
     df.iloc[[1, 2, 4], [0, 2]]  # 类似numpy
-
-    # 布尔索引
-    df[df.A > 0]
 
     # loc通过标签访问，iloc通过行列号访问
     # 获取a，b列的数据
@@ -373,13 +401,23 @@ file_name = os.listdir(sources_path)  # 所有文件名
     new_df = df.iloc[:, 1]  # Series
     # 还可以直接访问列标签
     new_df = df['a'][0:3000]  # Series
+
+    # 布尔索引
+    df[df.A > 0]
+    new_df = df[df['tm1'] >= '2018-01-01 00:00:00']
+    # 选择并选取指定行
+    df.loc[df['tm1'] >= '2019-01-01 00:00:00', ['tm1', 'hv']]
+    df[df.tm1 >= '2019-01-01 00:00:00']['tm1', 'hv']
+    # 多条件筛选
+    df[(df['a'] >= 10) & (df['b'] >= 10)]  # 与
+    df[(df.a >= 10) | (df.b >= 10)]  # 或
     ```
 
 7. 生成数据
    1. date_range：生成等间隔时间序列
 
         ```python
-        pd.date_range(start,end,pediods)
+        pd.date_range(start, end, pediods)
         ```
 
 8. 数据排序
@@ -389,12 +427,23 @@ file_name = os.listdir(sources_path)  # 所有文件名
         Series.sort_values()  # 升序排列
         ```
 
-9. DataFrame合并
+   2. DataFrame排序
+
+        ```python
+        DataFrame.sort_values(sub[i], ascending=False)  # 降序排列
+        ```
+
+9. DataFrame合并(merge, concat)
 
     ```python
-    # 合并df1，df2，以左侧文件为标准，合并依据为key
+    # 数据左右合并，合并依据为key
+    # how = inner, outer, left, right 默认inner
+    # 需要注意，有时合并数据会造成意外的重复
     df3 = pd.merge(df1, df2, how='left', on='key1')  # 单个key
     df3 = pd.merge(df1, df2, how='left', on=['key1','key2'])  # 多key
+
+    # 数据拼接，列不变，行叠加
+    df3 = concat([df1, df2])
     ```
 
 ### pandas 读写文件
@@ -405,8 +454,8 @@ file_name = os.listdir(sources_path)  # 所有文件名
     # header:告诉pandas那些是数据的列名，没有则设为None
     # encoding='gbk'防止出现乱码
 
-    # 读取csv文件，表头第0行，文件gbk编码
-    df = pd.read_csv('filename.csv', header=0, encoding='gbk')
+    # 读取csv文件，表头第0行，文件gbk编码，指定字段的数据类型
+    df = pd.read_csv('filename.csv', header=0, encoding='gbk', dtype={'id': int, 'name': string})
 
     # 读取excel文件，表头第0行，表sheet1，选择第0，1列数据
     df1 = pd.read_excel('filename.xlsx', header=0,sheet_name='Sheet1', usecols=[0, 1])
@@ -487,8 +536,12 @@ file_name = os.listdir(sources_path)  # 所有文件名
 3. 设置坐标限位
 
     ```python
+    # 数值型
     plt.xlim(0, 24)
     plt.ylim(0, 10)
+
+    # 日期型
+    plt.xlim(datetime.strptime('2019-05-12', '%Y-%m-%d'), datetime.strptime('2019-05-15', '%Y-%m-%d'))
     ```
 
 4. 设置轴标签
