@@ -277,6 +277,7 @@ else:
     import numpy as np
     # 增
     data = np.append(data, a)  # 将a添加到data中
+    np.insert()  # 插入
     # 删
     data = np.delete(data, [0])
     ```
@@ -304,6 +305,10 @@ else:
 
         # 列重命名
         df.columns = ['new_col1', 'new_col2']
+        df.rename(columns={str1: str2}, inplace=True)
+
+        # 调整列的顺序
+        df[['new_col2', 'new_col1']]
         ```
 
    2. Series信息
