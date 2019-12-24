@@ -1,40 +1,4 @@
-# Python 笔记
-
-<!-- TOC -->
-
-1. [Python 环境](#python-环境)
-    1. [更换国内镜像](#更换国内镜像)
-    2. [Python 创建虚拟环境](#python-创建虚拟环境)
-        1. [Windows 平台](#windows-平台)
-        2. [linux 平台](#linux-平台)
-2. [数据处理](#数据处理)
-    1. [数字处理](#数字处理)
-    2. [字符串处理](#字符串处理)
-3. [OS](#os)
-    1. [文件处理](#文件处理)
-4. [文件读写](#文件读写)
-    1. [csv 文件](#csv-文件)
-    2. [Excel(xls/xlsx) 文件读写](#excelxlsxlsx-文件读写)
-5. [Numpy](#numpy)
-    1. [ndarray](#ndarray)
-6. [Pandas](#pandas)
-    1. [Pandas 数据处理](#pandas-数据处理)
-    2. [pandas 读写文件](#pandas-读写文件)
-    3. [pandas 其他](#pandas-其他)
-    4. [pandas 错误处理](#pandas-错误处理)
-7. [Matplotlib 绘图](#matplotlib-绘图)
-    1. [绘图种类](#绘图种类)
-    2. [坐标轴处理](#坐标轴处理)
-    3. [图中点、文字处理](#图中点文字处理)
-    4. [图片输出设置](#图片输出设置)
-8. [Seaborn 数据可视化](#seaborn-数据可视化)
-9. [python 多线程](#python-多线程)
-10. [SQL 使用 (MySQL)](#sql-使用-mysql)
-11. [Python 命名规则](#python-命名规则)
-    1. [命名约定](#命名约定)
-    2. [应避免的命名](#应避免的命名)
-
-<!-- /TOC -->
+# Python 笔记（持续更新）
 
 ## Python 环境
 
@@ -59,15 +23,16 @@
     django  django网站框架
     pandas 数据分析工具
     virtualenv 虚拟环境
+    paramiko ssh工具
 
     ```
 
 3. 升级库
 
-```cmd
-pip list --outdate  // 显示可升级库
-pip install --upgrade xxx  // 升级库
-```
+    ```cmd
+    pip list --outdate  // 显示可升级库
+    pip install --upgrade xxx  // 升级库
+    ```
 
 ### Python 创建虚拟环境
 
@@ -87,20 +52,20 @@ pip install --upgrade xxx  // 升级库
 
 ## 数据处理
 
-### 数字处理
+### 数字(Number)
 
 1. 保留4位小数位
 
-```python
-# 百分号
-print('%.4' % num)
+    ```python
+    # 百分号
+    print('%.4' % num)
 
-# round
-num = round(num, 4)
+    # round
+    num = round(num, 4)
 
-```
+    ```
 
-### 字符串处理
+### 字符串(String)
 
 ```python
 # 1. 类型转换:
@@ -110,7 +75,7 @@ str2 = str(str1)
 str3 = str1 + str2
 
 # 3. 字符串截取：
-str4 = str1[m:n]  # 符号表示从后算起
+str4 = str1[m:n]  # 负号表示从后算起
 
 # 4. 创建全0数组
 import numpy as np
@@ -127,6 +92,125 @@ str1.replace('a', 'b')
 str1.find('a')  # 返回a所在位置
 
 ```
+
+### 列表(List)
+
+1. 创建和访问
+
+    ```python
+    # 创建列表
+    list1 = ['apple', 'banana', 123, 456]
+    # 创建空列表
+    list2 = []
+
+    # 列表访问
+    print(list1[2])  # 123
+    print(list1[-1])  # 456
+    print(list1[0:2])  # ['apple', 'banana']
+    print(list1[1:])  # ['banana', 123, 456]
+
+    # 创建二维列表
+    list3 = [[] for x in range(3)]  # [[], [], []]
+    list3[1].append(3)  # [[], [3], []]
+    ```
+
+2. 函数和方法
+
+    ```python
+    len(list1)  # 4
+    max(list1)  # 仅限数字
+    min(list1)  # 同上
+    list(seq)  # 将元组转换成列表
+
+    list1.append('apple')  # 添加元素
+    list1.count('apple')  # 统计某个元素出现次数
+    list1.
+    ```
+
+### 元组(Tupple)
+
+### 集合(Set)
+
+### 字典(Dictionary)
+
+### 日期处理
+
+1. 日期类型datetime
+   1. datetime.date——日期，属性：year，month，day
+   2. datetime.time——时间，属性：hour，minute，second，microsecond，tzinfo
+   3. datetime.datetime——日期时间
+   4. datetime.timedelta——时间间隔，精确到微秒
+   5. datetime.tzinfo——时区信息对象的抽象基类。 datetime和time类使用它们来提供可自定义的时间调整概念（例如，考虑时区和/或夏时制）
+   6. datetime.timezone——一个实现了 tzinfo 抽象基类的子类，用于表示相对于 世界标准时间（UTC）的偏移量。
+2. 创建日期
+
+    ```python
+    # 导入datetime包
+    from datetime import datetime
+
+    date1 = datetime(2016, 2, 28, 0, 0, 0)
+    # 时间为00:00:00时，可以省略时间，即
+    print(datetime(2016, 2, 28))  # 2016-02-28 00:00:00
+
+    print(date1)  # 2016-02-28 00:00:00
+    print(date1.date())  # 2016-02-28
+    print(date1.time())  # 00:00:00
+    print(date1.day)  # 28
+
+    ```
+
+3. 日期增减：timedelta or dateutil
+   1. datetime.timedelta
+      1. 参数：weeks, days, hours, minutes, seconds
+
+        ```python
+        # 导入timedelta模块
+        from datetime import timedelta
+
+        date1 = datetime(2016, 2, 28, 0, 0, 0)
+
+        # 日期增加
+        print(date1 + timedelta(days=1))  # 2016-02-29 00:00:00
+        print(date1 + timedelta(days=2))  # 2016-03-01 00:00:00
+        # 日期减小
+        print(date1 + timedelta(days=-1))  # 2016-02-27 00:00:00
+        print(date1 - timedelta(days=1))  # 2016-02-27 00:00:00
+        ```
+
+   2. dateutil.relativedelta
+      1. 参数（绝对值，直接改变日期值）：year, month, day, hour, minute, second, microsecond
+      2. 参数（相对值，日期增减）years, months, weeks, days, hours, minutes, seconds, microseconds
+
+        ```python
+        from datetime import datetime
+        from dateutil.relativedelta import relativedelta
+
+        day1 = datetime(2019, 2, 1)
+        print(day1 + relativedelta(month=10))  # 2019-10-01 00:00:00
+        print(day1 + relativedelta(months=10))  # 2019-12-01 00:00:00
+        ```
+
+   3. 计算日期差值
+
+        ```python
+        day1 = datetime(2019, 2, 1)
+        day2 = datetime(2019, 5, 1)
+        print((day2-day1).days)  # 89
+
+        day1 = datetime(2019, 2, 1, 0, 0, 0)
+        day2 = datetime(2019, 2, 2, 1, 0, 0)
+        print((day2 - day1).seconds)  # 3600，与日期无关
+        ```
+
+4. 程序计时
+
+    ```python
+    from time import process_time, perf_counter
+    # 不会计算sleep()时间
+    print(process_time())
+    # 会计算sleep()时间
+    print(perf_counter())
+    ```
 
 ## OS
 
@@ -147,6 +231,9 @@ if not os.path.exists(path):
     os.makedirs(path)
 else:
     print('folder exist')
+
+# 重命名文件
+os.rename(old_name, new_name)
 ```
 
 ## 文件读写
@@ -315,6 +402,7 @@ else:
 
         ```python
         len(s)  # 长度
+        print(s.iloc[3])  # 访问第4条数据
         ```
 
 2. 数据格式转换：数据格式不对可能会造成多种问题，比如计算、绘图(这些操作均不会改变原数据)
@@ -381,7 +469,7 @@ else:
 
     df.describe()  # 显示数据的快速统计摘要
     df.T  # 转置数据
-    df.sort_index(axis=1, ascending=False)  # 按轴排序
+    df.sort_index(axis=1, ascending=False)  # 按轴排序，降序
     df.sort_values(by='B')  # 按值排序
 
    ```
@@ -425,11 +513,23 @@ else:
         pd.date_range(start, end, pediods)
         ```
 
-8. 数据排序
+8. 数据计算
+
+    ```python
+    df = pd.read_csv(path, dtype=float)
+    # 求列平均值
+    df['A'].mean()  # 求A列平均值
+    df.mean()  # 求每一列的平均值
+    # 求行平均值
+    df.mean(1)
+
+    ```
+
+9. 数据排序
    1. Series排序
 
         ```python
-        Series.sort_values()  # 升序排列
+        Series.sort_values(inplace=True)  # 升序排列，替换原Series
         ```
 
    2. DataFrame排序
@@ -438,7 +538,7 @@ else:
         DataFrame.sort_values(sub[i], ascending=False)  # 降序排列
         ```
 
-9. DataFrame合并(merge, concat)
+10. DataFrame合并(merge, concat)
 
     ```python
     # 数据左右合并，合并依据为key
@@ -562,7 +662,7 @@ else:
     plt.xticks(x_axis, rotation=15)  # 刻度倾斜
     ```
 
-### 图中点、文字处理
+### 图片输出设置
 
 1. 中文编码问题
 
@@ -571,15 +671,13 @@ else:
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
     ```
 
-### 图片输出设置
-
-1. 图片大小设置
+2. 图片大小设置
 
     ```python
     plt.rcParams['figure.figsize'] = (12, 8)
     ```
 
-2. 图片保存
+3. 图片保存
 
     ```python
     plt.savefig("Picture.png")  # 不支持jpg
@@ -655,3 +753,19 @@ else:
 1. 单字符名称, 除了计数器和迭代器.
 2. 包/模块名中的连字符(-)
 3. 双下划线开头并结尾的名称(Python保留, 例如__init__)
+
+## Python小技巧
+
+1. 可变进度百分比
+
+    ```python
+    import time
+    import sys
+
+    for i in range(10):
+        sys.stdout.write("\r%.2f%%" % (i/10*100))
+        sys.stdout.flush()
+        time.sleep(.5)
+
+    sys.stdout.write("\r%.2f%%" % 100)
+    ```

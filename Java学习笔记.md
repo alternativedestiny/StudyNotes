@@ -7,6 +7,7 @@
         1. [字符Character](#字符character)
         2. [字符串](#字符串)
     2. [数组](#数组)
+    3. [print的几种方法](#print的几种方法)
 
 <!-- /TOC -->
 
@@ -95,3 +96,31 @@
         System.out.println(value);
     }
     ```
+
+### print的几种方法
+
+- print 一般标准输出，不换行
+- println 和print一样，但是会换行
+- printf 格式化输出，不换行
+  - 'd' 整数 结果被格式化为十进制整数
+  - 'o' 整数 结果被格式化为八进制整数
+  - 'x', 'X' 整数 结果被格式化为十六进制整数
+  - 'e', 'E' 浮点 结果被格式化为用计算机科学记数法表示的十进制数
+  - 'f' 浮点 结果被格式化为十进制数
+  - 'g', 'G' 浮点 根据精度和舍入运算后的值，使用计算机科学记数形式或十进制格式对结果进行格式化。
+  - 'a', 'A' 浮点 结果被格式化为带有效位数和指数的十六进制浮点数
+
+```java
+public static void main(String[] args) {
+    double i = 3.14;
+    System.out.print("打印i：" + i);
+    System.out.println("打印i：" + i);
+    System.out.printf("打印i：%f", i);
+    System.out.printf("打印i：%f \n", i);  // \n换行
+    System.out.printf("打印i：%.3f \n", i);  // 保留3位小数
+}
+// 输出
+// 打印i：3.14打印i：3.14
+// 打印i：3.140000
+// 打印i：3.140
+```
