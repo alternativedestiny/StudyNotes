@@ -50,6 +50,50 @@
 2. 创建虚拟环境
 3. 添加环境变量
 
+## miniconda环境
+
+### 安装miniconda(linux)
+   1. 安装miniconda：`bash miniconda3_xxx.sh`
+   2. 配置环境变量：
+
+        ```cmd
+        // 打开配置文件
+        ~/miniconda3/bin$ sudo gedit ~/.bashrc
+        // 在末尾添加
+        export PATH=~/anaconda3/bin:$PATH
+        // 生效
+        source ~/.bashrc
+        // 验证
+        conda --version
+        pip --version
+        ```
+
+   3. 安装文件
+
+        ```cmd
+        // 更新
+        conda upgrade --all
+        ```
+
+   4. 创建环境
+
+        ```cmd
+        // 配置完环境变量后会生成一个base的环境
+        
+        // 创建一个名为test的包含python3的新环境
+        conda create --name test python=3  
+
+        //列出所有环境
+        conda info --envs
+        ```
+
+   5. 环境激活与注销
+
+        ```cmd
+        conda active base  // 激活
+        conda deactive  // 注销
+        ```
+
 ## 数据处理
 
 ### 数字(Number)
@@ -59,10 +103,8 @@
     ```python
     # 百分号
     print('%.4' % num)
-
     # round
     num = round(num, 4)
-
     ```
 
 ### 字符串(String)
