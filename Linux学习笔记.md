@@ -26,6 +26,15 @@
 
 <!-- /TOC -->
 
+## 系统安装及配置（Ubuntu）
+
+1. 更换软件源
+   1. 备份原始源文件/etc/apt/sources.list
+        `sudo cp sources.list sources_backup.list`
+   2. 更换[清华源](https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/)
+   3. 更新软件列表
+        `sudo apt-get update`
+
 ## 概念
 
 1. BASH（Bourne Again SHell）：bash 是最初 Unix 上由 Steve Bourne 写成 shell 程序 sh 的增强版
