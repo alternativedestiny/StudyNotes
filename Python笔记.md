@@ -73,7 +73,7 @@
     pip install --upgrade xxx  // 升级库
     ```
 
-4. 下载安装包（离线安装）
+4. 下载离线安装包
 
     ```cmd
     // 在目标路径下进入cmd
@@ -104,10 +104,10 @@
 
 ### 2.1. 安装miniconda(linux)
 
-   1. 安装miniconda：`bash miniconda3_xxx.sh`
+   1. 安装miniconda：`bash miniconda3_xxx.sh`，根据提示一路yes
    2. 配置环境变量：
 
-        ```cmd
+        ```linux
         // 打开配置文件
         ~/miniconda3/bin$ sudo gedit ~/.bashrc
         // 在末尾添加
@@ -121,14 +121,14 @@
 
    3. 安装文件
 
-        ```cmd
+        ```linux
         // 更新
         conda upgrade --all
         ```
 
    4. 创建环境
 
-        ```cmd
+        ```linux
         // 配置完环境变量后会生成一个base的环境
 
         // 创建一个名为test的包含python3的新环境
@@ -140,7 +140,7 @@
 
    5. 环境激活与注销
 
-        ```cmd
+        ```linux
         conda active base  // 激活
         conda deactive  // 注销
         ```
@@ -222,6 +222,7 @@ str1.find('a')  # 返回a所在位置
     list1.remove('banana')  # 移除列表中第一个匹配项
     list1.reverse()  # 反转列表
     list1.sort(cmp, key, reverse)  # 排序
+    list1 += list2  # 拼接
     ```
 
 ### 3.4. 元组(Tupple)
@@ -319,16 +320,6 @@ str1.find('a')  # 返回a所在位置
         day2 = datetime(2019, 2, 2, 1, 0, 0)
         print((day2 - day1).seconds)  # 3600，与日期无关
         ```
-
-4. 程序计时
-
-    ```python
-    from time import process_time, perf_counter
-    # 不会计算sleep()时间
-    print(process_time())
-    # 会计算sleep()时间
-    print(perf_counter())
-    ```
 
 ## 4. OS
 
@@ -476,7 +467,7 @@ os.rename(old_name, new_name)
 
 ### 6.1. ndarray
 
-1. [增删改查](https://blog.csdn.net/Tyro_java/article/details/81052638)
+1. 增删改查，[参考](https://blog.csdn.net/Tyro_java/article/details/81052638)
 
     ```python
     import numpy as np
@@ -622,6 +613,13 @@ os.rename(old_name, new_name)
     # 多条件筛选
     df[(df['a'] >= 10) & (df['b'] >= 10)]  # 与
     df[(df.a >= 10) | (df.b >= 10)]  # 或
+
+    # 根据条件筛选多行数据
+    list1 = ['a', 'b', 'c']
+    df2 = df[df['name'].isin(list1)]  # 选择name列=a,b,c的数据
+
+    # 筛选含有指定字段的数据
+    df2 = df[df['name'].str.contains('a')]  # 选择name列包含字符a的数据
     ```
 
 7. 生成数据
@@ -666,7 +664,7 @@ os.rename(old_name, new_name)
     df3 = pd.merge(df1, df2, how='left', on=['key1','key2'])  # 多key
 
     # 数据拼接，列不变，行叠加
-    df3 = concat([df1, df2])
+    df3 = pd.concat([df1, df2])
     ```
 
 ### 7.2. pandas 读写文件
@@ -880,10 +878,23 @@ os.rename(old_name, new_name)
     import time
     import sys
 
-    for i in range(10):
-        sys.stdout.write("\r%.2f%%" % (i/10*100))
+    # 输出进度百分比 rate_of_process
+    # r:当前步数，p:总步数，s:文本
+    def rop(r, p, s='rate of process'):
+        # \r 退格到行首
+        str1 = s + ': ' + str(round((r / p) * 100, 2)) + '%'
+        sys.stdout.write('\r%s' % str1)
         sys.stdout.flush()
-        time.sleep(.5)
+        if r == p:
+            sys.stdout.write('\n')
+    ```
 
-    sys.stdout.write("\r%.2f%%" % 100)
+2. 程序计时
+
+    ```python
+    from time import process_time, perf_counter
+    # 不会计算sleep()时间
+    print(process_time())
+    # 会计算sleep()时间
+    print(perf_counter())
     ```
