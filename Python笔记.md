@@ -1,12 +1,11 @@
 # Python 笔记（持续更新）
 
-- [1. Python 环境](#1-python-环境)
+- [1. Python 安装](#1-python-安装)
   - [1.1. 更换国内镜像](#11-更换国内镜像)
   - [1.2. Python 创建虚拟环境](#12-python-创建虚拟环境)
     - [1.2.1. Windows 平台](#121-windows-平台)
     - [1.2.2. linux 平台](#122-linux-平台)
-- [2. miniconda环境](#2-miniconda环境)
-  - [2.1. 安装miniconda(linux)](#21-安装minicondalinux)
+- [2. miniconda 安装](#2-miniconda-安装)
 - [3. 数据处理](#3-数据处理)
   - [3.1. 数字(Number)](#31-数字number)
   - [3.2. 字符串(String)](#32-字符串string)
@@ -39,7 +38,7 @@
   - [12.2. 应避免的命名](#122-应避免的命名)
 - [13. Python小技巧](#13-python小技巧)
 
-## 1. Python 环境
+## 1. Python 安装
 
 ### 1.1. 更换国内镜像
 
@@ -63,6 +62,7 @@
     pandas 数据分析工具
     virtualenv 虚拟环境
     paramiko ssh工具
+    jaydebeapi 通过java的jdbc来连接数据库
 
     ```
 
@@ -100,50 +100,48 @@
 2. 创建虚拟环境
 3. 添加环境变量
 
-## 2. miniconda环境
+## 2. miniconda 安装
 
-### 2.1. 安装miniconda(linux)
+1. 安装miniconda：`bash miniconda3_xxx.sh`，根据提示一路yes
+2. 配置环境变量：
 
-   1. 安装miniconda：`bash miniconda3_xxx.sh`，根据提示一路yes
-   2. 配置环境变量：
+     ```linux
+     // 打开配置文件
+     ~/miniconda3/bin$ sudo gedit ~/.bashrc
+     // 在末尾添加
+     export PATH=~/anaconda3/bin:$PATH
+     // 生效
+     source ~/.bashrc
+     // 验证
+     conda --version
+     pip --version
+     ```
 
-        ```linux
-        // 打开配置文件
-        ~/miniconda3/bin$ sudo gedit ~/.bashrc
-        // 在末尾添加
-        export PATH=~/anaconda3/bin:$PATH
-        // 生效
-        source ~/.bashrc
-        // 验证
-        conda --version
-        pip --version
-        ```
+3. 安装文件
 
-   3. 安装文件
+     ```linux
+     // 更新
+     conda upgrade --all
+     ```
 
-        ```linux
-        // 更新
-        conda upgrade --all
-        ```
+4. 创建环境
 
-   4. 创建环境
+     ```linux
+     // 配置完环境变量后会生成一个base的环境
 
-        ```linux
-        // 配置完环境变量后会生成一个base的环境
+     // 创建一个名为test的包含python3的新环境
+     conda create --name test python=3  
 
-        // 创建一个名为test的包含python3的新环境
-        conda create --name test python=3  
+     //列出所有环境
+     conda info --envs
+     ```
 
-        //列出所有环境
-        conda info --envs
-        ```
+5. 环境激活与注销
 
-   5. 环境激活与注销
-
-        ```linux
-        conda active base  // 激活
-        conda deactive  // 注销
-        ```
+     ```linux
+     conda active base  // 激活
+     conda deactive  // 注销
+     ```
 
 ## 3. 数据处理
 
@@ -505,6 +503,9 @@ os.rename(old_name, new_name)
 
         # 调整列的顺序
         df[['new_col2', 'new_col1']]
+
+        # 重置index，让index变成0，1，2....
+        df.reset_index(drop=True, inplace=True)
         ```
 
    2. Series信息
@@ -545,7 +546,7 @@ os.rename(old_name, new_name)
 3. 检测数据是否有空值(Nan)
 
    ```python
-   # 含空数据true，不含空数据false
+   # 含空数据返回true，不含空数据返回false
    df.isnull().any()
    # 判断数据是否为nan，不能用==
    if df[] is np.nan
