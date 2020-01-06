@@ -5,7 +5,7 @@
   - [1.2. Python 创建虚拟环境](#12-python-创建虚拟环境)
     - [1.2.1. Windows 平台](#121-windows-平台)
     - [1.2.2. linux 平台](#122-linux-平台)
-- [2. miniconda 安装](#2-miniconda-安装)
+- [2. miniconda 环境配置](#2-miniconda-环境配置)
 - [3. 数据处理](#3-数据处理)
   - [3.1. 数字(Number)](#31-数字number)
   - [3.2. 字符串(String)](#32-字符串string)
@@ -31,6 +31,9 @@
   - [8.2. 坐标轴处理](#82-坐标轴处理)
   - [8.3. 图片输出设置](#83-图片输出设置)
 - [9. Seaborn 数据可视化](#9-seaborn-数据可视化)
+- [Keras &amp; Tensorflow](#keras-amp-tensorflow)
+  - [Tensorflow 安装](#tensorflow-安装)
+    - [Miniconda环境（Windows）](#miniconda环境windows)
 - [10. python 多线程](#10-python-多线程)
 - [11. SQL 使用 (MySQL)](#11-sql-使用-mysql)
 - [12. Python 命名规则](#12-python-命名规则)
@@ -100,7 +103,7 @@
 2. 创建虚拟环境
 3. 添加环境变量
 
-## 2. miniconda 安装
+## 2. miniconda 环境配置
 
 1. 安装miniconda：`bash miniconda3_xxx.sh`，根据提示一路yes
 2. 配置环境变量：
@@ -117,30 +120,45 @@
      pip --version
      ```
 
-3. 安装文件
+3. 换源
+
+    ```linux
+    // 清华源
+    // 任意目录下编辑.condarc文件
+    vi ~/.condarc
+    // 添加清华源，参考清华源官网
+    // 显示源
+    conda config --show-sources
+    ```
+
+4. 安装文件
 
      ```linux
      // 更新
      conda upgrade --all
      ```
 
-4. 创建环境
+5. 创建环境
+   1. 创建虚拟环境
+
+        ```linux
+        // 配置完环境变量后会生成一个base的环境
+
+        // 创建一个名为test的包含python3的新环境
+        conda create --name test python=3  
+
+        //列出所有环境
+        conda info --envs
+        ```
+
+   2. 创建虚拟环境失败，出现`an unexpected error has occurred`问题，可能是源文件出现问题，需要删除`.condarc`文件
+
+6. 环境激活与注销
 
      ```linux
-     // 配置完环境变量后会生成一个base的环境
-
-     // 创建一个名为test的包含python3的新环境
-     conda create --name test python=3  
-
-     //列出所有环境
-     conda info --envs
-     ```
-
-5. 环境激活与注销
-
-     ```linux
-     conda active base  // 激活
-     conda deactive  // 注销
+     conda active base  // 激活base环境
+     conda deactive  // 注销当前环境
+     conda env remove -n test  // 删除test环境
      ```
 
 ## 3. 数据处理
@@ -801,6 +819,23 @@ os.rename(old_name, new_name)
     ```
 
 ## 9. Seaborn 数据可视化
+
+## Keras & Tensorflow
+
+### Tensorflow 安装
+
+#### Miniconda环境（Windows）
+
+1. 进入cmd命令行
+2. 创建一个虚拟环境 `conda create`（非必须）
+3. 激活虚拟环境 `conda activate`
+4. 安装Tensorflow `pip install tensorflow`
+5. 测试
+
+    ```python
+    import tensorflow as tf
+    print(tf.__version__)  # 2.0.0
+    ```
 
 ## 10. python 多线程
 
