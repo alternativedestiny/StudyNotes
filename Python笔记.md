@@ -5,7 +5,7 @@
   - [1.2. Python 创建虚拟环境](#12-python-创建虚拟环境)
     - [1.2.1. Windows 平台](#121-windows-平台)
     - [1.2.2. linux 平台](#122-linux-平台)
-- [2. miniconda 环境配置](#2-miniconda-环境配置)
+- [2. miniconda 环境配置(linux)](#2-miniconda-环境配置linux)
 - [3. 数据处理](#3-数据处理)
   - [3.1. 数字(Number)](#31-数字number)
   - [3.2. 字符串(String)](#32-字符串string)
@@ -14,6 +14,8 @@
   - [3.5. 集合(Set)](#35-集合set)
   - [3.6. 字典(Dictionary)](#36-字典dictionary)
   - [3.7. 日期处理](#37-日期处理)
+    - [3.7.1. datetime](#371-datetime)
+    - [3.7.2. Arrow (pip)](#372-arrow-pip)
 - [4. OS](#4-os)
   - [4.1. 文件处理](#41-文件处理)
 - [5. 文件读写](#5-文件读写)
@@ -31,15 +33,15 @@
   - [8.2. 坐标轴处理](#82-坐标轴处理)
   - [8.3. 图片输出设置](#83-图片输出设置)
 - [9. Seaborn 数据可视化](#9-seaborn-数据可视化)
-- [Keras &amp; Tensorflow](#keras-amp-tensorflow)
-  - [Tensorflow 安装](#tensorflow-安装)
-    - [Miniconda环境（Windows）](#miniconda环境windows)
-- [10. python 多线程](#10-python-多线程)
-- [11. SQL 使用 (MySQL)](#11-sql-使用-mysql)
-- [12. Python 命名规则](#12-python-命名规则)
-  - [12.1. 命名约定](#121-命名约定)
-  - [12.2. 应避免的命名](#122-应避免的命名)
-- [13. Python小技巧](#13-python小技巧)
+- [10. Keras & Tensorflow](#10-keras--tensorflow)
+  - [10.1. Tensorflow 安装](#101-tensorflow-安装)
+    - [10.1.1. Miniconda环境（Windows）](#1011-miniconda环境windows)
+- [11. python 多线程](#11-python-多线程)
+- [12. SQL 使用 (MySQL)](#12-sql-使用-mysql)
+- [13. Python 命名规则](#13-python-命名规则)
+  - [13.1. 命名约定](#131-命名约定)
+  - [13.2. 应避免的命名](#132-应避免的命名)
+- [14. Python小技巧](#14-python小技巧)
 
 ## 1. Python 安装
 
@@ -91,19 +93,19 @@
 
 #### 1.2.1. Windows 平台
 
-1. 安装virtualenv库
+1. 安装virtualenv库 `pip install virtualenv`
 2. 在目标文件夹下进入cmd
-3. `virtualenv venv`创建虚拟环境venv
-4. 在`venv/Scripts`下执行`activate`开启虚拟环境
-5. `deactivate`退出虚拟环境
+3. `virtualenv venv` 创建虚拟环境venv
+4. 在 `venv/Scripts` 下执行 `activate` 开启虚拟环境
+5. 退出虚拟环境 `deactivate`
 
 #### 1.2.2. linux 平台
 
-1. 安装virtualenv库
-2. 创建虚拟环境
+1. 安装virtualenv库 `sudo pip install virtualenv`
+2. 创建虚拟环境`virtualenv venv`
 3. 添加环境变量
 
-## 2. miniconda 环境配置
+## 2. miniconda 环境配置(linux)
 
 1. 安装miniconda：`bash miniconda3_xxx.sh`，根据提示一路yes
 2. 配置环境变量：
@@ -176,31 +178,29 @@
 
 ### 3.2. 字符串(String)
 
-```python
-# 1. 类型转换:
-str2 = str(str1)
+1. 类型转换：`str2 = str(str1)`
+2. 字符串拼接：`str3 = str1 + str2`
+3. 字符串截取：`str4 = str1[m:n]  # 负号表示从后算起`
+4. 字符串分割
 
-# 2. 字符串拼接：
-str3 = str1 + str2
+    ```python
+    # 根据指定字符分割，比如','
+    str2 = str1.split(',')
 
-# 3. 字符串截取：
-str4 = str1[m:n]  # 负号表示从后算起
+    # 多个空格分隔
+    str2 = str1.split()
+    ```
 
-# 4. 创建全0数组
-import numpy as np
-list1 = np.zeros(25, dtype=int)
+5. 字符串转代码
 
-# 5. 字符串转代码
-str1 = "print('hello')"
-eval(str1)  # hello
+    ```python
+    str1 = "print('hello')"
+    eval(str1)  # hello
+    ```
 
-# 6. 字符串替换
-str1.replace('a', 'b')
+6. 字符串替换：`str1.replace('a', 'b')`
 
-# 7.查询字符位置
-str1.find('a')  # 返回a所在位置
-
-```
+7. 查询字符位置：`str1.find('a')  # 返回a所在位置`
 
 ### 3.3. 列表(List)
 
@@ -211,12 +211,18 @@ str1.find('a')  # 返回a所在位置
     list1 = ['apple', 'banana', 123, 456]
     # 创建空列表
     list2 = []
+    # 创建全0列表
+    import numpy as np
+    list1 = np.zeros(25, dtype=int)
 
     # 列表访问
     print(list1[2])  # 123
     print(list1[-1])  # 456
     print(list1[0:2])  # ['apple', 'banana']
     print(list1[1:])  # ['banana', 123, 456]
+
+    # 查询列表元素位置
+    print(list1.index('banana'))  # 1
 
     # 创建二维列表
     list3 = [[] for x in range(3)]  # [[], [], []]
@@ -270,6 +276,8 @@ str1.find('a')  # 返回a所在位置
 
 ### 3.7. 日期处理
 
+#### 3.7.1. datetime
+
 1. 日期类型datetime
    1. datetime.date——日期，属性：year，month，day
    2. datetime.time——时间，属性：hour，minute，second，microsecond，tzinfo
@@ -291,6 +299,10 @@ str1.find('a')  # 返回a所在位置
     print(date1.date())  # 2016-02-28
     print(date1.time())  # 00:00:00
     print(date1.day)  # 28
+
+    # 字符串转日期
+    str1 = '2020-01-01 10:10:10'
+    t = datetime.strptime(str1, '%Y-%m-%d %H:%M:%S')
 
     ```
 
@@ -337,6 +349,48 @@ str1.find('a')  # 返回a所在位置
         print((day2 - day1).seconds)  # 3600，与日期无关
         ```
 
+#### 3.7.2. Arrow (pip)
+
+1. 创建日期
+
+    ```python
+    import arrow
+
+    # 方法1：直接创建日期格式
+    a = arrow.Arrow(2019, 1, 1)
+    print(a)  # 2019-01-01T00:00:00+00:00
+    print(a.date(), a.time())  # 2019-01-01 00:00:00
+
+    # 方法2：字符串转日期
+    t = '2019-01-01'
+    a = arrow.get(t)
+    print(a)  # 2019-01-01T00:00:00+00:00
+    print(a.date(), a.time())  # 2019-01-01 00:00:00
+    ```
+
+2. 日期处理
+
+    ```python
+    import arrow
+
+    # 日期格式化
+    t = arrow.now()
+    print(t)  # 2020-01-13T10:21:26.240147+08:00
+    print(t.timestamp)  # 1578882086
+    print(t.format('YYYY-MM-DD HH:mm:ss'))  # 2020-01-13 10:21:26
+
+    # 修改日期
+    t = t.replace(year=2019)  # 2019-01-13T10:26:26.484236+08:00
+    t = t.shift(months=1, days=-5)  # 2019-02-08T10:28:29.095138+08:00
+
+    # 日期相减
+    t1 = arrow.Arrow(2020, 3, 5)
+    t2 = arrow.Arrow(2020, 1, 10)
+    print(t1 - t2)  # 55 days, 0:00:00
+    print((t1-t2).days)  # 55
+
+    ```
+
 ## 4. OS
 
 ### 4.1. 文件处理
@@ -348,9 +402,9 @@ import os
 sources_path = "./substation"  # 路径
 file_name = os.listdir(sources_path)  # 所有文件名
 
-# 创建文件夹
+# 创建文件夹/文件目录
 path = 'abc/'
-# 检测文件夹是否存在，不存在就创建该文件夹
+# 检测文件夹/文件是否存在，不存在就创建该文件夹
 if not os.path.exists(path):
     print('folder not exist')
     os.makedirs(path)
@@ -710,7 +764,7 @@ os.rename(old_name, new_name)
    | na_valuede=["Na","0"] | Na和0会被认为是NaN            |
    | true_values=["yes"]   | yes被认为True                 |
    | false_value=["no"]    | no被认为False                 |
-   | Skipping line         | 跳过某些行                    |
+   | skiprows=[0,3]        | 跳过第0行和第3行              |
    | MultiIndex            | 支持双列目录                  |
    | sep=':'               | 支持':'等符号作为分隔符的数据 |
    | chunksize=4           | 每4行数据为一组               |
@@ -820,14 +874,14 @@ os.rename(old_name, new_name)
 
 ## 9. Seaborn 数据可视化
 
-## Keras & Tensorflow
+## 10. Keras & Tensorflow
 
-### Tensorflow 安装
+### 10.1. Tensorflow 安装
 
-#### Miniconda环境（Windows）
+#### 10.1.1. Miniconda环境（Windows）
 
 1. 进入cmd命令行
-2. 创建一个虚拟环境 `conda create`（非必须）
+2. 创建一个虚拟环境 `conda create`
 3. 激活虚拟环境 `conda activate`
 4. 安装Tensorflow `pip install tensorflow`
 5. 测试
@@ -837,7 +891,7 @@ os.rename(old_name, new_name)
     print(tf.__version__)  # 2.0.0
     ```
 
-## 10. python 多线程
+## 11. python 多线程
 
 1. 多线程：适用于IO密集型，不适用于CPU密集型。
 2. 代码
@@ -851,7 +905,7 @@ os.rename(old_name, new_name)
     th.start()
     ```
 
-## 11. SQL 使用 (MySQL)
+## 12. SQL 使用 (MySQL)
 
 1. 读取数据
 
@@ -890,9 +944,9 @@ os.rename(old_name, new_name)
 
 3. 更多内容查看MySQL笔记
 
-## 12. Python 命名规则
+## 13. Python 命名规则
 
-### 12.1. 命名约定
+### 13.1. 命名约定
 
 1. 所谓”内部(Internal)”表示仅模块内可用, 或者, 在类内是保护或私有的.
 2. 用单下划线(_)开头表示模块变量或函数是protected的(使用from module import *时不会包含).
@@ -900,13 +954,13 @@ os.rename(old_name, new_name)
 4. 将相关的类和顶级函数放在同一个模块里. 不像Java, 没必要限制一个类一个模块.
 5. 对类名使用大写字母开头的单词(如CapWords, 即Pascal风格), 但是模块名应该用小写加下划线的方式(如lower_with_under.py). 尽管已经有很多现存的模块使用类似于CapWords.py这样的命名, 但现在已经不鼓励这样做, 因为如果模块名碰巧和类名一致, 这会让人困扰.
 
-### 12.2. 应避免的命名
+### 13.2. 应避免的命名
 
 1. 单字符名称, 除了计数器和迭代器.
 2. 包/模块名中的连字符(-)
 3. 双下划线开头并结尾的名称(Python保留, 例如__init__)
 
-## 13. Python小技巧
+## 14. Python小技巧
 
 1. 可变进度百分比
 
