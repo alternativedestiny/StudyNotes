@@ -49,13 +49,13 @@
 
 1. 管理员模式下
 
-    ```cmd
+    ```bash
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
     ```
 
 2. 安装库
 
-    ```cmd
+    ```bash
     pip install
     psutil  电脑监控信息读取
     matplotlib  绘图
@@ -73,14 +73,14 @@
 
 3. 升级库
 
-    ```cmd
+    ```bash
     pip list --outdate  // 显示可升级库
     pip install --upgrade xxx  // 升级库
     ```
 
 4. 下载离线安装包
 
-    ```cmd
+    ```bash
     // 在目标路径下进入cmd
     // 会连同下载所有依赖包
     pip download 包名
@@ -306,7 +306,7 @@
 
     ```
 
-3. 日期增减：timedelta or dateutil
+3. 日期增减：timedelta & dateutil
    1. datetime.timedelta
       1. 参数：weeks, days, hours, minutes, seconds
 
@@ -333,7 +333,9 @@
         from dateutil.relativedelta import relativedelta
 
         day1 = datetime(2019, 2, 1)
+        # 修改
         print(day1 + relativedelta(month=10))  # 2019-10-01 00:00:00
+        # 加减
         print(day1 + relativedelta(months=10))  # 2019-12-01 00:00:00
         ```
 
@@ -387,7 +389,7 @@
     t1 = arrow.Arrow(2020, 3, 5)
     t2 = arrow.Arrow(2020, 1, 10)
     print(t1 - t2)  # 55 days, 0:00:00
-    print((t1-t2).days)  # 55
+    print((t1 - t2).days)  # 55
 
     ```
 
@@ -461,7 +463,7 @@ os.rename(old_name, new_name)
 
    1. 安装库文件
 
-       ```cmd
+       ```bash
        pip install xlrd
        pip install xlwt
        ```
@@ -506,7 +508,7 @@ os.rename(old_name, new_name)
 
    1. 安装库文件
 
-       ```cmd
+       ```bash
        pip install openpyxl
        ```
 
