@@ -201,6 +201,17 @@
 6. 字符串替换：`str1.replace('a', 'b')`
 
 7. 查询字符位置：`str1.find('a')  # 返回a所在位置`
+8. f字符串（python3.6或更高）
+
+    ``` Python
+    name = 'tom'
+    age = 13
+    print(f'{name} is {age} years old.')  # tom is 13 years old.
+
+    a = 1
+    b = 2
+    print(f'{a} + {b} = {a + b}')  # 1 + 2 = 3
+    ```
 
 ### 3.3. 列表(List)
 
