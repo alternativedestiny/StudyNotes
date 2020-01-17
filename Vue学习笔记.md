@@ -1,13 +1,9 @@
-# HTML文件加载vue的方法
+# Vue学习笔记
 
-## *前言*
+- [2. Vue安装方法](#2-vue安装方法)
+- [](#)
 
-## *环境*
-
-- Windows 10
-- Webstorm
-
-## *方法*
+## 2. Vue安装方法
 
 1. 本地安装方法
 
@@ -30,4 +26,4 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     ```
 
-## *备注*
+## 

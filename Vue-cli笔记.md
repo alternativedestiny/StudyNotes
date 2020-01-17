@@ -1,6 +1,6 @@
 # Vue3 学习笔记
 
-## 环境配置
+## Vue-cli 配置
 
 1. 安装[Node](https://nodejs.org/zh-cn/)
 2. 配置cnpm
