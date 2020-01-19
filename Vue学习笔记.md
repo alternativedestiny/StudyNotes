@@ -8,12 +8,18 @@
 - [4. 条件渲染 v-if](#4-条件渲染-v-if)
 - [5. 列表渲染 v-for](#5-列表渲染-v-for)
 - [6. 事件处理](#6-事件处理)
-- [表单输入绑定](#表单输入绑定)
-  - [`v-model`文本绑定](#v-model文本绑定)
-  - [复选框](#复选框)
-  - [单选按钮：把上面的`type`属性值改成`type="radio"`](#单选按钮把上面的type属性值改成typeradio)
-  - [选择框](#选择框)
-- [组件](#组件)
+  - [6.1. 监听事件](#61-监听事件)
+  - [6.2. 事件处理：](#62-事件处理)
+  - [6.3. 内联事件处理](#63-内联事件处理)
+  - [6.4. 事件修饰符](#64-事件修饰符)
+  - [6.5. 按键修饰符](#65-按键修饰符)
+  - [6.6. 系统修饰键](#66-系统修饰键)
+- [7. 表单输入绑定](#7-表单输入绑定)
+  - [7.1. `v-model`文本绑定](#71-v-model文本绑定)
+  - [7.2. 复选框](#72-复选框)
+  - [7.3. 单选按钮：把上面的`type`属性值改成`type="radio"`](#73-单选按钮把上面的type属性值改成typeradio)
+  - [7.4. 选择框](#74-选择框)
+- [8. 组件](#8-组件)
 
 ## 1. Vue 引入方法
 
@@ -251,7 +257,7 @@
 
 ## 6. 事件处理
 
-1. 监听事件
+### 6.1. 监听事件
 
     ``` html
     <div id="app">
@@ -269,7 +275,9 @@
         });
     ```
 
-2. 事件处理：js代码太长不适宜放在v-on中
+### 6.2. 事件处理：
+
+   js代码太长不适宜放在v-on中
 
     ``` html
     <div id="app">
@@ -291,7 +299,7 @@
     });
     ```
 
-3. 内联事件处理
+### 6.3. 内联事件处理
 
     ``` html
     <div id="app">
@@ -310,66 +318,70 @@
         });
     ```
 
-4. 事件修饰符
-   - v-on:click.stop  阻止单点时间继续传播
-   - v-on:submit.prevent  提交事件不在重载页面
-   - v-on:click.capture  事件捕捉模式，即内部元素触发的事件先在此处理，然后交由内部元素处理
-   - v-on:click.self
-   - v-on:click.once  只触发一次
-   - .passive
+### 6.4. 事件修饰符
 
-5. 按键修饰符，可以使用按键码
+- v-on:click.stop  阻止单点时间继续传播
+- v-on:submit.prevent  提交事件不在重载页面
+- v-on:click.capture  事件捕捉模式，即内部元素触发的事件先在此处理，然后交由内部元素处理
+- v-on:click.self
+- v-on:click.once  只触发一次
+- .passive
+
+### 6.5. 按键修饰符
+
+可以使用按键码
+
+``` html
+<div id="app">
+    <!-- 在输入框内按下上下键实现数字增减 -->
+    <input v-on:keyup.up="counter+=1" v-on:keyup.down="counter-=1">add</input>
+    <p>{{ counter }}</p>
+</div>
+```
+
+``` js
+let app = new Vue({
+    el: '#app',
+    data: {
+        counter: 0
+    }
+});
+```
+
+### 6.6. 系统修饰键
+
+1. 只有在按下相应键才出发事件
+   - .ctrl
+   - .alt
+   - .shift
+   - .meta  在windows中对应win键，在mac中对应command
 
     ``` html
-    <div id="app">
-        <!-- 在输入框内按下上下键实现数字增减 -->
-        <input v-on:keyup.up="counter+=1" v-on:keyup.down="counter-=1">add</input>
-        <p>{{ counter }}</p>
-    </div>
+    <!-- ctrl+鼠标左键 增加，ctrl+下 减少 -->
+    <input @click.ctrl="counter+=1" @keyup.ctrl.down="counter-=1">add</input>
     ```
 
-    ``` js
-    let app = new Vue({
-        el: '#app',
-        data: {
-            counter: 0
-        }
-    });
+2. `.ecact` 修饰符：控制系统修饰符组合出发的事件
+
+    ``` html
+    <!-- 即使 Alt 或 Shift 被一同按下时也会触发 -->
+    <button @click.ctrl="onClick">A</button>
+
+    <!-- 有且只有 Ctrl 被按下的时候才触发 -->
+    <button @click.ctrl.exact="onCtrlClick">A</button>
+
+    <!-- 没有任何系统修饰符被按下的时候才触发 -->
+    <button @click.exact="onClick">A</button>
     ```
 
-6. 系统修饰键
-   1. 只有在按下相应键才出发事件
-         - .ctrl
-         - .alt
-         - .shift
-         - .meta  在windows中对应win键，在mac中对应command
+3. 鼠标修饰符，要跟在`@click`后面
+   - .left
+   - .right
+   - .middle
 
-        ``` html
-        <!-- ctrl+鼠标左键 增加，ctrl+下 减少 -->
-        <input @click.ctrl="counter+=1" @keyup.ctrl.down="counter-=1">add</input>
-        ```
+## 7. 表单输入绑定
 
-   2. `.ecact` 修饰符：控制系统修饰符组合出发的事件
-
-        ``` html
-        <!-- 即使 Alt 或 Shift 被一同按下时也会触发 -->
-        <button @click.ctrl="onClick">A</button>
-
-        <!-- 有且只有 Ctrl 被按下的时候才触发 -->
-        <button @click.ctrl.exact="onCtrlClick">A</button>
-
-        <!-- 没有任何系统修饰符被按下的时候才触发 -->
-        <button @click.exact="onClick">A</button>
-        ```
-
-   3. 鼠标修饰符，要跟在`@click`后面
-      - .left
-      - .right
-      - .middle
-
-## 表单输入绑定
-
-### `v-model`文本绑定
+### 7.1. `v-model`文本绑定
 
 ``` html
 <div id="app">
@@ -388,7 +400,7 @@
 </div>
 ```
 
-### 复选框
+### 7.2. 复选框
 
 ``` html
     <div id="app">
@@ -416,9 +428,9 @@ let app = new Vue({
 });
 ```
 
-### 单选按钮：把上面的`type`属性值改成`type="radio"`
+### 7.3. 单选按钮：把上面的`type`属性值改成`type="radio"`
 
-### 选择框
+### 7.4. 选择框
 
 1. 单选
 
@@ -465,4 +477,4 @@ let app = new Vue({
    - v-model.number  将用户输入的值转换成数值类型
    - v-model.trim  自动过滤用户输入的首尾空白字符
 
-## 组件
+## 8. 组件
