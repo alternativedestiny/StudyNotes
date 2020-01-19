@@ -37,7 +37,3 @@
 7. WebStorm配置
 
     ![WebStorm配置](images/微信截图_20200115165217.png)
-
-## 
-
-
