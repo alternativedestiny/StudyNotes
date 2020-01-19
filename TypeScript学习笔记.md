@@ -4,9 +4,9 @@
 - [2. 接口 (Interfaces)](#2-接口-interfaces)
 - [3. 数组](#3-数组)
 - [4. 函数](#4-函数)
-- [类型断言（Type Assertion）](#类型断言type-assertion)
-- [声明文件](#声明文件)
-- [参考](#参考)
+- [5. 类型断言（Type Assertion）](#5-类型断言type-assertion)
+- [6. 声明文件](#6-声明文件)
+- [7. 参考](#7-参考)
 
 ## 1. TypeScript 数据类型
 
@@ -220,7 +220,7 @@
     }
     ```
 
-## 类型断言（Type Assertion）
+## 5. 类型断言（Type Assertion）
 
 1. 类型断言用来手动指定一个值的类型
 
@@ -244,7 +244,7 @@
 
 2. 类型断言 ≠ 类型转换，断言成联合类型外的类型是不允许的
 
-## 声明文件
+## 6. 声明文件
 
 当使用第三方库时，我们需要引用它的声明文件，才能获得对应的代码补全、接口提示等功能。
 
@@ -285,10 +285,6 @@
     - `declare enum` 声明全局枚举类型
     - `declare namespace` 声明（含有子属性的）全局对象
 
-``` ts
-```
-
-
-## 参考
+## 7. 参考
 
 - [TypeScript 入门教程](https://github.com/xcatliu/typescript-tutorial)
