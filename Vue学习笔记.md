@@ -9,7 +9,7 @@
 - [5. 列表渲染 v-for](#5-列表渲染-v-for)
 - [6. 事件处理](#6-事件处理)
   - [6.1. 监听事件](#61-监听事件)
-  - [6.2. 事件处理：](#62-事件处理)
+  - [6.2. 事件处理](#62-事件处理)
   - [6.3. 内联事件处理](#63-内联事件处理)
   - [6.4. 事件修饰符](#64-事件修饰符)
   - [6.5. 按键修饰符](#65-按键修饰符)
@@ -17,9 +17,13 @@
 - [7. 表单输入绑定](#7-表单输入绑定)
   - [7.1. `v-model`文本绑定](#71-v-model文本绑定)
   - [7.2. 复选框](#72-复选框)
-  - [7.3. 单选按钮：把上面的`type`属性值改成`type="radio"`](#73-单选按钮把上面的type属性值改成typeradio)
+  - [7.3. 单选按钮](#73-单选按钮)
   - [7.4. 选择框](#74-选择框)
-- [8. 组件](#8-组件)
+- [8. 组件 Component](#8-组件-component)
+  - [8.1. 组件](#81-组件)
+  - [8.2. 组件命名](#82-组件命名)
+  - [8.3. 全局注册 & 局部注册](#83-全局注册--局部注册)
+  - [Prop 向子组件传递属性](#prop-向子组件传递属性)
 
 ## 1. Vue 引入方法
 
@@ -259,64 +263,64 @@
 
 ### 6.1. 监听事件
 
-    ``` html
-    <div id="app">
-        <button v-on:click="counter+=1">add 1</button>
-        <p>{{ counter }}</p>
-    </div>
-    ```
+``` html
+<div id="app">
+    <button v-on:click="counter+=1">add 1</button>
+    <p>{{ counter }}</p>
+</div>
+```
 
-    ``` js
-    let app = new Vue({
-            el: '#app',
-            data: {
-                counter: 0
-            }
-        });
-    ```
-
-### 6.2. 事件处理：
-
-   js代码太长不适宜放在v-on中
-
-    ``` html
-    <div id="app">
-        <button v-on:click="greet">Greet</button>
-    </div>
-    ```
-
-    ``` js
-    let app = new Vue({
+``` js
+let app = new Vue({
         el: '#app',
         data: {
-            name: "Vue.js"
-        },
-        methods:{
-            greet: function () {
-                alert('hello' + this.name + '!')
-            }
+            counter: 0
         }
     });
-    ```
+```
+
+### 6.2. 事件处理
+
+js代码太长不适宜放在v-on中
+
+``` html
+<div id="app">
+    <button v-on:click="greet">Greet</button>
+</div>
+```
+
+``` js
+let app = new Vue({
+    el: '#app',
+    data: {
+        name: "Vue.js"
+    },
+    methods:{
+        greet: function () {
+            alert('hello' + this.name + '!')
+        }
+    }
+});
+```
 
 ### 6.3. 内联事件处理
 
-    ``` html
-    <div id="app">
-        <button v-on:click="say('hi')">Say</button>
-    </div>
-    ```
+``` html
+<div id="app">
+    <button v-on:click="say('hi')">Say</button>
+</div>
+```
 
-    ``` js
-        let app = new Vue({
-            el: '#app',
-            methods:{
-                say:function (message) {
-                    alert('say' + message)
-                }
+``` js
+    let app = new Vue({
+        el: '#app',
+        methods:{
+            say:function (message) {
+                alert('say' + message)
             }
-        });
-    ```
+        }
+    });
+```
 
 ### 6.4. 事件修饰符
 
@@ -428,7 +432,9 @@ let app = new Vue({
 });
 ```
 
-### 7.3. 单选按钮：把上面的`type`属性值改成`type="radio"`
+### 7.3. 单选按钮
+
+把上面的`type`属性值改成`type="radio"`
 
 ### 7.4. 选择框
 
@@ -477,4 +483,64 @@ let app = new Vue({
    - v-model.number  将用户输入的值转换成数值类型
    - v-model.trim  自动过滤用户输入的首尾空白字符
 
-## 8. 组件
+## 8. 组件 Component
+
+### 8.1. 组件
+
+``` html
+<div id="component">
+    <!-- 这两个组件之间是相互独立的 -->
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+</div>
+```
+
+``` js
+// 组件注册
+Vue.component('button-counter', {
+    // 这里的data必须是一个函数
+    // 否则无法复用，前面声明的两个组件也就变成同一个了
+    data: function () {
+        return { count: 0 }
+    },
+    template: '<button v-on:click="count++"> You clicked me {{ count }} times.</button>'
+})
+new Vue({ el: "#component" })
+```
+
+### 8.2. 组件命名
+
+``` js
+// 全小写命名
+Vue.component('my-component-name', {/*...*/})
+// 首字母大写命名
+Vue.component('MyComponentName', {/*...*/})
+```
+
+### 8.3. 全局注册 & 局部注册
+
+``` js
+// 全局注册
+// 可以用于任何新创建的Vue根实例(new Vue)中
+Vue.component('component-a', { /* ... */ })
+Vue.component('component-b', { /* ... */ })
+Vue.component('component-c', { /* ... */ })
+
+new Vue({ el: '#app' })
+
+// 局部注册
+// 通过一个普通的js对象来定义组件
+var ComponentA = { /* ... */ }
+var ComponentB = { /* ... */ }
+var ComponentC = { /* ... */ }
+// 然后在components选项中定义想要的组件
+new Vue({
+el: '#app',
+components: {
+    'component-a': ComponentA,
+    'component-b': ComponentB
+}
+})
+```
+
+### Prop 向子组件传递属性
