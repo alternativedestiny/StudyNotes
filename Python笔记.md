@@ -1,171 +1,8 @@
-# Python 笔记（持续更新）
+# 1. Python 笔记（持续更新）
 
-- [1. Python 安装](#1-python-安装)
-  - [1.1. 更换国内镜像](#11-更换国内镜像)
-  - [1.2. Python 创建虚拟环境](#12-python-创建虚拟环境)
-    - [1.2.1. Windows 平台](#121-windows-平台)
-    - [1.2.2. linux 平台](#122-linux-平台)
-- [2. miniconda 环境配置(linux)](#2-miniconda-环境配置linux)
-- [3. 数据处理](#3-数据处理)
-  - [3.1. 数字(Number)](#31-数字number)
-  - [3.2. 字符串(String)](#32-字符串string)
-  - [3.3. 列表(List)](#33-列表list)
-  - [3.4. 元组(Tupple)](#34-元组tupple)
-  - [3.5. 集合(Set)](#35-集合set)
-  - [3.6. 字典(Dictionary)](#36-字典dictionary)
-  - [3.7. 日期处理](#37-日期处理)
-    - [3.7.1. datetime](#371-datetime)
-    - [3.7.2. Arrow (pip)](#372-arrow-pip)
-- [4. OS](#4-os)
-  - [4.1. 文件处理](#41-文件处理)
-- [5. 文件读写](#5-文件读写)
-  - [5.1. csv 文件](#51-csv-文件)
-  - [5.2. Excel(xls/xlsx) 文件读写](#52-excelxlsxlsx-文件读写)
-- [6. Numpy](#6-numpy)
-  - [6.1. ndarray](#61-ndarray)
-- [7. Pandas](#7-pandas)
-  - [7.1. Pandas 数据处理](#71-pandas-数据处理)
-  - [7.2. pandas 读写文件](#72-pandas-读写文件)
-  - [7.3. pandas 其他](#73-pandas-其他)
-  - [7.4. pandas 错误处理](#74-pandas-错误处理)
-- [8. Matplotlib 绘图](#8-matplotlib-绘图)
-  - [8.1. 绘图种类](#81-绘图种类)
-  - [8.2. 坐标轴处理](#82-坐标轴处理)
-  - [8.3. 图片输出设置](#83-图片输出设置)
-- [9. Seaborn 数据可视化](#9-seaborn-数据可视化)
-- [10. Keras & Tensorflow](#10-keras--tensorflow)
-  - [10.1. Tensorflow 安装](#101-tensorflow-安装)
-    - [10.1.1. Miniconda环境（Windows）](#1011-miniconda环境windows)
-- [11. python 多线程](#11-python-多线程)
-- [12. SQL 使用 (MySQL)](#12-sql-使用-mysql)
-- [13. Python 命名规则](#13-python-命名规则)
-  - [13.1. 命名约定](#131-命名约定)
-  - [13.2. 应避免的命名](#132-应避免的命名)
-- [14. Python小技巧](#14-python小技巧)
+## 1.1. 数据处理
 
-## 1. Python 安装
-
-### 1.1. 更换国内镜像
-
-1. 管理员模式下
-
-    ```bash
-    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-    ```
-
-2. 安装库
-
-    ```bash
-    pip install
-    psutil  电脑监控信息读取
-    matplotlib  绘图
-    pillow->PIL  图片处理
-    pyserial  串口
-    scipy  科学计算库
-    pymysql  MySQL数据库
-    django  django网站框架
-    pandas 数据分析工具
-    virtualenv 虚拟环境
-    paramiko ssh工具
-    jaydebeapi 通过java的jdbc来连接数据库
-
-    ```
-
-3. 升级库
-
-    ```bash
-    pip list --outdate  // 显示可升级库
-    pip install --upgrade xxx  // 升级库
-    ```
-
-4. 下载离线安装包
-
-    ```bash
-    // 在目标路径下进入cmd
-    // 会连同下载所有依赖包
-    pip download 包名
-
-    // 离线安装
-    pip install --no-index --find-links=file:路径 包名
-    ```
-
-### 1.2. Python 创建虚拟环境
-
-#### 1.2.1. Windows 平台
-
-1. 安装virtualenv库 `pip install virtualenv`
-2. 在目标文件夹下进入cmd
-3. `virtualenv venv` 创建虚拟环境venv
-4. 在 `venv/Scripts` 下执行 `activate` 开启虚拟环境
-5. 退出虚拟环境 `deactivate`
-
-#### 1.2.2. linux 平台
-
-1. 安装virtualenv库 `sudo pip install virtualenv`
-2. 创建虚拟环境`virtualenv venv`
-3. 添加环境变量
-
-## 2. miniconda 环境配置(linux)
-
-1. 安装miniconda：`bash miniconda3_xxx.sh`，根据提示一路yes
-2. 配置环境变量：
-
-     ```linux
-     // 打开配置文件
-     ~/miniconda3/bin$ sudo gedit ~/.bashrc
-     // 在末尾添加
-     export PATH=~/anaconda3/bin:$PATH
-     // 生效
-     source ~/.bashrc
-     // 验证
-     conda --version
-     pip --version
-     ```
-
-3. 换源
-
-    ```linux
-    // 清华源
-    // 任意目录下编辑.condarc文件
-    vi ~/.condarc
-    // 添加清华源，参考清华源官网
-    // 显示源
-    conda config --show-sources
-    ```
-
-4. 安装文件
-
-     ```linux
-     // 更新
-     conda upgrade --all
-     ```
-
-5. 创建环境
-   1. 创建虚拟环境
-
-        ```linux
-        // 配置完环境变量后会生成一个base的环境
-
-        // 创建一个名为test的包含python3的新环境
-        conda create --name test python=3  
-
-        //列出所有环境
-        conda info --envs
-        ```
-
-   2. 创建虚拟环境失败，出现`an unexpected error has occurred`问题，可能是源文件出现问题，需要删除`.condarc`文件
-
-6. 环境激活与注销
-
-     ```linux
-     conda active base  // 激活base环境
-     conda deactive  // 注销当前环境
-     conda env remove -n test  // 删除test环境
-     ```
-
-## 3. 数据处理
-
-### 3.1. 数字(Number)
+### 1.1.1. 数字(Number)
 
 1. 保留4位小数位
 
@@ -176,7 +13,7 @@
     num = round(num, 4)
     ```
 
-### 3.2. 字符串(String)
+### 1.1.2. 字符串(String)
 
 1. 类型转换：`str2 = str(str1)`
 2. 字符串拼接：`str3 = str1 + str2`
@@ -189,6 +26,10 @@
 
     # 多个空格分隔
     str2 = str1.split()
+
+    # 多个分隔符分割，不同分隔符用‘|’隔开
+    import re
+    str2 = re.split(',|!', str1)
     ```
 
 5. 字符串转代码
@@ -213,9 +54,9 @@
     print(f'{a} + {b} = {a + b}')  # 1 + 2 = 3
     ```
 
-### 3.3. 列表(List)
+### 1.1.3. 列表(List)
 
-1. 创建和访问
+1. 创建列表
 
     ```python
     # 创建列表
@@ -225,44 +66,53 @@
     # 创建全0列表
     import numpy as np
     list1 = np.zeros(25, dtype=int)
-
-    # 列表访问
-    print(list1[2])  # 123
-    print(list1[-1])  # 456
-    print(list1[0:2])  # ['apple', 'banana']
-    print(list1[1:])  # ['banana', 123, 456]
-
-    # 查询列表元素位置
-    print(list1.index('banana'))  # 1
+    # 创建序列数组：5,6,7,8,9
+    list2 = [x for x in np.arange(5, 10, 1)]
 
     # 创建二维列表
     list3 = [[] for x in range(3)]  # [[], [], []]
     list3[1].append(3)  # [[], [3], []]
     ```
 
-2. 函数和方法
+2. 计算
 
     ```python
     len(list1)  # 4
-    max(list1)  # 仅限数字
-    min(list1)  # 同上
+    max(list1)  # 列表中最大值，仅限数字
+    min(list1)  # 列表中最小值，仅限数字
     list(seq)  # 将元组转换成列表
+    ```
 
+3. 增删改查
+
+    ```python
+    # 增
     list1.append('apple')  # 添加元素
     list1.count('apple')  # 统计某个元素出现次数
     list1.insert(1, 'cherry')  # 在位置1插入
+
+    # 删
     list1.pop()  # 移除列表中的一个元素，默认最后一个
     list1.remove('banana')  # 移除列表中第一个匹配项
+
+    # 改
     list1.reverse()  # 反转列表
     list1.sort(cmp, key, reverse)  # 排序
     list1 += list2  # 拼接
+
+    # 查
+    print(list1[2])  # 第三个元素
+    print(list1[-1])  # 最后一个元素
+    print(list1[0:2])  # [0,2)的元素
+    print(list1[1:])  # 第2个及以后元素
+    print(list1.index('banana'))  # 查询列表元素位置
     ```
 
-### 3.4. 元组(Tupple)
+### 1.1.4. 元组(Tupple)
 
-### 3.5. 集合(Set)
+### 1.1.5. 集合(Set)
 
-### 3.6. 字典(Dictionary)
+### 1.1.6. 字典(Dictionary)
 
 1. 类似c++中的map，键唯一，值不唯一，如果出现相同的键，后面的会覆盖掉前面的
 
@@ -285,9 +135,9 @@
     d['cherry']
     ```
 
-### 3.7. 日期处理
+### 1.1.7. 日期处理
 
-#### 3.7.1. datetime
+#### 1.1.7.1. datetime
 
 1. 日期类型datetime
    1. datetime.date——日期，属性：year，month，day
@@ -362,7 +212,7 @@
         print((day2 - day1).seconds)  # 3600，与日期无关
         ```
 
-#### 3.7.2. Arrow (pip)
+#### 1.1.7.2. Arrow (pip)
 
 1. 创建日期
 
@@ -404,9 +254,9 @@
 
     ```
 
-## 4. OS
+## 1.2. OS
 
-### 4.1. 文件处理
+### 1.2.1. 文件处理
 
 ```python
 import os
@@ -428,9 +278,9 @@ else:
 os.rename(old_name, new_name)
 ```
 
-## 5. 文件读写
+## 1.3. 文件读写
 
-### 5.1. csv 文件
+### 1.3.1. csv 文件
 
 1. 读取csv文件的两种写法
 
@@ -468,7 +318,7 @@ os.rename(old_name, new_name)
 - wb+：以二进制读写模式打开 (参见 w+ )
 - ab+：以二进制读写模式打开 (参见 a+ )
 
-### 5.2. Excel(xls/xlsx) 文件读写
+### 1.3.2. Excel(xls/xlsx) 文件读写
 
 1. 使用 xlrd/xlwt
 
@@ -546,9 +396,9 @@ os.rename(old_name, new_name)
 
    - 参考[Python 玩转 Excel](https://mp.weixin.qq.com/s?__biz=MjM5NjMyMjUzNg==&mid=2448130701&idx=1&sn=10919f10f4006a18579d6bbc13a3f15c&chksm=b2f42f0a8583a61c9421711b7a542f2a1c8cfe114ace3ea1ba8cefc26bdde8eb36755a7404ae&scene=0#rd)
 
-## 6. Numpy
+## 1.4. Numpy
 
-### 6.1. ndarray
+### 1.4.1. ndarray
 
 1. 增删改查，[参考](https://blog.csdn.net/Tyro_java/article/details/81052638)
 
@@ -561,9 +411,9 @@ os.rename(old_name, new_name)
     data = np.delete(data, [0])
     ```
 
-## 7. Pandas
+## 1.5. Pandas
 
-### 7.1. Pandas 数据处理
+### 1.5.1. Pandas 数据处理
 
 1. pandas数据结构
 
@@ -753,7 +603,7 @@ os.rename(old_name, new_name)
     df3 = pd.concat([df1, df2])
     ```
 
-### 7.2. pandas 读写文件
+### 1.5.2. pandas 读写文件
 
 1. python文件
 
@@ -791,19 +641,19 @@ os.rename(old_name, new_name)
     df.to_csv('name.csv', index=False, delimiter=',')  # 不要用
     ```
 
-### 7.3. pandas 其他
+### 1.5.3. pandas 其他
 
 1. [pandas类SQL查询](https://juejin.im/post/5b5e5b2ee51d4517df1510c7)
 
-### 7.4. pandas 错误处理
+### 1.5.4. pandas 错误处理
 
 1. [`read_csv mixed types`问题](https://www.jianshu.com/p/a70554726f26)
 2. `cannot convert the series to <class 'float'>`问题
    1. 原因：可能是某处变量调用忘了加限定，比如a[i]写成了a
 
-## 8. Matplotlib 绘图
+## 1.6. Matplotlib 绘图
 
-### 8.1. 绘图种类
+### 1.6.1. 绘图种类
 
 1. scatter 散点图
    1. 带颜色区分的散点图
@@ -816,7 +666,7 @@ os.rename(old_name, new_name)
 
 3. bar 柱状图
 
-### 8.2. 坐标轴处理
+### 1.6.2. 坐标轴处理
 
 1. 坐标轴反向
 
@@ -864,7 +714,7 @@ os.rename(old_name, new_name)
     plt.xticks(x_axis, rotation=15)  # 刻度倾斜
     ```
 
-### 8.3. 图片输出设置
+### 1.6.3. 图片输出设置
 
 1. 中文编码问题
 
@@ -885,13 +735,13 @@ os.rename(old_name, new_name)
     plt.savefig("Picture.png")  # 不支持jpg
     ```
 
-## 9. Seaborn 数据可视化
+## 1.7. Seaborn 数据可视化
 
-## 10. Keras & Tensorflow
+## 1.8. Keras & Tensorflow
 
-### 10.1. Tensorflow 安装
+### 1.8.1. Tensorflow 安装
 
-#### 10.1.1. Miniconda环境（Windows）
+#### 1.8.1.1. Miniconda环境（Windows）
 
 1. 进入cmd命令行
 2. 创建一个虚拟环境 `conda create`
@@ -904,7 +754,7 @@ os.rename(old_name, new_name)
     print(tf.__version__)  # 2.0.0
     ```
 
-## 11. python 多线程
+## 1.9. python 多线程
 
 1. 多线程：适用于IO密集型，不适用于CPU密集型。
 2. 代码
@@ -918,7 +768,7 @@ os.rename(old_name, new_name)
     th.start()
     ```
 
-## 12. SQL 使用 (MySQL)
+## 1.10. SQL 使用 (MySQL)
 
 1. 读取数据
 
@@ -957,9 +807,9 @@ os.rename(old_name, new_name)
 
 3. 更多内容查看MySQL笔记
 
-## 13. Python 命名规则
+## 1.11. Python 命名规则
 
-### 13.1. 命名约定
+### 1.11.1. 命名约定
 
 1. 所谓”内部(Internal)”表示仅模块内可用, 或者, 在类内是保护或私有的.
 2. 用单下划线(_)开头表示模块变量或函数是protected的(使用from module import *时不会包含).
@@ -967,13 +817,13 @@ os.rename(old_name, new_name)
 4. 将相关的类和顶级函数放在同一个模块里. 不像Java, 没必要限制一个类一个模块.
 5. 对类名使用大写字母开头的单词(如CapWords, 即Pascal风格), 但是模块名应该用小写加下划线的方式(如lower_with_under.py). 尽管已经有很多现存的模块使用类似于CapWords.py这样的命名, 但现在已经不鼓励这样做, 因为如果模块名碰巧和类名一致, 这会让人困扰.
 
-### 13.2. 应避免的命名
+### 1.11.2. 应避免的命名
 
 1. 单字符名称, 除了计数器和迭代器.
 2. 包/模块名中的连字符(-)
 3. 双下划线开头并结尾的名称(Python保留, 例如__init__)
 
-## 14. Python小技巧
+## 1.12. Python小技巧
 
 1. 可变进度百分比
 
