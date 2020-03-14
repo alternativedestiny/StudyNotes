@@ -11,8 +11,6 @@
    Dense(units, activation='relu', use_base=True)
    ```
 
-   
-
 2. 激活层：对上一层的
 
    ```python
@@ -44,8 +42,36 @@
 
    ```python
    # filters：卷积核的个数
-   Conv2D(filters, kernel_size, strides=(1, 1), padding='valid')
+   # kernel_size：卷积核的大小
+   # strides：步长，二维中默认为(1,1)，一维中默认为1
+   # Padding：补“0”策略，‘valid’指卷积后的大小与原来的大小可以不同，‘same’指卷积后的大小与原来大小一致
+   Conv2D(filters, kernel_size, strides=(1,1), padding='valid')
    ```
+
+7. 池化层：与卷积层一样，最大统计量池化和平均统计量池化也有三种，分别为MaxPooling1D、MaxPooling2D、MaxPooling3D和AveragePooling1D、AveragePooling2D、AveragePooling3D，由于使用和参数基本相同，所以主要以MaxPooling2D进行说明
+
+   ```python
+   # poll_size：长度为2的整数tuple，表示在横向和纵向的下采样因子，一维则为纵向下采样因子
+   MaxPolling(poll_size=(2,2), strides=None, padding='valid')
+   ```
+
+8. 循环层：循环神经网络中的RNN、LSTM和GRU都继承本层，所以该父类的参数同样使用于对应的子类SimpleRNN、LSTM和GRU
+
+   ```python
+   # retrun_sequences：控制返回类型，‘False’返回输出序列的最后一个输出，‘True’则返回整个序列
+   Recurrent(return_sequences=False)
+   ```
+
+9. 嵌入层：该层只能用在模型的第一层，是将所有索引标号的稀疏矩阵映射到致密的低维矩阵。如我们对文本数据进行处理时，我们对每个词编号后，我们希望将词编号变成词向量就可以使用嵌入层
+
+   ```python
+   # input_dim：大或等于0的整数，字典长度，即输入数据最大下标+1
+   # output_dim：大于0的则行数，代表全连接嵌入的维度
+   # input_length：当输入序列的长度固定时，该值为其长度。如果要在该层后接Flatten层，然后接Dense层，则必须指定该参数，否则Dense层的输出维度无法自动推断
+   Embedding(input_dim, output_dim, input_length)
+   ```
+
+## 模型搭建
 
 ## 备注
 

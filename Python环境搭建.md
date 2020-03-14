@@ -4,13 +4,15 @@
 
 ### 1.1.1. Python 使用
 
-1. 更换清华源
+1. Python下载
+   [Python官方网站](https://www.python.org/)
+2. 更换清华源
 
     ```bash
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
     ```
 
-2. 安装库
+3. 安装库
 
     ```bash
     pip install
@@ -28,14 +30,14 @@
 
     ```
 
-3. 升级库
+4. 升级库
 
     ```bash
     pip list --outdate  // 显示可升级库
     pip install --upgrade xxx  // 升级库
     ```
 
-4. 下载离线安装包
+5. 下载离线安装包
 
     ```bash
     # 在目标路径下进入cmd
@@ -46,7 +48,7 @@
     pip install --no-index --find-links=file:路径 包名
     ```
 
-5. 创建虚拟环境
+6. 创建虚拟环境
    1. 安装virtualenv库 `pip install virtualenv`
    2. 在目标文件夹下进入cmd
    3. `virtualenv venv` 创建虚拟环境venv
@@ -62,15 +64,25 @@
     ```bash
     conda list  # 查看已安装的包
     conda --version  # 查看版本
+    conda -V  # 同上
     ```
 
 4. Miniconda [换清华源](https://mirror.tuna.tsinghua.edu.cn/help/anaconda/)
 5. 创建虚拟环境
 
     ```bash
-    
+    # 创建一个名为test的包含python3的新环境
+    conda create --name test python=3
+    # 或者
+    conda create -n test python=3
+
+    # 列出所有环境
+    conda info --envs
+    # 或者
+    conda info -e
 
     ```
+
 
 ## 1.2. linux 环境搭建
 
@@ -85,46 +97,46 @@
 1. 安装miniconda：`bash miniconda3_xxx.sh`，根据提示一路yes
 2. 配置环境变量：
 
-     ```linux
-     // 打开配置文件
+     ```bash
+     # 打开配置文件
      ~/miniconda3/bin$ sudo gedit ~/.bashrc
-     // 在末尾添加
+     # 在末尾添加
      export PATH=~/anaconda3/bin:$PATH
-     // 生效
+     # 生效
      source ~/.bashrc
-     // 验证
+     # 验证
      conda --version
      pip --version
      ```
 
 3. 换源
 
-    ```linux
-    // 清华源
-    // 任意目录下编辑.condarc文件
+    ```bash
+    # 清华源
+    # 任意目录下编辑.condarc文件
     vi ~/.condarc
-    // 添加清华源，参考清华源官网
-    // 显示源
+    # 添加清华源，参考清华源官网
+    # 显示源
     conda config --show-sources
     ```
 
 4. 安装文件
 
-     ```linux
-     // 更新
+     ```bash
+     # 更新
      conda upgrade --all
      ```
 
 5. 创建环境
    1. 创建虚拟环境
 
-        ```linux
-        // 配置完环境变量后会生成一个base的环境
+        ```bash
+        # 配置完环境变量后会生成一个base的环境
 
-        // 创建一个名为test的包含python3的新环境
+        # 创建一个名为test的包含python3的新环境
         conda create --name test python=3  
 
-        //列出所有环境
+        #列出所有环境
         conda info --envs
         ```
 
@@ -132,8 +144,8 @@
 
 6. 环境激活与注销
 
-     ```linux
-     conda active base  // 激活base环境
-     conda deactive  // 注销当前环境
-     conda env remove -n test  // 删除test环境
+     ```bash
+     conda active base  # 激活base环境
+     conda deactive  # 注销当前环境
+     conda env remove -n test  # 删除test环境
      ```
