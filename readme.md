@@ -1,35 +1,25 @@
 # 学习笔记 Study notes
 
-<!-- TOC -->
-
-1. [*简介 summary*](#简介-summary)
-2. [*环境&工具 environment&tool*](#环境工具-environmenttool)
-3. [*内容 content*](#内容-content)
-4. [*备注*](#备注)
-
-<!-- /TOC -->
-
-## *简介 summary*
+## 简介 summary
 
 主要为编程方面内容 Main content is program
 
-## *环境&工具 environment&tool*
+## 机器学习 MachineLearning
 
-- Windows 10
-- VS code
-- MarkDown
-- Jetbrains全家桶
+- 机器学习
+- Keras学习笔记
+- LSTM学习笔记
+- sklearn中SVM程序
 
-## *内容 content*
+## 前端 Front-End
 
-- python
-- Git
-- HTML
-- JavaScript
-- Django
-- php
-- electron
-- c++
+- Electron打包web应用流程
+- HTTP学习笔记
+- JavaScript学习笔记
+- PHP读取数据库方法
+- TypeScript学习笔记
+- Vue-cli笔记
+- Vue学习笔记
 
 ## *备注*
 
