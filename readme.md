@@ -7,6 +7,8 @@
 ## 机器学习 MachineLearning
 
 - 机器学习
+- 聚类算法
+- K-Means聚类算法
 - Keras学习笔记
 - LSTM学习笔记
 - sklearn中SVM程序
