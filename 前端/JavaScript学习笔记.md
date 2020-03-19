@@ -158,7 +158,7 @@
 
         ```js
         console.log(person[name]);
-            ```
+        ```
 
 ### 6.2. Array 类型
 
