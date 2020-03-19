@@ -2,7 +2,7 @@
 
 ## K-Means 简介
 
-1. >K-Means 原理: 对于给定的样本集，按照样本之间的距离大小，将样本集划分为K个簇。让簇内的点尽量紧密的连在一起，而让簇间的距离尽量的大
+1. K-Means 原理: 对于给定的样本集，按照样本之间的距离大小，将样本集划分为K个簇。让簇内的点尽量紧密的连在一起，而让簇间的距离尽量的大
 2. 传统 K-Means 流程
    1. 选择k值
    2. 随机选择k个初始化质心
@@ -46,7 +46,7 @@
    # algorithm: 'auto', 'full', 'elkan'三种选择, 一般用默认'auto'
    # random_state: 用于随机产生中心的随机序列
    y_pred = KMeans(n_clusters=4, random_state=2).fit_predict(x)
-   # or
+   # 下面三行与上面这句等价
    # km = KMeans(n_clusters=4, random_state=2)
    # km.fit(x)
    # y_pred = km.predict(x)
