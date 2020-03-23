@@ -1,8 +1,8 @@
 # 1. Python 笔记
 
-## 1.1. 数据处理
+## 1. 数据处理
 
-### 1.1.1. 数字(Number)
+### 1.1. 数字(Number)
 
 1. 保留4位小数位
 
@@ -13,7 +13,7 @@
     num = round(num, 4)
     ```
 
-### 1.1.2. 字符串(String)
+### 1.2. 字符串(String)
 
 1. 类型转换：`str2 = str(str1)`
 2. 字符串拼接：`str3 = str1 + str2`
@@ -39,9 +39,18 @@
     eval(str1)  # hello
     ```
 
-6. 字符串替换：`str1.replace('a', 'b')`
+6. 字符串替换
 
-7. 查询字符位置：`str1.find('a')  # 返回a所在位置`
+    ```python
+    str1.replace('a', 'b')  # 用'b'替换'a'
+    ```
+
+7. 查询字符位置
+
+    ```python
+    str1.find('a')  # 返回a所在位置
+    ```
+
 8. f字符串（python3.6或更高）
 
     ``` Python
@@ -54,7 +63,7 @@
     print(f'{a} + {b} = {a + b}')  # 1 + 2 = 3
     ```
 
-### 1.1.3. 列表(List)
+### 1.3. 列表(List)
 
 1. 创建列表
 
@@ -108,11 +117,11 @@
     print(list1.index('banana'))  # 查询列表元素位置
     ```
 
-### 1.1.4. 元组(Tupple)
+### 1.4. 元组(Tupple)
 
-### 1.1.5. 集合(Set)
+### 1.5. 集合(Set)
 
-### 1.1.6. 字典(Dictionary)
+### 1.6. 字典(Dictionary)
 
 1. 类似c++中的map，键唯一，值不唯一，如果出现相同的键，后面的会覆盖掉前面的
 
@@ -135,9 +144,9 @@
     d['cherry']
     ```
 
-### 1.1.7. 日期处理
+### 1.7. 日期处理
 
-#### 1.1.7.1. datetime
+#### 1.7.1. datetime
 
 1. 日期类型datetime
    1. datetime.date——日期，属性：year，month，day
@@ -212,7 +221,7 @@
         print((day2 - day1).seconds)  # 3600，与日期无关
         ```
 
-#### 1.1.7.2. Arrow (pip)
+#### 1.7.2. Arrow (pip)
 
 1. 创建日期
 
@@ -254,9 +263,9 @@
 
     ```
 
-## 1.2. OS
+## 2. OS
 
-### 1.2.1. 文件处理
+### 2.1. 文件处理
 
 ```python
 import os
@@ -278,9 +287,9 @@ else:
 os.rename(old_name, new_name)
 ```
 
-## 1.3. 文件读写
+## 3. 文件读写
 
-### 1.3.1. csv 文件
+### 3.1. csv 文件
 
 1. 读取csv文件的两种写法
 
@@ -318,7 +327,7 @@ os.rename(old_name, new_name)
 - wb+：以二进制读写模式打开 (参见 w+ )
 - ab+：以二进制读写模式打开 (参见 a+ )
 
-### 1.3.2. Excel(xls/xlsx) 文件读写
+### 3.2. Excel(xls/xlsx) 文件读写
 
 1. 使用 xlrd/xlwt
 
@@ -396,24 +405,66 @@ os.rename(old_name, new_name)
 
    - 参考[Python 玩转 Excel](https://mp.weixin.qq.com/s?__biz=MjM5NjMyMjUzNg==&mid=2448130701&idx=1&sn=10919f10f4006a18579d6bbc13a3f15c&chksm=b2f42f0a8583a61c9421711b7a542f2a1c8cfe114ace3ea1ba8cefc26bdde8eb36755a7404ae&scene=0#rd)
 
-## 1.4. Numpy
+## 4. Numpy
 
-### 1.4.1. ndarray
+### 4.1. ndarray
 
-1. 增删改查，[参考](https://blog.csdn.net/Tyro_java/article/details/81052638)
+1. 创建数组
 
     ```python
     import numpy as np
-    # 增
-    data = np.append(data, a)  # 将a添加到data中
-    np.insert()  # 插入
-    # 删
-    data = np.delete(data, [0])
+    # 创建一维ndarray，默认int格式
+    x = np.array([1, 2, 3, 4, 5])  # [1 2 3 4 5]
+
+    # 从数值范围创建数组
+    x = np.arange(0, 5, 1)  # [0 1 2 3 4]
     ```
 
-## 1.5. Pandas
+2. 增删改查，[参考](https://blog.csdn.net/Tyro_java/article/details/81052638)
 
-### 1.5.1. Pandas 数据处理
+    ```python
+    import numpy as np
+    x = np.array([1, 2, 3, 4, 5])
+
+    # 访问
+    print(x[1], x[-1])  # 2 5
+    print(x[:3], x[3:])  # [1 2 3] [4 5]
+
+    # 增
+    x = np.append(x, 6)  # [1 2 3 4 5 6]
+    x = np.insert(x, 1, [2])  # [1 2 2 3 4 5]
+
+    # 删
+    x = np.delete(x, 2)  # [1 2 4 5]
+    x = np.delete(x, [1, 3])  # [1 3 5]
+
+    # 改
+    x[2] = 20  # [ 1  2 20  4  5]
+
+    # 查
+    x = np.array([1, 2, 3, 4, 4, 5])
+    # 统计元素个数
+    c = np.sum(x == 4)  # 2
+    # 定位元素
+    c = np.where(x == 4)  # (array([3, 4], dtype=int64),)
+
+    # 转换
+    x = x.tolist()  # [1, 2, 3, 4, 5]
+
+    ```
+
+3. Numpy math
+
+    ```python
+    import numpy as np
+
+    np.pi  # pi
+    np.sin()  # sin
+    ```
+
+## 5. Pandas
+
+### 5.1. Pandas 数据处理
 
 1. pandas数据结构
 
@@ -603,7 +654,7 @@ os.rename(old_name, new_name)
     df3 = pd.concat([df1, df2])
     ```
 
-### 1.5.2. pandas 读写文件
+### 5.2. pandas 读写文件
 
 1. python文件
 
@@ -641,19 +692,19 @@ os.rename(old_name, new_name)
     df.to_csv('name.csv', index=False, delimiter=',')  # 不要用
     ```
 
-### 1.5.3. pandas 其他
+### 5.3. pandas 其他
 
 1. [pandas类SQL查询](https://juejin.im/post/5b5e5b2ee51d4517df1510c7)
 
-### 1.5.4. pandas 错误处理
+### 5.4. pandas 错误处理
 
 1. [`read_csv mixed types`问题](https://www.jianshu.com/p/a70554726f26)
 2. `cannot convert the series to <class 'float'>`问题
    1. 原因：可能是某处变量调用忘了加限定，比如a[i]写成了a
 
-## 1.6. Matplotlib 绘图
+## 6. Matplotlib 绘图
 
-### 1.6.1. 绘图种类
+### 6.1. 绘图种类
 
 1. scatter 散点图
    1. 带颜色区分的散点图
@@ -666,7 +717,7 @@ os.rename(old_name, new_name)
 
 3. bar 柱状图
 
-### 1.6.2. 坐标轴处理
+### 6.2. 图片处理
 
 1. 坐标轴反向
 
@@ -714,13 +765,22 @@ os.rename(old_name, new_name)
     plt.xticks(x_axis, rotation=15)  # 刻度倾斜
     ```
 
-### 1.6.3. 图片输出设置
+6. 设置图例
+
+    ```python
+    # 设置图例
+    plt.plot(x1, y1, label='a')
+    plt.plot(x2, y2, label='b')
+    plt.legend()
+    ```
+
+### 6.3. 图片输出设置
 
 1. 中文编码问题
 
     ```python
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 解决plt中文乱码
-    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示坐标轴负号
     ```
 
 2. 图片大小设置
@@ -735,13 +795,13 @@ os.rename(old_name, new_name)
     plt.savefig("Picture.png")  # 不支持jpg
     ```
 
-## 1.7. Seaborn 数据可视化
+## 7. Seaborn 数据可视化（待续）
 
-## 1.8. Keras & Tensorflow
+## 8. Keras & Tensorflow
 
-### 1.8.1. Tensorflow 安装
+### 8.1. Tensorflow 安装
 
-#### 1.8.1.1. Miniconda环境（Windows）
+#### 8.1.1. Miniconda环境（Windows）
 
 1. 进入cmd命令行
 2. 创建一个虚拟环境 `conda create`
@@ -754,7 +814,7 @@ os.rename(old_name, new_name)
     print(tf.__version__)  # 2.0.0
     ```
 
-## 1.9. python 多线程
+## 9. python 多线程
 
 1. 多线程：适用于IO密集型，不适用于CPU密集型。
 2. 代码
@@ -768,7 +828,7 @@ os.rename(old_name, new_name)
     th.start()
     ```
 
-## 1.10. SQL 使用 (MySQL)
+## 10. SQL 使用 (MySQL)
 
 1. 读取数据
 
@@ -807,9 +867,9 @@ os.rename(old_name, new_name)
 
 3. 更多内容查看MySQL笔记
 
-## 1.11. Python 命名规则
+## 11. Python 命名规则
 
-### 1.11.1. 命名约定
+### 11.1. 命名约定
 
 1. 所谓”内部(Internal)”表示仅模块内可用, 或者, 在类内是保护或私有的.
 2. 用单下划线(_)开头表示模块变量或函数是protected的(使用from module import *时不会包含).
@@ -817,13 +877,13 @@ os.rename(old_name, new_name)
 4. 将相关的类和顶级函数放在同一个模块里. 不像Java, 没必要限制一个类一个模块.
 5. 对类名使用大写字母开头的单词(如CapWords, 即Pascal风格), 但是模块名应该用小写加下划线的方式(如lower_with_under.py). 尽管已经有很多现存的模块使用类似于CapWords.py这样的命名, 但现在已经不鼓励这样做, 因为如果模块名碰巧和类名一致, 这会让人困扰.
 
-### 1.11.2. 应避免的命名
+### 11.2. 应避免的命名
 
 1. 单字符名称, 除了计数器和迭代器.
 2. 包/模块名中的连字符(-)
 3. 双下划线开头并结尾的名称(Python保留, 例如__init__)
 
-## 1.12. Python小技巧
+## 12. Python小技巧
 
 1. 可变进度百分比
 
