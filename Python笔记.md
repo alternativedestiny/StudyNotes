@@ -157,6 +157,8 @@
    6. datetime.timezone——一个实现了 tzinfo 抽象基类的子类，用于表示相对于 世界标准时间（UTC）的偏移量。
 2. 创建日期
 
+    批量生成日期数据参考pandas
+
     ```python
     # 导入datetime包
     from datetime import datetime
@@ -387,9 +389,9 @@ os.rename(old_name, new_name)
        ```python
        import openpyxl
        # 打开文件
-       wb = openpyxl.load_workbook("filename.xlsx")
+       wb = openpyxl.load_workbook("file_name.xlsx")
        # 以只读方式打开
-       wb = openpyxl.load_workbook("st_data/官甲红.xlsx", read_only=True)
+       wb = openpyxl.load_workbook("file_name.xlsx", read_only=True)
 
        # 读取sheet页
        sheet = wb['sheetname']
@@ -400,7 +402,7 @@ os.rename(old_name, new_name)
        sheet.max_column
        sheet.max_row
        # 行列值
-       sheet.cell(x,y).value
+       sheet.cell(x, y).value
        ```
 
    - 参考[Python 玩转 Excel](https://mp.weixin.qq.com/s?__biz=MjM5NjMyMjUzNg==&mid=2448130701&idx=1&sn=10919f10f4006a18579d6bbc13a3f15c&chksm=b2f42f0a8583a61c9421711b7a542f2a1c8cfe114ace3ea1ba8cefc26bdde8eb36755a7404ae&scene=0#rd)
@@ -616,17 +618,30 @@ os.rename(old_name, new_name)
         pd.date_range(start, end, pediods)
         ```
 
+   2. 部分参数
+      1. start：开始日期
+      2. end：结束日期
+      3. periods：生成日期数量
+      4. freq：日期间隔
+   3. 转换成list
+
+        ```python
+        # 从start开始生成7个间隔为4小时的日期list
+        pd.date_range(start, periods=7, freq='4H').strftime("%Y-%m-%d %H:%M:%S").tolist()
+        ```
+
 8. 数据计算
+   1. 求平均值
 
-    ```python
-    df = pd.read_csv(path, dtype=float)
-    # 求列平均值
-    df['A'].mean()  # 求A列平均值
-    df.mean()  # 求每一列的平均值
-    # 求行平均值
-    df.mean(1)
+        ```python
+        df = pd.read_csv(path, dtype=float)
+        # 求列平均值
+        df['A'].mean()  # 求A列平均值
+        df.mean()  # 求每一列的平均值
+        # 求行平均值
+        df.mean(1)
 
-    ```
+        ```
 
 9. 数据排序
    1. Series排序
@@ -666,7 +681,7 @@ os.rename(old_name, new_name)
     df = pd.read_csv('filename.csv', header=0, encoding='gbk', dtype={'id': int, 'name': string})
 
     # 读取excel文件，表头第0行，表sheet1，选择第0，1列数据
-    df1 = pd.read_excel('filename.xlsx', header=0,sheet_name='Sheet1', usecols=[0, 1])
+    df1 = pd.read_excel('filename.xlsx', header=0, sheet_name='Sheet1', usecols=[0, 1])
 
     # 读取不同的数据类型dtype
     ```
@@ -684,13 +699,22 @@ os.rename(old_name, new_name)
    | chunksize=4           | 每4行数据为一组               |
 
 3. 输出CSV文件
+   1. to_csv 用法
 
-    ```python
-    # 将df存储为csv，index表示是否显示行名
-    df.to_csv('name.csv', index=False, sep=',')  # 推荐
-    # 会给数据添加引号
-    df.to_csv('name.csv', index=False, delimiter=',')  # 不要用
-    ```
+        ```python
+        # 将df存储为csv，index表示是否显示行名
+        df.to_csv('name.csv', index=False, sep=',', float_format='%.3f', columns=['col1', 'col2'])
+        # 会给数据添加引号，尽量不要用
+        df.to_csv('name.csv', index=False, delimiter=',')
+        ```
+
+   2. to_csv 部分配置
+      1. sep：分隔符，默认','
+      2. na_rep：缺失数据表示，默认空
+      3. float_format：浮点格式，可以设置小数位，比如：float_format='%.3f'
+      4. columns：根据列名选择写入的列，比如：columns=['col1', 'col2']
+      5. header：是否写入列名，默认'True'
+      6. index：是否写入目录，默认'True'
 
 ### 5.3. pandas 其他
 
@@ -706,18 +730,37 @@ os.rename(old_name, new_name)
 
 ### 6.1. 绘图种类
 
-1. scatter 散点图
-   1. 带颜色区分的散点图
-2. plot 折线图
-   1. 一个图里多条折线
+1. plot 基本图形
+   1. plot绘图
 
         ```python
+        import matplotlib.pyplot as plt
+
+        plt.figure()
         plt.plot(x1, y1, x2, y2)
+        plt.show()
         ```
+
+   2. plot设置，更多设置参考[官方文档](https://matplotlib.org/3.2.0/api/_as_gen/matplotlib.pyplot.plot.html)
+
+        ```python
+        plt.plot([1, 2, 3], [1, 1, 1], 'b-', label='line 1', linewidth=2)  # 蓝色直线
+        plt.plot([1, 2, 3], [2, 2, 2], 'g--', label='line 2', linewidth=2)  # 绿色虚线
+        plt.plot([1, 2, 3], [3, 3, 3], 'ro-.', label='line 3', linewidth=2)  # 红色带圈点划线
+        plt.plot([1, 2, 3], [4, 4, 4], 'cv:', label='line 4', linewidth=2)  # 蓝绿色倒三角点线
+        plt.plot([1, 2, 3], [5, 5, 5], 'm^', label='line 5', linewidth=2)  # 紫红色正三角
+        plt.plot([1, 2, 3], [6, 6, 6], 'y<', label='line 5', linewidth=2)  # 黄色左三角
+        plt.plot([1, 2, 3], [7, 7, 7], 'k>', label='line 5', linewidth=2)  # 黑色右三角
+        ```
+
+        ![plot](images/plot.png)
+
+2. scatter 散点图
+   1. 带颜色区分的散点图
 
 3. bar 柱状图
 
-### 6.2. 图片处理
+### 6.2. 图片设置
 
 1. 坐标轴反向
 
@@ -731,7 +774,7 @@ os.rename(old_name, new_name)
     # 按照需求设置坐标，坐标一定要有对应的数据
     x_axis = ['2018-09-01', '2018-10-01', '2018-11-01', '2018-12-01', '2018-12-31']
     plt.xticks(x_axis, rotation=15)  # 刻度倾斜
-    # 还可以对坐标重命名
+    # 还可以对坐标重命名，并顺时针旋转坐标15°
     x_axis = ['2018-01-01 00:01:00', '2018-01-02 00:00:00', '2018-01-03 00:00:00']
     plt.xticks(x_axis, ('a', 'b', 'c'), rotation=-15)  # 将横坐标值重命名为a,b,c
     ```
@@ -766,15 +809,36 @@ os.rename(old_name, new_name)
     ```
 
 6. 设置图例
+   1. plt.legend
 
-    ```python
-    # 设置图例
-    plt.plot(x1, y1, label='a')
-    plt.plot(x2, y2, label='b')
-    plt.legend()
-    ```
+        ```python
+        # 设置图例
+        plt.plot(x1, y1, label='a')
+        plt.plot(x2, y2, label='b')
+        plt.legend()
+        ```
 
-### 6.3. 图片输出设置
+   2. legend参数，更多配置参考[官方文档](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.legend.html)
+      1. 位置 `loc=string or code`
+
+            | 位置string     | 位置code | 位置           |
+            | -------------- | -------- | -------------- |
+            | 'best'         | 0        | 自适应         |
+            | 'upper right'  | 1        | 右上↗          |
+            | 'upper left'   | 2        | 左上↖          |
+            | 'lower left'   | 3        | 左下↙          |
+            | 'lower right'  | 4        | 右下↘          |
+            | 'right'        | 5        | 右→            |
+            | 'center left'  | 6        | 左←            |
+            | 'center right' | 7        | 右→（同rigth） |
+            | 'lower center' | 8        | 下↓            |
+            | 'upper center' | 9        | 上↑            |
+            | 'cneter'       | 10       | 中心           |
+
+      2. 标题 `title='图例'`
+      3. 标题大小 `title_fontsize='12'`
+
+### 6.3. 图片显示/输出设置
 
 1. 中文编码问题
 
@@ -792,7 +856,8 @@ os.rename(old_name, new_name)
 3. 图片保存
 
     ```python
-    plt.savefig("Picture.png")  # 不支持jpg
+    # 放在plt.show()前面，不支持jpg
+    plt.savefig("Picture.png")
     ```
 
 ## 7. Seaborn 数据可视化（待续）
